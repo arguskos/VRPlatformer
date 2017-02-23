@@ -12,9 +12,9 @@ FBXHeaderExtension:  {
 		Month: 2
 		Day: 23
 		Hour: 16
-		Minute: 24
-		Second: 20
-		Millisecond: 62
+		Minute: 36
+		Second: 57
+		Millisecond: 652
 	}
 	Creator: "FBX SDK/FBX Plugins version 2016.1"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -36,13 +36,13 @@ FBXHeaderExtension:  {
 			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "Original|ApplicationName", "KString", "", "", "3ds Max"
 			P: "Original|ApplicationVersion", "KString", "", "", "2014"
-			P: "Original|DateTime_GMT", "DateTime", "", "", "23/02/2017 15:24:20.061"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "23/02/2017 15:36:57.650"
 			P: "Original|FileName", "KString", "", "", "C:\Users\WeynantsW\Desktop\BUMP\WBVR\fbx\Level_Base_001.FBX"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "LastSaved|ApplicationName", "KString", "", "", "3ds Max"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", "2014"
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "23/02/2017 15:24:20.061"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "23/02/2017 15:36:57.650"
 		}
 	}
 }
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 2827018960, "", "Scene" {
+	Document: 2827000784, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -266,7 +266,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 1559524576, "Geometry::", "Mesh" {
+	Geometry: 1238935744, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.345098039215686,0.564705882352941,0.882352941176471
 		}
@@ -365,7 +365,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 8131643664, "Model::Level_Base_001_Full", "Mesh" {
+	Model: 4069885744, "Model::Level_Base_001_Full", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "InheritType", "enum", "", "",1
@@ -384,7 +384,7 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Material: 1856636768, "Material::01 - Default", "" {
+	Material: 1856627168, "Material::01 - Default", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -406,22 +406,19 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	CollectionExclusive: 2244839600, "DisplayLayer::GreenscreenBLockout", "DisplayLayer" {
+	CollectionExclusive: 2244835376, "DisplayLayer::GreenscreenBLockout", "DisplayLayer" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.0235294117647059,0.529411764705882,0.443137254901961
-			P: "Show", "bool", "", "",0
 		}
 	}
-	CollectionExclusive: 2244840368, "DisplayLayer::Human", "DisplayLayer" {
+	CollectionExclusive: 2244837488, "DisplayLayer::Human", "DisplayLayer" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.882352941176471,0.776470588235294,0.341176470588235
-			P: "Show", "bool", "", "",0
 		}
 	}
-	CollectionExclusive: 2244842672, "DisplayLayer::OrigHuman", "DisplayLayer" {
+	CollectionExclusive: 2244844016, "DisplayLayer::OrigHuman", "DisplayLayer" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.552941176470588,0.0274509803921569,0.227450980392157
-			P: "Show", "bool", "", "",0
 		}
 	}
 }
@@ -432,14 +429,14 @@ Objects:  {
 Connections:  {
 	
 	;Model::Level_Base_001_Full, Model::RootNode
-	C: "OO",8131643664,0
+	C: "OO",4069885744,0
 	
 	;AnimLayer::BaseLayer, AnimStack::Take 001
-	C: "OO",2835824768,2158062848
+	C: "OO",2835866928,2158059520
 	
 	;Geometry::, Model::Level_Base_001_Full
-	C: "OO",1559524576,8131643664
+	C: "OO",1238935744,4069885744
 	
 	;Material::01 - Default, Model::Level_Base_001_Full
-	C: "OO",1856636768,8131643664
+	C: "OO",1856627168,4069885744
 }

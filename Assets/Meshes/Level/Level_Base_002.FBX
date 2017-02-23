@@ -12,9 +12,9 @@ FBXHeaderExtension:  {
 		Month: 2
 		Day: 23
 		Hour: 16
-		Minute: 24
-		Second: 0
-		Millisecond: 759
+		Minute: 37
+		Second: 3
+		Millisecond: 553
 	}
 	Creator: "FBX SDK/FBX Plugins version 2016.1"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -36,13 +36,13 @@ FBXHeaderExtension:  {
 			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "Original|ApplicationName", "KString", "", "", "3ds Max"
 			P: "Original|ApplicationVersion", "KString", "", "", "2014"
-			P: "Original|DateTime_GMT", "DateTime", "", "", "23/02/2017 15:24:00.758"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "23/02/2017 15:37:03.552"
 			P: "Original|FileName", "KString", "", "", "C:\Users\WeynantsW\Desktop\BUMP\WBVR\fbx\Level_Base_002.FBX"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "LastSaved|ApplicationName", "KString", "", "", "3ds Max"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", "2014"
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "23/02/2017 15:24:00.758"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "23/02/2017 15:37:03.552"
 		}
 	}
 }
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 2845645472, "", "Scene" {
+	Document: 2827009232, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -266,7 +266,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 2838245952, "Geometry::", "Mesh" {
+	Geometry: 1238934112, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.345098039215686,0.564705882352941,0.882352941176471
 		}
@@ -360,7 +360,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 4068032384, "Model::Level_Base_002_Half", "Mesh" {
+	Model: 4071764832, "Model::Level_Base_002_Half", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "InheritType", "enum", "", "",1
@@ -402,22 +402,19 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	CollectionExclusive: 2144816816, "DisplayLayer::GreenscreenBLockout", "DisplayLayer" {
+	CollectionExclusive: 2244845168, "DisplayLayer::GreenscreenBLockout", "DisplayLayer" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.0235294117647059,0.529411764705882,0.443137254901961
-			P: "Show", "bool", "", "",0
 		}
 	}
-	CollectionExclusive: 567817264, "DisplayLayer::Human", "DisplayLayer" {
+	CollectionExclusive: 2244835376, "DisplayLayer::Human", "DisplayLayer" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.882352941176471,0.776470588235294,0.341176470588235
-			P: "Show", "bool", "", "",0
 		}
 	}
-	CollectionExclusive: 567818224, "DisplayLayer::OrigHuman", "DisplayLayer" {
+	CollectionExclusive: 2244836720, "DisplayLayer::OrigHuman", "DisplayLayer" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.552941176470588,0.0274509803921569,0.227450980392157
-			P: "Show", "bool", "", "",0
 		}
 	}
 }
@@ -428,14 +425,14 @@ Objects:  {
 Connections:  {
 	
 	;Model::Level_Base_002_Half, Model::RootNode
-	C: "OO",4068032384,0
+	C: "OO",4071764832,0
 	
 	;AnimLayer::BaseLayer, AnimStack::Take 001
-	C: "OO",2835116592,4070585280
+	C: "OO",2835857952,2158045376
 	
 	;Geometry::, Model::Level_Base_002_Half
-	C: "OO",2838245952,4068032384
+	C: "OO",1238934112,4071764832
 	
 	;Material::01 - Default, Model::Level_Base_002_Half
-	C: "OO",1856636768,4068032384
+	C: "OO",1856636768,4071764832
 }
