@@ -11,7 +11,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: Level_Base_001_Full
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
