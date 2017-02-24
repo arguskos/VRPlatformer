@@ -6,9 +6,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Use this for initialization
     public GameObject PlayerBody;
+    public GameObject Controller;
 
     private Rigidbody _playerRigid;
     private bool _inAir = false;
+    private Vector3 _angle;
 	void Start ()
 	{
 	    _playerRigid = PlayerBody.GetComponent<Rigidbody>();
@@ -16,7 +18,7 @@ public class PlayerMovement : MonoBehaviour {
     IEnumerator Jump()
 
     {
-        for (int i =0;i<10;i++ )
+        for (int i =0;i<17;i++ )
         {
             PlayerBody.transform.position += new Vector3(0, 2.5f, 0) * Time.deltaTime;
 
@@ -25,16 +27,21 @@ public class PlayerMovement : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
+        transform.eulerAngles = _angle+Controller.transform.eulerAngles;
         float length = 0.1f;
         Vector3 pos = PlayerBody.transform.position - new Vector3(0, 0.13f, 0);
 
         if (Input.GetKey(KeyCode.A)&&!Physics.Raycast(pos, transform.right, length))
 	    {
-	        transform.Rotate(new Vector3(0,-20,0)*Time.deltaTime);
-	    }
+	        //transform.Rotate(new Vector3(0,-20,0)*Time.deltaTime);
+            _angle += new Vector3(0, -20, 0) * Time.deltaTime;
+
+        }
         if (Input.GetKey(KeyCode.D)&&!Physics.Raycast(pos, -transform.right, length))
         {
-            transform.Rotate(new Vector3(0, 20, 0) * Time.deltaTime);
+            //transform.Rotate(new Vector3(0, 20, 0) * Time.deltaTime);
+            _angle += new Vector3(0, 20, 0) * Time.deltaTime;
+
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
