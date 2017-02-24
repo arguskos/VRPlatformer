@@ -19,7 +19,7 @@ public class Shower : MonoBehaviour {
     {
        // if (timer > 0.000000003)
      //   {
-            Debug.Log(other.tag);
+           // Debug.Log(other.tag);
             if (other.tag == "Platform")
             {
               //  timer = 0;
