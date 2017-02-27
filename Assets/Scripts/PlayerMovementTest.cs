@@ -7,13 +7,13 @@ public class PlayerMovementTest : MonoBehaviour {
     public GameObject PlayerBody;
     private Rigidbody _playerRigid;
     private float mSpeed = 0;
-    private float jumpForce = 200;
+    public float jumpForce = 100;
     private bool grounded;
-    private float maxSpeed = 5F;
-    private float maxForce = 5;
+    public float maxSpeed = 2.5F;
+    public float maxForce = 2.5F;
     private float startSpeed = 0;
-    private float acceleration = 5f;
-    private float deceleration = 20f;
+    public float acceleration = 1f;
+    public float deceleration = 1.5f;
     private Vector3 direction;
     private bool lReleased = true;
     private bool rReleased = true;
