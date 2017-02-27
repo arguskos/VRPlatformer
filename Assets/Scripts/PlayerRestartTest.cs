@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerRestartTest :  MonoBehaviour
 {
 
-    public Vector3 pPos;
+    private Vector3 pPos;
     
 	// Use this for initialization
 	void Start () {
@@ -27,5 +27,6 @@ public class PlayerRestartTest :  MonoBehaviour
 
         Instantiate(player, pPos, rot);
         Destroy(collision.gameObject);
+
     }
 }

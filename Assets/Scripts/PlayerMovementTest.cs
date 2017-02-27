@@ -8,7 +8,6 @@ public class PlayerMovementTest : MonoBehaviour {
     private Rigidbody _playerRigid;
     private float mSpeed = 0;
     private float jumpForce = 200;
-    public Vector3 lastPos;
     private bool grounded;
     private float maxSpeed = 5;
     private float startSpeed = 0;
@@ -18,6 +17,7 @@ public class PlayerMovementTest : MonoBehaviour {
     private bool lReleased = true;
     private bool rReleased = true;
     private bool falling = false;
+    public Vector3 lastPos;
 
 	// Use this for initialization
 	void Start () {
@@ -65,7 +65,6 @@ public class PlayerMovementTest : MonoBehaviour {
         {
             if (grounded)
             {
-                lastPos = transform.position;
                 _playerRigid.AddForce(Vector3.up * jumpForce);
                 grounded = false;
             }            
@@ -82,5 +81,9 @@ public class PlayerMovementTest : MonoBehaviour {
     void OnCollisionEnter(Collision collision) 
     {
         grounded = true;
+    }
+    void enteredCheckPoint(Vector3 check) 
+    {
+        lastPos = check;
     }
 }
