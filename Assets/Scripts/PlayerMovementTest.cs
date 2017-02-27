@@ -71,7 +71,7 @@ public class PlayerMovementTest : MonoBehaviour {
         }        
         //transform.Translate(direction * mSpeed * Time.deltaTime);
         _playerRigid.velocity += (direction * mSpeed * Time.deltaTime).normalized * 0.5f;
-        Debug.Log(_playerRigid.velocity.magnitude);
+        //Debug.Log(_playerRigid.velocity.magnitude);
         if (_playerRigid.velocity.magnitude > maxForce)
         {
             _playerRigid.velocity += direction * (maxSpeed - _playerRigid.velocity.magnitude);
