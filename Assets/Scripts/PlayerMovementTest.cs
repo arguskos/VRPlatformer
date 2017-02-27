@@ -12,7 +12,7 @@ public class PlayerMovementTest : MonoBehaviour {
     private bool grounded;
     private float maxSpeed = 5;
     private float startSpeed = 0;
-    private float acceleration = 0.15f;
+    private float acceleration = 0.1f;
     private float deceleration = 1f;
     private Vector3 direction;
     private bool lReleased = true;
@@ -35,7 +35,7 @@ public class PlayerMovementTest : MonoBehaviour {
 	    {
 		    rReleased = true;
 	    }
-        if (mSpeed < maxSpeed && Input.GetKey("left") || Input.GetKey("right"))
+        if (mSpeed < maxSpeed && Input.GetKey("left") || mSpeed < maxSpeed && Input.GetKey("right"))
         {
             if (Input.GetKey("left"))
             {                    
@@ -72,8 +72,10 @@ public class PlayerMovementTest : MonoBehaviour {
         }
         if (Input.GetKeyUp("space"))
         {
-
-            _playerRigid.velocity = Vector3.zero;
+            if (_playerRigid.velocity.y > 0)
+            {                
+                _playerRigid.velocity = Vector3.zero;
+            }
         }
 
     }
