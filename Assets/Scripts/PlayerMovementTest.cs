@@ -9,15 +9,18 @@ public class PlayerMovementTest : MonoBehaviour {
     private float mSpeed = 0;
     private float jumpForce = 200;
     private bool grounded;
-    private float maxSpeed = 5;
+    private float maxSpeed = 5F;
+    private float maxForce = 5;
     private float startSpeed = 0;
-    private float acceleration = 0.1f;
-    private float deceleration = 1f;
+    private float acceleration = 5f;
+    private float deceleration = 20f;
     private Vector3 direction;
     private bool lReleased = true;
     private bool rReleased = true;
     private bool falling = false;
     public Vector3 lastPos;
+    private bool canMoveR = true;
+    private bool canMoveL = true;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +30,14 @@ public class PlayerMovementTest : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        //if (grounded == true)
+        //{
+        //    maxForce = 5F;
+        //}
+        //if (grounded == false)
+        //{
+        //    maxForce = 1F;
+        //}
         if (Input.GetKeyUp("left"))
 	    {
 		    lReleased = true;
@@ -58,7 +69,13 @@ public class PlayerMovementTest : MonoBehaviour {
                 direction = Vector3.zero;
             }
         }        
-        transform.Translate(direction * mSpeed * Time.deltaTime);
+        //transform.Translate(direction * mSpeed * Time.deltaTime);
+        _playerRigid.velocity += (direction * mSpeed * Time.deltaTime).normalized * 0.5f;
+        Debug.Log(_playerRigid.velocity.magnitude);
+        if (_playerRigid.velocity.magnitude > maxForce)
+        {
+            _playerRigid.velocity += direction * (maxSpeed - _playerRigid.velocity.magnitude);
+        }
 
 
         if (Input.GetKeyDown("space"))
@@ -72,8 +89,9 @@ public class PlayerMovementTest : MonoBehaviour {
         if (Input.GetKeyUp("space"))
         {
             if (_playerRigid.velocity.y > 0)
-            {                
-                _playerRigid.velocity = Vector3.zero;
+            {
+                Vector3 newVelo = new Vector3(0F, 0F - _playerRigid.velocity.y, 0F);
+                _playerRigid.velocity += newVelo;
             }
         }
 
