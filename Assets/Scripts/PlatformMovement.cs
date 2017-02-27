@@ -29,7 +29,8 @@ public class PlatformMovement : MonoBehaviour
     }
     public void SetPercentages(float rotation)
     {
-        Percentages=rotation;
+
+        Percentages=Mathf.Abs(rotation)/160*100;
     }
 
     public void  Increment()

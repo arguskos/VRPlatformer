@@ -11,28 +11,38 @@ public class ObjectsId : MonoBehaviour
     private bool _inPlace = false;
 
     public GameObject ControllObject;
+    public GameObject Child;
+
+    public Material ReplacerMat;
     public int Id;
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-       
+        //GetComponent<Renderer>().material = ReplacerMat;
+
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if (ControllObject  )//&& GetComponent<ViveGrip_Grabbable>().Grabbed)
+        {
+            ControllObject.GetComponent<PlatformMovement>().SetPercentages(transform.eulerAngles.z);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!_inPlace && other.GetComponent<ObjectsId>() && other.GetComponent<ObjectsId>().Id == Id &&
-            other.GetComponent<ObjectsId>().IsGhost&&!GetComponent<ViveGrip_Grabbable>().Grabbed)
+        //Debug.Log("lolololsada0");
+        if (other.tag=="InteractObject"&&!other.GetComponent<ViveGrip_Grabbable>().Grabbed)
         {
-            transform.position = other.transform.position;
-            _inPlace = true;
+            //var l=GameObject.Instantiate(Replacer);
+            //l.transform.position = other.transform.position;
+            //l.transform.rotation = other.transform.rotation;
+            //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+            //_inPlace = true;
+            //GameObject.Destroy(this);
+            Child.GetComponent<Renderer>().material = ReplacerMat;
+            GameObject.Destroy(other.gameObject);
         }
-        if (ControllObject && _inPlace && GetComponent<ViveGrip_Grabbable>().Grabbed)
-        {
-            ControllObject.GetComponent<PlatformMovement>().SetPercentages(transform.rotation.z);
-        }
+        
     }
 }
