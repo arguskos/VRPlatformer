@@ -9,6 +9,8 @@ public class ObjectsId : MonoBehaviour
     public bool IsGhost = false;
     public bool IsObject = true;
     private bool _inPlace = false;
+
+    public GameObject ControllObject;
     public int Id;
 	// Use this for initialization
 	void Start () {
@@ -17,8 +19,8 @@ public class ObjectsId : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+       
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,6 +29,10 @@ public class ObjectsId : MonoBehaviour
         {
             transform.position = other.transform.position;
             _inPlace = true;
+        }
+        if (ControllObject && _inPlace && GetComponent<ViveGrip_Grabbable>().Grabbed)
+        {
+            ControllObject.GetComponent<PlatformMovement>().SetPercentages(transform.rotation.z);
         }
     }
 }
