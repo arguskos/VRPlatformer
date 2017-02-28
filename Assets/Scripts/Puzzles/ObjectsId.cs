@@ -12,6 +12,7 @@ public class ObjectsId : MonoBehaviour
 
     public GameObject ControllObject;
     public GameObject Child;
+    public GameObject  DependentCircle;
     
     public Material ReplacerMat;
     private float _prevFrameRot;
@@ -27,10 +28,18 @@ public class ObjectsId : MonoBehaviour
         if (ControllObject  )//&& GetComponent<ViveGrip_Grabbable>().Grabbed)
         {
             //ControllObject.GetComponent<PlatformMovement>().SetPercentages(transform.eulerAngles.z);
-            if (_prevFrameRot > transform.eulerAngles.z+2)
+            if (_prevFrameRot > transform.eulerAngles.z + 2)
+            {
                 ControllObject.GetComponent<PlatformMovement>().Decrement();
-            else if (_prevFrameRot < transform.eulerAngles.z-2)
+                DependentCircle.transform.Rotate(new Vector3(0, 0, 1));
+            }
+            else if (_prevFrameRot < transform.eulerAngles.z - 2)
+            {
+
                 ControllObject.GetComponent<PlatformMovement>().Increment();
+                DependentCircle.transform.Rotate(new Vector3(0, 0, -1));
+
+            }
             _prevFrameRot = transform.eulerAngles.z;
         }
 

@@ -3,62 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-
-	// Use this for initialization
-    public GameObject Enemybody;
-    public float Speed=0.1f;
-    public float Angle = 10;
-    IEnumerator GoLeft()
-
+    private Vector3 _startPosition;
+    public Vector3 RelativePos;
+    public GameObject Level;
+    public float Speed=1;
+    private float _percentages = 0;
+    private bool IsGoingRight = true;
+    private void Start()
     {
-        //Debug.Log(transform.rotation.y);
-
-        //Debug.Log(transform.eulerAngles.y+"   :"+ (transform.eulerAngles.y + 20) % 360);
-        float angle = transform.eulerAngles.y;
-        float fin = angle;
-        while (angle> fin - Angle)
+        if (Level == null)
         {
-          
-
-            transform.Rotate(Vector3.up, -Speed * Time.deltaTime);
-            angle += -Speed*Time.deltaTime;
-            yield return null;
+            Level = GameObject.Find("Level_001");
         }
-
-        yield return null;
-        StartCoroutine("GoRight");
+        _startPosition = transform.position;
 
     }
-    IEnumerator GoRight()
 
+    private void Update()
     {
-        float angle = transform.eulerAngles.y;
-        float fin = angle;
-        while (angle < fin + Angle)
+        transform.position = Vector3.Lerp(_startPosition + Level.transform.position, Level.transform.position + _startPosition + RelativePos, _percentages / 100);
+        if (IsGoingRight)
         {
-            Debug.Log(angle);
-
-            Debug.Log(transform.eulerAngles.y);
-
-            transform.Rotate(Vector3.up, Speed * Time.deltaTime);
-            angle += Speed * Time.deltaTime;
-            yield return null;
+            _percentages+= Speed;
+            if (_percentages>=100)
+            {
+                _percentages = 100;
+                IsGoingRight = false;
+            }
         }
-
-
-        yield return null;
-        StartCoroutine("GoLeft");
-
-
+        else
+        {
+            _percentages-= Speed;
+            if (_percentages<=0)
+            {
+                _percentages = 0;
+                IsGoingRight = true;
+            }
+        }
     }
-    void Start ()
-    {
-        StartCoroutine("GoLeft");
-
-    }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }
