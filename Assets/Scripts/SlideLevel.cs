@@ -6,7 +6,6 @@ public class SlideLevel : ViveGrip_Grabbable {
 
 	// Use this for initialization
     public GameObject Level;
-    public GameObject Temp;
     private float _zeroingPos;
     public float LevelStartPos=1;
     public float LevelEndPos = 10;

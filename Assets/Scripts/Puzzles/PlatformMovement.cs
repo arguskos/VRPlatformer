@@ -50,18 +50,22 @@ public class PlatformMovement : MonoBehaviour
     {
         Percentages-=3;
     }
-    public void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.tag== "PlatfornPlayer")
+        if (collision.gameObject.tag == "PlatfornPlayer")
         {
-            other.transform.parent = transform;
+            collision.gameObject.transform.parent = transform;
+
         }
+
     }
-    public void OnTriggerExit(Collider other)
+    void OnCollisionExit(Collision collision)
     {
-        if (other.tag == "PlatfornPlayer")
+
+        if (collision.gameObject.tag == "PlatfornPlayer")
         {
-            other.transform.parent = Level.transform;
+            collision.gameObject.transform.parent = null;
+
         }
     }
 
