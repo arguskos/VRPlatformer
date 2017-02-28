@@ -14,6 +14,7 @@ public class ObjectsId : MonoBehaviour
     public GameObject Child;
     
     public Material ReplacerMat;
+    private float _prevFrameRot;
     public int Id;
 	// Use this for initialization
 	void Start () {
@@ -25,8 +26,14 @@ public class ObjectsId : MonoBehaviour
     void Update () {
         if (ControllObject  )//&& GetComponent<ViveGrip_Grabbable>().Grabbed)
         {
-            ControllObject.GetComponent<PlatformMovement>().SetPercentages(transform.eulerAngles.z);
+            //ControllObject.GetComponent<PlatformMovement>().SetPercentages(transform.eulerAngles.z);
+            if (_prevFrameRot > transform.eulerAngles.z+2)
+                ControllObject.GetComponent<PlatformMovement>().Decrement();
+            else if (_prevFrameRot < transform.eulerAngles.z-2)
+                ControllObject.GetComponent<PlatformMovement>().Increment();
+            _prevFrameRot = transform.eulerAngles.z;
         }
+
     }
 
     private void OnTriggerStay(Collider other)

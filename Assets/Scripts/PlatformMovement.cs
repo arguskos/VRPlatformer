@@ -28,24 +28,28 @@ public class PlatformMovement : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        transform.position = Vector3.Lerp(_startPosition+ Level.transform.position, Level.transform.position+ _startPosition+RelativePos, Percentages/100.0f);
+	void Update ()
+    {
+        Debug.Log(Percentages);
+
+        transform.position = Vector3.Lerp(_startPosition+ Level.transform.position, Level.transform.position+ _startPosition+RelativePos, Percentages/400.0f);
 
     }
     public void SetPercentages(float rotation)
     {
 
-        Percentages=Mathf.Abs(rotation)/160*100;
+        Percentages=Mathf.Abs(rotation)/160*400;
+
     }
 
     public void  Increment()
     {
-        Percentages++;
+        Percentages+=3;
     }
 
     public void Decrement()
     {
-        Percentages--;
+        Percentages-=3;
     }
     public void OnTriggerEnter(Collider other)
     {
