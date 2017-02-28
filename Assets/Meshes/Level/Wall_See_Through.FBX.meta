@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 6e91322aa4ed2ce4a9edb7253cf3d0f4
-timeCreated: 1488286040
+guid: 31fd3241de0f4344f8e8cd48d4501a74
+timeCreated: 1488292825
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,8 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: player
-    4300002: pplayer
+    4300000: Wall_See_Through
   materials:
     importMaterials: 0
     materialName: 0
