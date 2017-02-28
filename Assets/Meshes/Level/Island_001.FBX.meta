@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 6e91322aa4ed2ce4a9edb7253cf3d0f4
-timeCreated: 1488286040
+guid: dbe7bd9d88dae4f4881d52daf01fed59
+timeCreated: 1488290155
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,8 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: player
-    4300002: pplayer
+    4300000: Island_001
   materials:
     importMaterials: 0
     materialName: 0

@@ -22,7 +22,7 @@ public class PlayerRestartTest :  MonoBehaviour
         GameObject player = collision.gameObject;
         Quaternion rot = player.transform.rotation;
 
-        PlayerMovementTest pScript = player.GetComponent<PlayerMovementTest>();
+        PlayerInput pScript = player.GetComponent<PlayerInput>();
         pPos = pScript.lastPos;
 
         Instantiate(player, pPos, rot);
