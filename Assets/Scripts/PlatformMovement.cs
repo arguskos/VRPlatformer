@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlatformMovement : MonoBehaviour
 {
 
-    public float Length;
+    public Vector3 RelativePos= new Vector3(0,0,0);
     private Vector3 _finPosition;
     private Vector3 _startPosition;
 
@@ -16,6 +16,10 @@ public class PlatformMovement : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        if (Level == null)
+        {
+            Level = GameObject.Find("Level_001");
+        }
         _startPosition = transform.position;
 
 	    _finPosition = transform.position;
@@ -25,7 +29,7 @@ public class PlatformMovement : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = Vector3.Lerp(_startPosition+ Level.transform.position, Level.transform.position+ _startPosition-new Vector3(Length, 0,0), Percentages/100.0f);
+        transform.position = Vector3.Lerp(_startPosition+ Level.transform.position, Level.transform.position+ _startPosition+RelativePos, Percentages/100.0f);
 
     }
     public void SetPercentages(float rotation)
