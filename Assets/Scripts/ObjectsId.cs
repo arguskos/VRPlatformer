@@ -12,7 +12,7 @@ public class ObjectsId : MonoBehaviour
 
     public GameObject ControllObject;
     public GameObject Child;
-
+    
     public Material ReplacerMat;
     public int Id;
 	// Use this for initialization
@@ -29,7 +29,7 @@ public class ObjectsId : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         //Debug.Log("lolololsada0");
         if (other.tag=="InteractObject"&&!other.GetComponent<ViveGrip_Grabbable>().Grabbed)
