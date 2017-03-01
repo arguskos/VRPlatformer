@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class SlideLevel : ViveGrip_Grabbable
@@ -15,11 +16,14 @@ public class SlideLevel : ViveGrip_Grabbable
     public int[] StopPercentagesArr;
     private float _percentage;
     private float _nextPercentage;
+    private Vector3 _EndPos;
+
+    private Vector3 _grabStartPos;
     private Vector3 _grabEndPos;
     void Start()
     {
         _zeroingPos = transform.position.x;
-        _grabEndPos = new Vector3(_zeroingPos, transform.position.y, transform.position.z);
+        _EndPos = new Vector3(_zeroingPos, transform.position.y, transform.position.z);
     }
 
     // Update is called once per frame
@@ -31,8 +35,8 @@ public class SlideLevel : ViveGrip_Grabbable
         if ((int) _percentage != (int) _nextPercentage)
         {
             print("moving?" +_percentage +"   "+_nextPercentage);
-            transform.position = Vector3.Lerp(_grabEndPos, _grabEndPos + new Vector3(2, 0, 0), _percentage/100);
-            _percentage = (transform.position.x - _zeroingPos) / (_grabEndPos.x + 2 - _zeroingPos) * 100;
+            transform.position = Vector3.Lerp(_EndPos, _EndPos+ new Vector3(2, 0, 0), _percentage/100);
+            _percentage = (transform.position.x - _zeroingPos) / (_EndPos.x + 2 - _zeroingPos) * 100;
 
         }
 
@@ -68,16 +72,42 @@ public class SlideLevel : ViveGrip_Grabbable
         // temp.useLimits = false;
         //Temp.GetComponent<Rigidbody>().isKinematic = true;
 
-
+        _grabStartPos = transform.position;
     }
     void ViveGripGrabStop(ViveGrip_GripPoint gripPoint)
     {
 
         Grabbed = false;
-        var tempP = (transform.position.x - _zeroingPos) / (_grabEndPos.x + 2 - _zeroingPos) * 100;
+        //var tempP = (transform.position.x - _zeroingPos) / (_grabEndPos.x + 2 - _zeroingPos) * 100;
 
         _percentage = (transform.position.x - _zeroingPos) / (_grabEndPos.x + 2 - _zeroingPos) * 100;
+        int dir = 0;
+        if (Math.Abs(_grabStartPos.x) - Math.Abs(_grabEndPos.x)<0)
+        {
+            dir = -1;
+        }
+        else if (Math.Abs(_grabStartPos.x) - Math.Abs(_grabEndPos.x) >0)
+        {
+            dir = 1;
 
-        _nextPercentage = StopPercentagesArr.OrderBy(v => Math.Abs((long)v - tempP)).First();
+        }
+
+        for (int i = 0; i < StopPercentagesArr.Length - 1; i++)
+        {
+            if (dir == 1)
+            {
+                if (_percentage >= StopPercentagesArr[i] && _percentage < StopPercentagesArr[i + 1])
+                {
+                    _nextPercentage = StopPercentagesArr[i + 1];
+                }
+            }
+            else
+            {
+                if (_percentage <= StopPercentagesArr[i] && _percentage > StopPercentagesArr[i + 1])
+                {
+                    _nextPercentage = StopPercentagesArr[i + 1];
+                }
+            }
+        }
     }
 }
