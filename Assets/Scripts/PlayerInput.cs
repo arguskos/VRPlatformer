@@ -11,6 +11,8 @@ public class PlayerInput : MonoBehaviour {
 	private float fallSpeed;
     public Vector3 lastPos;
     public GameObject papa;
+    private float dPos = 0.3726866F;
+    private bool dHit = false;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +26,8 @@ public class PlayerInput : MonoBehaviour {
 		Fall ();
 		Jump ();
 		Move ();
+        die();
+
 	}
 
 	void Move() {
@@ -37,12 +41,8 @@ public class PlayerInput : MonoBehaviour {
 		}
         if (Input.GetKeyUp("space") && !isGrounded)
         {
-            //characterController.Move(Vector3.zero);
             if (characterController.velocity.y > 0)
             {
-                //Vector3 newVelo = new Vector3(0F, 0F - (characterController.velocity.y + jumpSpeed), 0F);
-                //characterController.Move(newVelo);
-                //characterController.velocity = Vector3.zero;
                 fallSpeed = 0;
             }
         }
@@ -65,15 +65,23 @@ public class PlayerInput : MonoBehaviour {
     {
         if (hit.gameObject.tag == "death")
         {
-            Quaternion rot = this.gameObject.transform.rotation;
-            Instantiate(this.gameObject, lastPos, rot);
-            Destroy(this.gameObject);
+            dHit = true;
         }
         if (hit.gameObject.tag == "checkpoint")
         {
             lastPos = hit.gameObject.transform.position;
             Destroy(hit.gameObject);
         }
+    }
+    void die() 
+    {
+        if (transform.position.y <= dPos || dHit == true)
+        {
+            Quaternion rot = this.gameObject.transform.rotation;
+            Instantiate(this.gameObject, lastPos, rot);
+            Destroy(this.gameObject);
+        }
+
     }
 
 }
