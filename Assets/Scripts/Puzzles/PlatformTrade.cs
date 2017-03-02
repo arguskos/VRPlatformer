@@ -20,7 +20,7 @@ public class PlatformTrade : MonoBehaviour
         if (!_isPlayer)
         {
             _timer += Time.deltaTime;
-            if (_timer>0.1f)
+            if (_timer>0.25f)
             {
                 Mass.GetComponent<Rigidbody>().mass = 3;
 
@@ -32,13 +32,16 @@ public class PlatformTrade : MonoBehaviour
         if (collision.gameObject.tag == "PlatfornPlayer")
         {
             collision.gameObject.transform.parent = transform;
-          //  collision.gameObject.GetComponent<PlayerInput>().isGrounded = true;
+            collision.gameObject.GetComponent<PlayerInput>().isGrounded = true;
+            //collision.gameObject.GetComponent<PlayerInput>().gravity = 0;
+
             Mass.GetComponent<Rigidbody>().mass = 20;
             _isPlayer = true;
             _timer = 0;
         }
 
     }
+
     void OnCollisionExit(Collision collision)
     {
 
@@ -47,8 +50,7 @@ public class PlatformTrade : MonoBehaviour
             collision.gameObject.transform.parent = null;
           //  collision.gameObject.GetComponent<PlayerInput>().isGrounded = false;
 
-            // collision.gameObject.GetComponent<PlayerInput>().gravity = 15;
-            //Mass.GetComponent<Rigidbody>().mass = 3;
+            //collision.gameObject.GetComponent<PlayerInput>().gravity = 15;
             _isPlayer = false;
 
 
