@@ -72,6 +72,14 @@ public class PlayerInput : MonoBehaviour {
             lastPos = hit.gameObject.transform.position;
             Destroy(hit.gameObject);
         }
+        if (hit.gameObject.tag == "finish")
+        {
+            hit.gameObject.SendMessage("gameEnd");
+        }
+        if (hit.gameObject.tag == "ground")
+        {
+            
+        }
     }
     void die() 
     {
