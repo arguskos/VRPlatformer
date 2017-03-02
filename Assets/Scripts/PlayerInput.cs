@@ -86,6 +86,7 @@ public class PlayerInput : MonoBehaviour {
     {
         if (transform.position.y <= dPos || dHit == true)
         {
+            zSpeed = 0;
             Quaternion rot = this.gameObject.transform.rotation;
             Instantiate(this.gameObject, lastPos, rot);
             Destroy(this.gameObject);
