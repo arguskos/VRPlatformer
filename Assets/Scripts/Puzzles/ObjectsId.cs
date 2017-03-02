@@ -19,8 +19,9 @@ public class ObjectsId : MonoBehaviour
 	// Use this for initialization
 	void Start () {
         //GetComponent<Renderer>().material = ReplacerMat;
-
-    }
+	    if (IsGhost)
+	        GetComponent<BoxCollider>().enabled = false;
+	}
 
     // Update is called once per frame
     void Update () {
@@ -52,6 +53,8 @@ public class ObjectsId : MonoBehaviour
             if (other.GetComponent<InteractId>().Id == Id && !other.GetComponent<ViveGrip_Grabbable>().Grabbed)
             {
                 IsObject = true;
+                GetComponent<BoxCollider>().enabled = true;
+
                 if (Id==0)
                 {
                     GetComponent<ViveGrip_Grabbable>().enabled = true;
