@@ -32,7 +32,7 @@ public class PlatformTrade : MonoBehaviour
         if (collision.gameObject.tag == "PlatfornPlayer")
         {
             collision.gameObject.transform.parent = transform;
-            collision.gameObject.GetComponent<PlayerInput>().isGrounded = true;
+          //  collision.gameObject.GetComponent<PlayerInput>().isGrounded = true;
             Mass.GetComponent<Rigidbody>().mass = 20;
             _isPlayer = true;
             _timer = 0;
@@ -45,7 +45,7 @@ public class PlatformTrade : MonoBehaviour
         if (collision.gameObject.tag == "PlatfornPlayer")
         {
             collision.gameObject.transform.parent = null;
-            collision.gameObject.GetComponent<PlayerInput>().isGrounded = false;
+          //  collision.gameObject.GetComponent<PlayerInput>().isGrounded = false;
 
             // collision.gameObject.GetComponent<PlayerInput>().gravity = 15;
             //Mass.GetComponent<Rigidbody>().mass = 3;
