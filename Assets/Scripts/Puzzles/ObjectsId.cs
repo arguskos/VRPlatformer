@@ -52,10 +52,11 @@ public class ObjectsId : MonoBehaviour
             if (other.GetComponent<InteractId>().Id == Id && !other.GetComponent<ViveGrip_Grabbable>().Grabbed)
             {
                 IsObject = true;
-                if (GetComponent<ViveGrip_Grabbable>())
+                if (Id==0)
                 {
                     GetComponent<ViveGrip_Grabbable>().enabled = true;
                 }
+                Child.GetComponent<Pulsating>().enabled = false;
                 //var l=GameObject.Instantiate(Replacer);
                 //l.transform.position = other.transform.position;
                 //l.transform.rotation = other.transform.rotation;
