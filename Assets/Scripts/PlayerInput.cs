@@ -27,6 +27,7 @@ public class PlayerInput : MonoBehaviour {
         Jump();
         Move();
         die();
+        
 
     }
 
@@ -90,6 +91,8 @@ public class PlayerInput : MonoBehaviour {
             Destroy(this.gameObject);
         }
 
+    }
+    void fixPos() {
     }
 
 }
