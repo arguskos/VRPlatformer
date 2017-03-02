@@ -48,17 +48,19 @@ public class ObjectsId : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //Debug.Log("lolololsada0");
-        if (other.tag=="InteractObject"&&!other.GetComponent<ViveGrip_Grabbable>().Grabbed)
+        if (other.GetComponent<InteractId>())
         {
-            //var l=GameObject.Instantiate(Replacer);
-            //l.transform.position = other.transform.position;
-            //l.transform.rotation = other.transform.rotation;
-            //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
-            //_inPlace = true;
-            //GameObject.Destroy(this);
-            Child.GetComponent<Renderer>().material = ReplacerMat;
-            GameObject.Destroy(other.gameObject);
+            if (other.GetComponent<InteractId>().Id == Id && !other.GetComponent<ViveGrip_Grabbable>().Grabbed)
+            {
+                //var l=GameObject.Instantiate(Replacer);
+                //l.transform.position = other.transform.position;
+                //l.transform.rotation = other.transform.rotation;
+                //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
+                //_inPlace = true;
+                //GameObject.Destroy(this);
+                Child.GetComponent<Renderer>().material = ReplacerMat;
+                GameObject.Destroy(other.gameObject);
+            }
         }
-        
     }
 }

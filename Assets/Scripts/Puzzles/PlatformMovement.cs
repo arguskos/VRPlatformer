@@ -30,14 +30,14 @@ public class PlatformMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-
-        transform.position = Vector3.Lerp(_startPosition+ Level.transform.position, Level.transform.position+ _startPosition+RelativePos, Percentages/400.0f);
-
+        Debug.Log(Percentages);
+        transform.position = Vector3.Lerp(_startPosition+ Level.transform.position, Level.transform.position+ _startPosition+RelativePos, Percentages/100.0f);
+       /// transform.position = _startPosition + Level.transform.position;
     }
     public void SetPercentages(float rotation)
     {
 
-        Percentages=Mathf.Abs(rotation)/160*400;
+//        Percentages=Mathf.Abs(rotation)/160*400;
 
     }
 
