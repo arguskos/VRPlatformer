@@ -13,11 +13,18 @@ public class PlayerInput : MonoBehaviour {
     public GameObject papa;
     private float dPos = 0.3726866F;
     private bool dHit = false;
+    private bool movabele;
     private float zSpeed = 0;
+    private bool ded;
+    public Renderer rend;
 	// Use this for initialization
 	void Start () {
 		characterController = GetComponent<CharacterController> ();
         this.gameObject.transform.parent = papa.transform;
+        rend = this.gameObject.GetComponent<Renderer>();
+        rend.enabled = true;
+        ded = false;
+        movabele = true;
 	}
 	
 	// Update is called once per frame
@@ -32,8 +39,11 @@ public class PlayerInput : MonoBehaviour {
     }
 
 	void Move() {
-		float xSpeed = Input.GetAxis("Horizontal");
-		if(xSpeed != 0 || zSpeed!=0) characterController.Move(new Vector3(xSpeed, 0,zSpeed) * moveSpeed * Time.deltaTime);
+        if (movabele)
+        {
+            float xSpeed = Input.GetAxis("Horizontal");
+            if (xSpeed != 0 || zSpeed != 0) characterController.Move(new Vector3(xSpeed, 0, zSpeed) * moveSpeed * Time.deltaTime);
+        }
 	}
 
 	void Jump() {
@@ -64,10 +74,6 @@ public class PlayerInput : MonoBehaviour {
 	}
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.tag == "death")
-        {
-            dHit = true;
-        }
         if (hit.gameObject.tag == "checkpoint")
         {
             lastPos = hit.gameObject.transform.position;
@@ -84,18 +90,27 @@ public class PlayerInput : MonoBehaviour {
     }
     void die() 
     {
-        if (transform.position.y <= dPos || dHit == true)
+        if (transform.position.y <= dPos)
         {
-            zSpeed = 0;
-            Quaternion rot = this.gameObject.transform.rotation;
-            Instantiate(this.gameObject, lastPos, rot);
-            Destroy(this.gameObject);
+            if (ded == false)
+            {
+                StartCoroutine(dying());
+            }
         }
 
     }
     public void PushZ(float dir)
     {
         zSpeed = dir;
+    }
+    private IEnumerator dying() 
+    {
+        movabele = false;
+        Quaternion rot = this.gameObject.transform.rotation;
+        rend.enabled  = false;
+        yield return new WaitForSeconds(1);
+        Instantiate(this.gameObject, lastPos, rot);
+        Destroy(this.gameObject);
     }
 
 }
