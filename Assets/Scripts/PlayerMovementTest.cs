@@ -96,6 +96,7 @@ public class PlayerMovementTest : MonoBehaviour {
         }
 
     }
+  
     void OnCollisionEnter(Collision collision) 
     {
         grounded = true;

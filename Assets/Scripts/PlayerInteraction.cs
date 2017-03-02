@@ -47,10 +47,11 @@ public class PlayerInteraction : MonoBehaviour
         var angle = Vector3.Angle(v3, transform.forward);
 
         if (angle > 45.0 &&  angle < 90.0)
-            Debug.Log("left");
+            GetComponent<PlayerInput>().PushZ(1);
+            
              //GetComponent<CharacterController>().Move(new Vector3(0,0,1) * Time.deltaTime);
 
         if (angle > 90.0f && angle < 135.0f)
-            Debug.Log("right");
+            GetComponent<PlayerInput>().PushZ(-1);
     }
 }

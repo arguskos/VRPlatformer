@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour {
     public GameObject papa;
     private float dPos = 0.3726866F;
     private bool dHit = false;
-
+    private float zSpeed = 0;
 	// Use this for initialization
 	void Start () {
 		characterController = GetComponent<CharacterController> ();
@@ -33,7 +33,7 @@ public class PlayerInput : MonoBehaviour {
 
 	void Move() {
 		float xSpeed = Input.GetAxis("Horizontal");
-		if(xSpeed != 0) characterController.Move(new Vector3(xSpeed, 0) * moveSpeed * Time.deltaTime);
+		if(xSpeed != 0 || zSpeed!=0) characterController.Move(new Vector3(xSpeed, 0,zSpeed) * moveSpeed * Time.deltaTime);
 	}
 
 	void Jump() {
@@ -93,6 +93,10 @@ public class PlayerInput : MonoBehaviour {
 
     }
     void fixPos() {
+    }
+    public void PushZ(float dir)
+    {
+        zSpeed = dir;
     }
 
 }
