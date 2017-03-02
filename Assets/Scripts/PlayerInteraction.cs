@@ -24,7 +24,7 @@ public class PlayerInteraction : MonoBehaviour
         {
 
         }
-        _rigidBody.constraints = RigidbodyConstraints.None;
+
 
         if (collision.gameObject.tag == "Enemy")
         {
@@ -38,5 +38,19 @@ public class PlayerInteraction : MonoBehaviour
            
             //GameObject.Destroy(this);
         }
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Debug.Log(":kkker");
+        var v3 = hit.transform.position - transform.position;
+        var angle = Vector3.Angle(v3, transform.forward);
+
+        if (angle > 45.0 &&  angle < 90.0)
+            Debug.Log("left");
+             //GetComponent<CharacterController>().Move(new Vector3(0,0,1) * Time.deltaTime);
+
+        if (angle > 90.0f && angle < 135.0f)
+            Debug.Log("right");
     }
 }
