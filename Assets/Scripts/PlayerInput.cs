@@ -93,8 +93,6 @@ public class PlayerInput : MonoBehaviour {
         }
 
     }
-    void fixPos() {
-    }
     public void PushZ(float dir)
     {
         zSpeed = dir;
