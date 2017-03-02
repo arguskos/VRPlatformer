@@ -8,7 +8,6 @@ public class ObjectsId : MonoBehaviour
 
     public bool IsGhost = false;
     public bool IsObject = true;
-    private bool _inPlace = false;
 
     public GameObject ControllObject;
     public GameObject Child;
@@ -25,7 +24,7 @@ public class ObjectsId : MonoBehaviour
 
     // Update is called once per frame
     void Update () {
-        if (ControllObject  )//&& GetComponent<ViveGrip_Grabbable>().Grabbed)
+        if (ControllObject   )//&& GetComponent<ViveGrip_Grabbable>().Grabbed)
         {
             //ControllObject.GetComponent<PlatformMovement>().SetPercentages(transform.eulerAngles.z);
             if (_prevFrameRot > transform.eulerAngles.z + 2)
@@ -48,10 +47,15 @@ public class ObjectsId : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //Debug.Log("lolololsada0");
-        if (other.GetComponent<InteractId>())
+        if (other.GetComponent<InteractId>()&&IsGhost)
         {
             if (other.GetComponent<InteractId>().Id == Id && !other.GetComponent<ViveGrip_Grabbable>().Grabbed)
             {
+                IsObject = true;
+                if (GetComponent<ViveGrip_Grabbable>())
+                {
+                    GetComponent<ViveGrip_Grabbable>().enabled = true;
+                }
                 //var l=GameObject.Instantiate(Replacer);
                 //l.transform.position = other.transform.position;
                 //l.transform.rotation = other.transform.rotation;
