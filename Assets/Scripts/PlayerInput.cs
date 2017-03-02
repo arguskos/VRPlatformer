@@ -22,13 +22,13 @@ public class PlayerInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		IsGrounded ();
-		Fall ();
-		Jump ();
-		Move ();
+       // IsGrounded();
+        Fall();
+        Jump();
+        Move();
         die();
 
-	}
+    }
 
 	void Move() {
 		float xSpeed = Input.GetAxis("Horizontal");
