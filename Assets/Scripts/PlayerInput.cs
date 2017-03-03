@@ -60,7 +60,7 @@ public class PlayerInput : MonoBehaviour {
 	}
 
 	void Fall() {
-		if (!isGrounded) {
+		if (!isGrounded && movabele == true) {
 			fallSpeed += gravity * Time.deltaTime;
 		} else {
 			if(fallSpeed > 0) fallSpeed = 0;
