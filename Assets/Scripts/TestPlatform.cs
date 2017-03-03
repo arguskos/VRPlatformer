@@ -21,12 +21,13 @@ public class TestPlatform : MonoBehaviour
     void Update()
     {
         if (Point)
-            transform.position = new Vector3(transform.position.x, Point.transform.position.y - 1.5f,
+            transform.position = new Vector3(transform.position.x, Point.transform.position.y - 1f,
                 transform.position.z);
     }
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "PlatfornPlayer")
         {
             other.gameObject.transform.parent = transform;
@@ -40,8 +41,10 @@ public class TestPlatform : MonoBehaviour
 
             }
         }
-        else if (other.gameObject.GetComponent<Rigidbody>())
+        else if (other.gameObject.tag=="heavy"&&!other.gameObject.GetComponent<Heavy>().Grabbed)
         {
+            other.gameObject.transform.parent = transform;
+
             if (IsRight)
             {
                 Hinge.GetComponent<PlatformTradeNoRigid>().CounterR++;
@@ -73,15 +76,17 @@ public class TestPlatform : MonoBehaviour
             }
 
         }
-        else if (other.gameObject.GetComponent<Rigidbody>())
+        else if (other.gameObject.tag == "heavy" )
         {
+            other.gameObject.transform.parent = _level.transform;
+
             if (IsRight)
             {
-                Hinge.GetComponent<PlatformTradeNoRigid>().CounterR++;
+                Hinge.GetComponent<PlatformTradeNoRigid>().CounterR--;
             }
             else
             {
-                Hinge.GetComponent<PlatformTradeNoRigid>().CounterL++;
+                Hinge.GetComponent<PlatformTradeNoRigid>().CounterL--;
 
             }
 
