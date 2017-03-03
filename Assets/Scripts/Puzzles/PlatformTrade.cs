@@ -8,10 +8,16 @@ public class PlatformTrade : MonoBehaviour
     // Use this for initialization
     public GameObject Mass;
     private bool _isPlayer = false;
+    private GameObject Player;
     private float _timer;
+    private GameObject _level;
+    public GameObject YPos;
     void Start()
     {
-
+        if (_level == null)
+        {
+            _level = GameObject.Find("Level_001");
+        }
     }
 
     // Update is called once per frame
@@ -25,35 +31,68 @@ public class PlatformTrade : MonoBehaviour
                 Mass.GetComponent<Rigidbody>().mass = 3;
 
             }
+            if (Player)
+                Player.transform.position = YPos.transform.position;
         }
     }
-    void OnCollisionEnter(Collision collision)
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "PlatfornPlayer")
+    //    {
+    //        collision.gameObject.transform.parent = transform;
+    //        collision.gameObject.GetComponent<PlayerInput>().isGrounded = true;
+    //        //collision.gameObject.GetComponent<PlayerInput>().gravity = 0;
+
+    //        Mass.GetComponent<Rigidbody>().mass = 20;
+    //        _isPlayer = true;
+    //        _timer = 0;
+    //    }
+
+    //}
+
+    //void OnCollisionExit(Collision collision)
+    //{
+
+    //    if (collision.gameObject.tag == "PlatfornPlayer")
+    //    {
+    //        collision.gameObject.transform.parent = transform;
+    //        collision.gameObject.GetComponent<PlayerInput>().isGrounded = true;
+    //        //collision.gameObject.GetComponent<PlayerInput>().gravity = 0;
+
+    //        Mass.GetComponent<Rigidbody>().mass = 20;
+    //        _isPlayer = true;
+    //        _timer = 0;
+    //    }
+    //}
+
+
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "PlatfornPlayer")
+        if (other.gameObject.tag == "PlatfornPlayer")
         {
-            collision.gameObject.transform.parent = transform;
-            collision.gameObject.GetComponent<PlayerInput>().isGrounded = true;
+            other.gameObject.transform.parent = transform;
+            other.gameObject.GetComponent<PlayerInput>().isGrounded = false;
             //collision.gameObject.GetComponent<PlayerInput>().gravity = 0;
 
             Mass.GetComponent<Rigidbody>().mass = 20;
             _isPlayer = true;
             _timer = 0;
+            Player = other.gameObject;
         }
 
     }
-
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider other)
     {
-
-        if (collision.gameObject.tag == "PlatfornPlayer")
+        if (other.gameObject.tag == "PlatfornPlayer")
         {
-            collision.gameObject.transform.parent = null;
-          //  collision.gameObject.GetComponent<PlayerInput>().isGrounded = false;
+            other.gameObject.transform.parent = _level.transform;
+            other.gameObject.GetComponent<PlayerInput>().isGrounded = false;
+            //collision.gameObject.GetComponent<PlayerInput>().gravity = 0;
 
-            //collision.gameObject.GetComponent<PlayerInput>().gravity = 15;
-            _isPlayer = false;
-
-
+            Mass.GetComponent<Rigidbody>().mass = 3;
+            _timer = 0;
+            Player = null;
         }
+
     }
 }
