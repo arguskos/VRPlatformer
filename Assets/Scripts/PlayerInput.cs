@@ -1,22 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerInput : MonoBehaviour {
 	
 	private CharacterController characterController;
-	public bool isGrounded;
-	public float gravity;
-	public float jumpSpeed;
-	public float moveSpeed;
-	private float fallSpeed;
-    public Vector3 lastPos;
     public GameObject papa;
+    private Renderer rend;
+    public Vector3 lastPos;
+    public Text finishedtext;
+
+    public float gravity;
+    public float jumpSpeed;
+    public float moveSpeed;
+    public float waitAfterDeathSec = 1F;
+    private float fallSpeed;
     private float dPos = 0.3726866F;
-    private bool dHit = false;
-    private bool movabele;
     private float zSpeed = 0;
+
+	public bool isGrounded;
+    private bool movabele;
     private bool ded;
-    public Renderer rend;
+
 	// Use this for initialization
 	void Start () {
 		characterController = GetComponent<CharacterController> ();
@@ -34,8 +39,6 @@ public class PlayerInput : MonoBehaviour {
         Jump();
         Move();
         die();
-        
-
     }
 
 	void Move() {
@@ -60,7 +63,7 @@ public class PlayerInput : MonoBehaviour {
 	}
 
 	void Fall() {
-		if (!isGrounded) {
+		if (!isGrounded && movabele == true) {
 			fallSpeed += gravity * Time.deltaTime;
 		} else {
 			if(fallSpeed > 0) fallSpeed = 0;
@@ -81,11 +84,7 @@ public class PlayerInput : MonoBehaviour {
         }
         if (hit.gameObject.tag == "finish")
         {
-            hit.gameObject.SendMessage("gameEnd");
-        }
-        if (hit.gameObject.tag == "ground")
-        {
-            
+            finishedtext.enabled = true;
         }
     }
     void die() 
@@ -108,7 +107,7 @@ public class PlayerInput : MonoBehaviour {
         movabele = false;
         Quaternion rot = this.gameObject.transform.rotation;
         rend.enabled  = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(waitAfterDeathSec);
         Instantiate(this.gameObject, lastPos, rot);
         Destroy(this.gameObject);
     }
