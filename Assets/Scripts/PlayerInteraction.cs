@@ -42,22 +42,22 @@ public class PlayerInteraction : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Debug.Log(hit.collider.tag);
-        Debug.Log(hit.gameObject.tag);
-        Debug.Log(hit.gameObject.name);
-        Debug.Log(hit.collider.name);
-        if (hit.collider.tag == "Swing")
-        {
-            var v3 = hit.transform.position - transform.position;
-            var angle = Vector3.Angle(v3, transform.forward);
+        //Debug.Log(hit.collider.tag);
+        //Debug.Log(hit.gameObject.tag);
+        //Debug.Log(hit.gameObject.name);
+        //Debug.Log(hit.collider.name);
+        //if (hit.collider.tag == "Swing")
+        //{
+        //    var v3 = hit.transform.position - transform.position;
+        //    var angle = Vector3.Angle(v3, transform.forward);
 
-            if (angle > 45.0 && angle < 90.0)
-                GetComponent<PlayerInput>().PushZ(1);
+        //    if (angle > 45.0 && angle < 90.0)
+        //        GetComponent<PlayerInput>().PushZ(1);
 
-            //GetComponent<CharacterController>().Move(new Vector3(0,0,1) * Time.deltaTime);
+        //    //GetComponent<CharacterController>().Move(new Vector3(0,0,1) * Time.deltaTime);
 
-            if (angle > 90.0f && angle < 135.0f)
-                GetComponent<PlayerInput>().PushZ(-1);
-        }
+        //    if (angle > 90.0f && angle < 135.0f)
+        //        GetComponent<PlayerInput>().PushZ(-1);
+        //}
     }
 }

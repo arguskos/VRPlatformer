@@ -49,23 +49,39 @@ public class PlatformMovement : MonoBehaviour
     {
         Percentages-= 0.03f;
     }
-    void OnCollisionEnter(Collision collision)
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "PlatfornPlayer")
+    //    {
+    //        collision.gameObject.transform.parent = transform;
+
+    //    }
+
+    //}
+    //void OnCollisionExit(Collision collision)
+    //{
+
+    //    if (collision.gameObject.tag == "PlatfornPlayer")
+    //    {
+    //        collision.gameObject.transform.parent = null;
+
+    //    }
+    //}
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "PlatfornPlayer")
+        if (other.gameObject.tag == "PlatfornPlayer")
         {
-            collision.gameObject.transform.parent = transform;
+            other.gameObject.transform.parent = transform;
+        }
+
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "PlatfornPlayer")
+        {
+            other.gameObject.transform.parent = Level.transform;
 
         }
 
     }
-    void OnCollisionExit(Collision collision)
-    {
-
-        if (collision.gameObject.tag == "PlatfornPlayer")
-        {
-            collision.gameObject.transform.parent = null;
-
-        }
-    }
-
 }

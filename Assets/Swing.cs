@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Swing : MonoBehaviour
 {
-
+    private float _rotPrevFrame;
     // Use this for initialization
     void Start()
     {
@@ -14,11 +14,25 @@ public class Swing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position - new Vector3(0.08f, 0.1f, 0), transform.right);
-        Debug.DrawRay(transform.position - new Vector3(0.0f, 0.1f, 0), transform.right);
+        //Debug.DrawRay(transform.position - new Vector3(0.08f, 0.1f, 0), transform.right);
+        //Debug.DrawRay(transform.position - new Vector3(0.0f, 0.1f, 0), transform.right);
 
-        Debug.DrawRay(transform.position - new Vector3(-0.08f, 0.1f, 0), transform.right);
+        //Debug.DrawRay(transform.position - new Vector3(-0.08f, 0.1f, 0), transform.right);
+        if (_rotPrevFrame > 0 && _rotPrevFrame < 15)
+        {
+            if (_rotPrevFrame - transform.eulerAngles.z < 0)
+            {
 
+
+                GetComponent<Rigidbody>().AddForce(Vector3.right*-15);
+            }
+            else
+            {
+                GetComponent<Rigidbody>().AddForce(Vector3.right * 15);
+
+            }
+        }
+        _rotPrevFrame = transform.eulerAngles.z;
     }
 
     void OnCollisionEnter(Collision collision)
