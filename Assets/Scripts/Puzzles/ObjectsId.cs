@@ -20,7 +20,7 @@ public class ObjectsId : MonoBehaviour
 	void Start () {
         //GetComponent<Renderer>().material = ReplacerMat;
 	    if (IsGhost)
-	        GetComponent<BoxCollider>().enabled = false;
+	        GetComponent<BoxCollider>().isTrigger = true;
 	}
 
     // Update is called once per frame
@@ -59,6 +59,8 @@ public class ObjectsId : MonoBehaviour
                 {
                     GetComponent<ViveGrip_Grabbable>().enabled = true;
                 }
+                GetComponent<BoxCollider>().isTrigger = false;
+
                 Child.GetComponent<Pulsating>().enabled = false;
                 //var l=GameObject.Instantiate(Replacer);
                 //l.transform.position = other.transform.position;
