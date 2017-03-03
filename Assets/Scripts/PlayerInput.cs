@@ -4,19 +4,21 @@ using System.Collections;
 public class PlayerInput : MonoBehaviour {
 	
 	private CharacterController characterController;
-	public bool isGrounded;
-	public float gravity;
-	public float jumpSpeed;
-	public float moveSpeed;
-	private float fallSpeed;
-    public Vector3 lastPos;
     public GameObject papa;
+    private Renderer rend;
+    public Vector3 lastPos;
+
+    public float gravity;
+    public float jumpSpeed;
+    public float moveSpeed;
+    private float fallSpeed;
     private float dPos = 0.3726866F;
-    private bool dHit = false;
-    private bool movabele;
     private float zSpeed = 0;
+
+	public bool isGrounded;
+    private bool movabele;
     private bool ded;
-    public Renderer rend;
+
 	// Use this for initialization
 	void Start () {
 		characterController = GetComponent<CharacterController> ();
