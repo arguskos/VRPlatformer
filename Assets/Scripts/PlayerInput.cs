@@ -46,6 +46,7 @@ public class PlayerInput : MonoBehaviour {
         {
             float xSpeed = Input.GetAxis("Horizontal");
             if (xSpeed != 0 || zSpeed != 0) characterController.Move(new Vector3(xSpeed, 0, zSpeed) * moveSpeed * Time.deltaTime);
+            //characterController.transform.position=new Vector3(characterController.transform.position.x, characterController.transform.position.y,0);
         }
 	}
 
@@ -109,6 +110,7 @@ public class PlayerInput : MonoBehaviour {
         rend.enabled  = false;
         yield return new WaitForSeconds(waitAfterDeathSec);
         Instantiate(this.gameObject, lastPos, rot);
+
         Destroy(this.gameObject);
     }
 
