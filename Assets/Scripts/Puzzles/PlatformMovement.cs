@@ -18,7 +18,7 @@ public class PlatformMovement : MonoBehaviour
     {
         if (Level == null)
         {
-            Level = GameObject.Find("Level_001");
+            Level = GameObject.Find("Obstacles");
         }
         _startPosition = transform.position;
 

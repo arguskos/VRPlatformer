@@ -27,7 +27,10 @@ public class CopyScript : Photon.MonoBehaviour {
                     transform.position = ViveManager.Instance.RightHand.transform.position;
                     transform.rotation = ViveManager.Instance.RightHand.transform.rotation;
                     break;
-
+                case 4:
+                    transform.position = ViveManager.Instance.Player.transform.position;
+                    transform.rotation = ViveManager.Instance.Player.transform.rotation;
+                    break;
 
             }
 	       
