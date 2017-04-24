@@ -9,7 +9,7 @@ public class ViveManager : MonoBehaviour
     public GameObject Head;
     public GameObject LeftHand;
     public GameObject RightHand;
-
+    public GameObject Player;
     public static ViveManager Instance;
 
     void Awake()

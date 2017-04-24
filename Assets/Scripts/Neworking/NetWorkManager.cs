@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetWorkManager : MonoBehaviour {
+public class NetWorkManager : MonoBehaviour
+{
 
     /// <summary>Connect automatically? If false you can set this to true later on or call ConnectUsingSettings in your own scripts.</summary>
     //public bool AutoConnect = true;
@@ -15,6 +16,7 @@ public class NetWorkManager : MonoBehaviour {
 
     public GameObject LeftHand;
     public GameObject RightHand;
+    public GameObject Player;
     public virtual void Start()
     {
         PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
