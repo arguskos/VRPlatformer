@@ -9,6 +9,7 @@ public class Canon : MonoBehaviour
     public GameObject CanonBall;
     public float ShootSpeed;
     private float _timer;
+    public int  Side=1;
 	// Use this for initialization
 	void Start () {
 		
@@ -21,7 +22,7 @@ public class Canon : MonoBehaviour
 	    if (_timer > 2)
 	    {
 	        _timer = 0;
-	        var l=Instantiate(CanonBall, transform.position - new Vector3(0.2f, 0, 0), Quaternion.identity);
+	        var l=Instantiate(CanonBall, transform.position - new Vector3(0.2f*Side, 0, 0), Quaternion.identity);
             l.AddComponent<CanonBall>();
             l.GetComponent<Rigidbody>().AddForce(-ShootSpeed,0,0,ForceMode.Impulse);
 	    }
