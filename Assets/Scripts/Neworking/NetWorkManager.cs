@@ -73,5 +73,7 @@ public class NetWorkManager : MonoBehaviour
         ViveManager.Instance.LeftHand.transform.rotation, 0);
         PhotonNetwork.Instantiate(RightHand.name, ViveManager.Instance.RightHand.transform.position,
      ViveManager.Instance.RightHand.transform.rotation, 0);
+        PhotonNetwork.Instantiate(Player.name, ViveManager.Instance.Player.transform.position,
+ViveManager.Instance.Player.transform.rotation, 0);
     }
 }
