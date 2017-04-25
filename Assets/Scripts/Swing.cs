@@ -5,10 +5,11 @@ using UnityEngine;
 public class Swing : MonoBehaviour
 {
     private float _rotPrevFrame;
+    private Rigidbody _body;
     // Use this for initialization
     void Start()
     {
-
+        _body = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -18,17 +19,22 @@ public class Swing : MonoBehaviour
         //Debug.DrawRay(transform.position - new Vector3(0.0f, 0.1f, 0), transform.right);
 
         //Debug.DrawRay(transform.position - new Vector3(-0.08f, 0.1f, 0), transform.right);
+        if (_body.angularVelocity.magnitude < 1)
+        {
+            _body.AddForce(Vector3.right * -100990095,ForceMode.Impulse);
+
+        }
         if (_rotPrevFrame > 0 && _rotPrevFrame < 15)
         {
             if (_rotPrevFrame - transform.eulerAngles.z < 0)
             {
 
 
-                GetComponent<Rigidbody>().AddForce(Vector3.right*-15);
+                _body.AddForce(Vector3.right*-5000);
             }
             else
             {
-                GetComponent<Rigidbody>().AddForce(Vector3.right*15);
+                _body.AddForce(Vector3.right*5000);
 
             }
         }
@@ -41,7 +47,7 @@ public class Swing : MonoBehaviour
         {
             if (collision.gameObject.tag == "PlatfornPlayer")
             {
-                collision.gameObject.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeRotationX| RigidbodyConstraints.FreezeRotationY| RigidbodyConstraints.FreezeRotationZ;
+                _body.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeRotationX| RigidbodyConstraints.FreezeRotationY| RigidbodyConstraints.FreezeRotationZ;
 
             }
         }
