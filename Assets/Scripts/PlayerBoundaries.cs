@@ -7,8 +7,8 @@ public class PlayerBoundaries : MonoBehaviour {
 	// Use this for initialization
     public int Side;
     public Vector3 Target;
-    private float _maxDistance = 0.1f;
-    private float _maxVelocity = 1f;
+    private float _maxDistance = 0.01f;
+    private float _maxVelocity = 0f;
     private bool _isInPlace=true;
     private Rigidbody _body;
 	void Start () {
@@ -26,19 +26,23 @@ public class PlayerBoundaries : MonoBehaviour {
         {
             var dist = Vector3.Distance(Target, transform.position);
 
-            if (dist > _maxDistance+0.04f)
+            if (dist > _maxDistance+0.3f)
             {
                 float temp = _body.velocity.y;
-                _body.velocity = -(Target - transform.position).normalized * (_maxVelocity * (1.0f - dist / _maxDistance));
+                _maxVelocity+=0.8f;
+                _body.velocity = (Target - transform.position).normalized * (_maxVelocity)*dist;
                 _body.velocity =new Vector3(_body.velocity.x,temp,_body.velocity.z); 
             }
             else
             {
                 print("finihsed");
                 _body.velocity = Vector3.zero;
+                _maxVelocity = 0;
                 transform.position = Target;
                 transform.rotation=Quaternion.identity;
                 _isInPlace = true;
+                _body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
             }
         }
     }
@@ -51,9 +55,11 @@ public class PlayerBoundaries : MonoBehaviour {
             _isInPlace = false;
           
         }
-        if (other.tag == "Swing")
+        if (other.tag == "Obstacle")
         {
-                    Target=new Vector3(transform.position.x,transform.position.y-0.3f,transform.position.z);
+            _body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+            Target = new Vector3(transform.position.x,transform.position.y-0.8f,transform.position.z);
 
         }
     }

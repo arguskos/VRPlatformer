@@ -8,7 +8,7 @@ public class characterMovement : MonoBehaviour {
     public float MaxJumpForce = 250;
     public float MaxSpeed = 100;
     public float HorizontalDrag = 0;
-    bool IsGrounded = true;
+    public bool IsGrounded = true;
 
     //IsCannonHit still has to be set on cannon hit imo
     public bool IsCannonHit;
@@ -34,7 +34,7 @@ public class characterMovement : MonoBehaviour {
         }
 
         //Vertical movement
-        if (Input.GetKey("space"))
+        if (Input.GetKeyDown("space"))
         {
             if (IsGrounded == true)
             {
@@ -47,6 +47,13 @@ public class characterMovement : MonoBehaviour {
         if (Mathf.Abs(Rb.velocity.x) > 0 && Input.GetKey("q") == false && Input.GetKey("d") == false && IsCannonHit == false)
         {
             Rb.AddForce(Rb.velocity.x*-HorizontalDrag, 0, 0, ForceMode.VelocityChange);
+        }
+        if (Physics.Raycast(transform.position, Vector3.right, 0.5f))
+        {
+            if (IsGrounded == false)
+            {
+                IsGrounded = true;
+            }
         }
 
 	}
