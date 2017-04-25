@@ -10,6 +10,8 @@ public class Pusher : MonoBehaviour {
     private int direction = 1;
     private float VIBRATION_DURATION_IN_MILLISECONDS = 25;
     private float VIBRATION_STRENGTH = 0.4f;
+    public GameObject RotatingPart;
+    public GameObject MovingPart;
 
     void Start()
     {
@@ -51,7 +53,8 @@ public class Pusher : MonoBehaviour {
     {
         float increment = Time.deltaTime * SPEED;
         increment = Mathf.Min(increment, distance);
-        //transform.Translate(0, 0, increment * direction);
+        MovingPart.transform.Translate(0, 0, increment * -direction);
+        RotatingPart.transform.Rotate(new Vector3(1,0,0),(increment)*360);
         transform.localScale= new Vector3(transform.localScale.x,transform.localScale.y,transform.localScale.z- increment * direction);
         distance -= increment;
     }
@@ -63,8 +66,12 @@ public class Pusher : MonoBehaviour {
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K) && GetComponent<ViveGrip_Interactable>().enabled == true)
+        {
+            GetComponent<ViveGrip_Interactable>().enabled = false;
             StartCoroutine(Move());
+        }
+
     }
 }
 
