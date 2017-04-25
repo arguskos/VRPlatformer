@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class characterMovement : MonoBehaviour {
 
@@ -10,6 +11,10 @@ public class characterMovement : MonoBehaviour {
     public float HorizontalDrag = 0;
     public bool IsGrounded = true;
 
+    public Text finish1;
+    public Text lose1;
+    public Text finish2;
+    public Text lose2;
     //IsCannonHit still has to be set on cannon hit imo
     public bool IsCannonHit;
 
@@ -59,10 +64,19 @@ public class characterMovement : MonoBehaviour {
 	}
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Obstacle")
         {
             IsGrounded = true;    
+        }
+        if (collision.gameObject.tag == "finish1")
+        {
+            finish1.enabled = true;
+            lose2.enabled = true;
+        }
+        if (collision.gameObject.tag == "finish2")
+        {
+            finish2.enabled = true;
+            lose1.enabled = true;
         }
     }
 }
