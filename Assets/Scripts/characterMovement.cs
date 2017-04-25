@@ -4,57 +4,58 @@ using UnityEngine;
 
 public class characterMovement : MonoBehaviour {
 
-    public Rigidbody player;
-    public float startSpeed;
-    public float Maxspeed = 2;
-    public float speedUpTime;
-    public int jumpForce = 100;
-    public float speed;
-    bool grounded = true;
+    public Rigidbody Rb;
+    public float MaxJumpForce = 250;
+    public float MaxSpeed = 100;
+    public float HorizontalDrag = 0;
+    bool IsGrounded = true;
+
+    //IsCannonHit still has to be set on cannon hit imo
+    public bool IsCannonHit;
+
+
 
 	// Use this for initialization
 	void Start () {
-        speed = startSpeed;
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
+
+        //Horizontal movement
         if (Input.GetKey("d"))
         {
-            transform.Translate(Vector3.right * Time.deltaTime * speed);
-            if (speed < Maxspeed)
-            {
-                speed += speedUpTime;
-            }
+            Rb.AddForce(MaxSpeed, 0, 0, ForceMode.VelocityChange);
         }
         if (Input.GetKey("q"))
         {
-            transform.Translate(Vector3.right * Time.deltaTime * -speed);
-            if (speed < Maxspeed)
-            {
-                speed += speedUpTime;
-            }
+            Rb.AddForce(MaxSpeed*-1.0f, 0, 0, ForceMode.VelocityChange);
         }
+
+        //Vertical movement
         if (Input.GetKey("space"))
         {
-            if (grounded == true)
+            if (IsGrounded == true)
             {
-                player.AddForce(Vector3.up * jumpForce);
-                grounded = false;
+                Rb.AddForce(0, MaxJumpForce, 0, ForceMode.VelocityChange);
+                IsGrounded = false;
             }
-            
         }
-        if (Input.GetKeyUp("d") || Input.GetKeyUp("q"))
+
+        //Add horizontal drag
+        if (Mathf.Abs(Rb.velocity.x) > 0 && Input.GetKey("q") == false && Input.GetKey("d") == false && IsCannonHit == false)
         {
-            speed = startSpeed;
+            Rb.AddForce(Rb.velocity.x*-HorizontalDrag, 0, 0, ForceMode.VelocityChange);
         }
 
 	}
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "obst")
+        Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Obstacle")
         {
-            grounded = true;    
+            IsGrounded = true;    
         }
     }
 }
