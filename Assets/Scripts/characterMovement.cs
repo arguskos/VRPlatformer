@@ -17,15 +17,12 @@ public class characterMovement : MonoBehaviour
     private Transform[] _downrays = new Transform[3];
     private RaycastHit _hit;
 
-<<<<<<< HEAD
     //TODO: IsCannonHit still has to be set on cannon hit imo
-=======
     public Text finish1;
     public Text lose1;
     public Text finish2;
     public Text lose2;
     //IsCannonHit still has to be set on cannon hit imo
->>>>>>> 3f282b06633da77442864ca83bdac26cbe20d877
     public bool IsCannonHit;
 
 
@@ -94,7 +91,6 @@ public class characterMovement : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-<<<<<<< HEAD
         //Set if on ground
         Debug.Log(collision.collider.tag);
         if (collision.gameObject.tag == "Ground")
@@ -104,9 +100,6 @@ public class characterMovement : MonoBehaviour
 
         //Set if on elevator
         if (collision.gameObject.tag == "Elevator")
-=======
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Obstacle")
->>>>>>> 3f282b06633da77442864ca83bdac26cbe20d877
         {
             IsGrounded = true;
             IsOnElevator = true;

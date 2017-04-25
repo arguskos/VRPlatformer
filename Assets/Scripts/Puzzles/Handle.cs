@@ -10,11 +10,14 @@ public class Handle : MonoBehaviour
     private Vector3 offset;
     public Camera Cam;
     public GameObject Platform;
+    public Transform Low;
+    public Transform High;
     private float _startY;
-
+    private float _startPY;
     public void Start()
     {
         _startY = transform.position.y;
+        _startPY = Platform.transform.position.y;
     }
     void OnMouseDown()
     {
@@ -30,9 +33,13 @@ public class Handle : MonoBehaviour
 
         Vector3 curPosition = Cam.ScreenToWorldPoint(curScreenPoint) + offset;
         Vector3 temp = transform.position;
-        transform.position = new Vector3(temp.x ,curPosition.y,temp.z);
-        Platform.transform.position  =new Vector3(Platform.transform.position.x, _startY-transform.position.y+0.7f, transform.position.z);
-        
+        if (curPosition.y > Low.position.y && curPosition.y  < High.position.y)
+        {
+            transform.position = new Vector3(temp.x, curPosition.y, temp.z);
+
+            Platform.transform.position = new Vector3(Platform.transform.position.x, _startY - transform.position.y+ _startPY,
+                transform.position.z);
+        }
         //15
         //1
 
