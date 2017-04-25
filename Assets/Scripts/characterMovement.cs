@@ -17,15 +17,12 @@ public class characterMovement : MonoBehaviour
     private Transform[] _downrays = new Transform[3];
     private RaycastHit _hit;
 
-<<<<<<< HEAD
     //TODO: IsCannonHit still has to be set on cannon hit imo
-=======
     public Text finish1;
     public Text lose1;
     public Text finish2;
     public Text lose2;
     //IsCannonHit still has to be set on cannon hit imo
->>>>>>> 3f282b06633da77442864ca83bdac26cbe20d877
     public bool IsCannonHit;
 
 
@@ -69,9 +66,6 @@ public class characterMovement : MonoBehaviour
         {
             Rb.AddForce(Rb.velocity.x * -HorizontalDrag, 0, 0, ForceMode.VelocityChange);
         }
-<<<<<<< HEAD
-  
-=======
 
         //Raycast Down Debugging
         for (int i = 0; i < _downrays.Length; i++)
@@ -106,7 +100,6 @@ public class characterMovement : MonoBehaviour
 
         //Set if on elevator
         if (collision.gameObject.tag == "Elevator")
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Obstacle")
         {
             IsGrounded = true;
             IsOnElevator = true;
