@@ -53,13 +53,7 @@ public class characterMovement : MonoBehaviour {
         {
             Rb.AddForce(Rb.velocity.x*-HorizontalDrag, 0, 0, ForceMode.VelocityChange);
         }
-        if (Physics.Raycast(transform.position, Vector3.right, 0.5f))
-        {
-            if (IsGrounded == false)
-            {
-                IsGrounded = true;
-            }
-        }
+  
 
 	}
     void OnCollisionEnter(Collision collision)
