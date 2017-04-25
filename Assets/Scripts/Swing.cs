@@ -28,7 +28,7 @@ public class Swing : MonoBehaviour
             }
             else
             {
-                GetComponent<Rigidbody>().AddForce(Vector3.right * 15);
+                GetComponent<Rigidbody>().AddForce(Vector3.right*15);
 
             }
         }
@@ -37,35 +37,37 @@ public class Swing : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position - new Vector3(0.08f, 0.1f, 0), transform.right, out hit)
-                        || Physics.Raycast(transform.position - new Vector3(0, 0.1f, 0), transform.right, out hit)
-
-            || Physics.Raycast(transform.position - new Vector3(-0.08f, 0.1f, 0), transform.right, out hit))
-
-
-
-
 
         {
             if (collision.gameObject.tag == "PlatfornPlayer")
             {
-                collision.gameObject.GetComponent<PlayerInput>().PushZ(1);
+                collision.gameObject.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeRotationX| RigidbodyConstraints.FreezeRotationY| RigidbodyConstraints.FreezeRotationZ;
 
             }
         }
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(transform.position - new Vector3(0.08f, 0.1f, 0), transform.right, out hit)
+        //                    || Physics.Raycast(transform.position - new Vector3(0, 0.1f, 0), transform.right, out hit)
 
-        if (Physics.Raycast(transform.position - new Vector3(0.09f, 0.1f, 0), -transform.right, out hit)
-                                    || Physics.Raycast(transform.position - new Vector3(0, 0.1f, 0), -transform.right, out hit)
+        //        || Physics.Raycast(transform.position - new Vector3(-0.08f, 0.1f, 0), transform.right, out hit))
 
-            || Physics.Raycast(transform.position - new Vector3(-0.08f, 0.1f, 0), -transform.right, out hit))
-        {
-            if (collision.gameObject.tag == "PlatfornPlayer")
-            {
-                collision.gameObject.GetComponent<PlayerInput>().PushZ(-1);
 
-            }
-        }
-       
+
+
+
+
+        //    if (Physics.Raycast(transform.position - new Vector3(0.09f, 0.1f, 0), -transform.right, out hit)
+        //                                || Physics.Raycast(transform.position - new Vector3(0, 0.1f, 0), -transform.right, out hit)
+
+        //        || Physics.Raycast(transform.position - new Vector3(-0.08f, 0.1f, 0), -transform.right, out hit))
+        //    {
+        //        if (collision.gameObject.tag == "PlatfornPlayer")
+        //        {
+        //            collision.gameObject.GetComponent<PlayerInput>().PushZ(-1);
+
+        //        }
+        //    }
+
+        //}
     }
 }

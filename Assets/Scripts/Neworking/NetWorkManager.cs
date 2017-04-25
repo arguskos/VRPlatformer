@@ -10,6 +10,7 @@ public class NetWorkManager : MonoBehaviour
 
     public byte Version = 1;
 
+    public int PlayerCounter = 0;
     /// <summary>if we don't want to connect in Start(), we have to "remember" if we called ConnectUsingSettings()</summary>
     // private bool ConnectInUpdate = true;
     public GameObject headPrefab;
@@ -66,6 +67,8 @@ public class NetWorkManager : MonoBehaviour
 
     public void OnJoinedRoom()
     {
+        PlayerCounter++;
+        print(PlayerCounter);
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room. From here on, your game would be running. For reference, all callbacks are listed in enum: PhotonNetworkingMessage");
         PhotonNetwork.Instantiate(headPrefab.name, ViveManager.Instance.Head.transform.position,
             ViveManager.Instance.Head.transform.rotation, 0);
