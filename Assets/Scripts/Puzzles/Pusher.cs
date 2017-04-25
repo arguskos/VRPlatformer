@@ -66,8 +66,12 @@ public class Pusher : MonoBehaviour {
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K) && GetComponent<ViveGrip_Interactable>().enabled == true)
+        {
+            GetComponent<ViveGrip_Interactable>().enabled = false;
             StartCoroutine(Move());
+        }
+
     }
 }
 
