@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Canon : MonoBehaviour
 {
+    [Header("Animation")]
+    public Transform CannonMesh;
+    public Vector3 ShootAnimScale;
+    public float ShootAnimTime;
+    [Space(20)]
 
-
+    [Header("Shooting")]
     public GameObject CanonBall;
     public float ShootSpeed;
     public float Cooldown = 2.0f;
@@ -20,6 +25,14 @@ public class Canon : MonoBehaviour
 	void Update ()
 	{
 	    _timer += Time.deltaTime;
+
+        //Apply pre-cannonball shooting animation
+        if (_timer > (Cooldown - ShootAnimTime/4))
+        {
+            iTween.PunchScale(CannonMesh.gameObject, ShootAnimScale, ShootAnimTime);
+        }
+
+        //Shoot cannonball
 	    if (_timer > Cooldown)
 	    {
 	        _timer = 0;
