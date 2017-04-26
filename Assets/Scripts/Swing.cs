@@ -47,7 +47,7 @@ public class Swing : MonoBehaviour
         {
             if (collision.gameObject.tag == "PlatfornPlayer")
             {
-                _body.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeRotationX| RigidbodyConstraints.FreezeRotationY| RigidbodyConstraints.FreezeRotationZ;
+                //_body.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeRotationX| RigidbodyConstraints.FreezeRotationY| RigidbodyConstraints.FreezeRotationZ;
 
             }
         }
