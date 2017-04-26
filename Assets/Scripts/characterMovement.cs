@@ -5,27 +5,33 @@ using UnityEngine.UI;
 
 public class characterMovement : MonoBehaviour
 {
-
+    [Header("Movement")]
     public Rigidbody Rb;
     public float MaxJumpForce = 250;
     public float MaxSpeed = 100;
     public float HorizontalDrag = 0;
+    [Space(20)]
+
+    [Header("PlayerStats")]
     public bool IsGrounded = true;
     public bool IsOnPlatform = false;
     public bool IsOnElevator = false;
+    [Space(5)]
     public GameObject RaycastsDown;
     private Transform[] _downrays = new Transform[3];
     private RaycastHit _hit;
-    public GameObject col1;
-    public GameObject col2;
-
-    //TODO: IsCannonHit still has to be set on cannon hit imo
-    public Text finish1;
-    public Text lose1;
-    public Text finish2;
-    public Text lose2;
     //IsCannonHit still has to be set on cannon hit imo
     public bool IsCannonHit;
+    [Space(20)]
+
+    [Header("Finish")]
+    public GameObject ColliderLeft;
+    public GameObject ColliderRight;
+    [Space(5)]
+    public Text WinLeft;
+    public Text LoseLeft;
+    public Text WinRight;
+    public Text LoseRight;
 
 
     // Use this for initialization
@@ -107,19 +113,21 @@ public class characterMovement : MonoBehaviour
             IsOnElevator = true;
             Debug.Log("Entered Elevator");
         }
-        if (collision.gameObject.tag == "finish1")
+
+        if (collision.gameObject == ColliderLeft.gameObject)
         {
-            finish1.enabled = true;
-            lose2.enabled = true;
-            Object.Destroy(col1);
-            Object.Destroy(col2);
+            WinLeft.enabled = true;
+            LoseRight.enabled = true;
+            Object.Destroy(ColliderLeft);
+            Object.Destroy(ColliderRight);
         }
-        if (collision.gameObject.tag == "finish2")
+
+        if (collision.gameObject == ColliderRight.gameObject)
         {
-            finish2.enabled = true;
-            lose1.enabled = true;
-            Object.Destroy(col1);
-            Object.Destroy(col2);
+            WinRight.enabled = true;
+            LoseLeft.enabled = true;
+            Object.Destroy(ColliderLeft);
+            Object.Destroy(ColliderRight);
         }
     }
 }
