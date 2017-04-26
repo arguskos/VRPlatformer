@@ -6,14 +6,19 @@ public class PlayerBoundaries : MonoBehaviour {
 
 	// Use this for initialization
     public int Side;
-    public Vector3 Target;
+    public GameObject Target;
     private float _maxDistance = 0.01f;
-    private float _maxVelocity = 0f;
+    private float _maxVelocity = 1f;
     private bool _isInPlace=true;
     private Rigidbody _body;
+    private float _zPosition;
+    private float _zObstaclex;
+    protected Vector3 _teleportPos;
 	void Start () {
         _body = GetComponent<Rigidbody>();
-	}
+	    _zPosition =-0.041f;
+
+    }
 
     // Update is called once per frame
     void Update () {
@@ -22,29 +27,30 @@ public class PlayerBoundaries : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (!_isInPlace)
-        {
-            var dist = Vector3.Distance(Target, transform.position);
+            //if (!_isInPlace)
+            //{
+            //   // Target=new Vector3(Target.x, Target.y, _zPosition);
+            //    var dist = Vector3.Distance(Target, transform.position);
 
-            if (dist > _maxDistance+0.3f)
-            {
-                float temp = _body.velocity.y;
-                _maxVelocity+=0.8f;
-                _body.velocity = (Target - transform.position).normalized * (_maxVelocity)*dist;
-                _body.velocity =new Vector3(_body.velocity.x,temp,_body.velocity.z); 
-            }
-            else
-            {
-                print("finihsed");
-                _body.velocity = Vector3.zero;
-                _maxVelocity = 0;
-                transform.position = Target;
-                transform.rotation=Quaternion.identity;
-                _isInPlace = true;
-                _body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            //    if (dist > _maxDistance+1f)
+            //    {
+            //        float temp = _body.velocity.y;
+            //        _maxVelocity+=3;
+            //        _body.velocity = (Target - transform.position).normalized * (_maxVelocity)*(dist);
+            //        _body.velocity =new Vector3(_body.velocity.x,temp,_body.velocity.z); 
+            //    }
+            //    else
+            //    {
+            //        print("finihsed");
+            //        _body.velocity = Vector3.zero;
+            //        _maxVelocity = 0;
+            //        transform.position = Target;
+            //        transform.rotation=Quaternion.identity; 
+            //        _isInPlace = true;
+            //        _body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
-            }
-        }
+            //    }
+            //}
     }
 
 
@@ -52,18 +58,30 @@ public class PlayerBoundaries : MonoBehaviour {
     {
         if (other.tag == "Border")
         {
-            _isInPlace = false;
+           // _isInPlace = false;
           
         }
-        if (other.tag == "Obstacle")
+        if (other.tag == "Obstacle"&&_isInPlace)
         {
-            _body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
-            Target = new Vector3(transform.position.x,transform.position.y-0.8f,transform.position.z);
-
+            _isInPlace = false;
+           _body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            _teleportPos = Target.transform.position;
+            //Target = new Vector3(transform.position.x,transform.position.y-0.5f,transform.position.z);
+            StartCoroutine(Teleport());
+            _zObstaclex = other.transform.position.x;
         }
     }
-       
+
+    IEnumerator Teleport()
+    {
+        yield return new WaitForSeconds(0.9f);
+        print("lol");
+        _isInPlace = true;
+        transform.position = new Vector3(_zObstaclex,_teleportPos.y,_teleportPos.z);
+        _body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+
+    }
     void OnTriggerStay(Collider other)
     {
      
