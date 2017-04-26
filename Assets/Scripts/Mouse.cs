@@ -25,8 +25,8 @@ public class Mouse : MonoBehaviour {
 	                print(hit.collider.name);
 	                if (hit.collider.GetComponent<Swing>())
 	                {
-	                    hit.collider.GetComponent<Rigidbody>().isKinematic = true;
-	                    _clicked = hit.collider.gameObject;
+	                    hit.collider.GetComponent<Swing>().MyPhotonView.RPC("NetworkInteraction", PhotonTargets.All);
+                        _clicked = hit.collider.gameObject;
 	                }
                     else if (hit.collider.GetComponent<Platforms>())
                     {
@@ -34,7 +34,7 @@ public class Mouse : MonoBehaviour {
                     }
                     else if (hit.collider.GetComponent<Pusher>())
 	                {
-	                    hit.collider.GetComponent<Pusher>().StartCoroutine("Move"); 
+	                    hit.collider.GetComponent<Pusher>().NetworkMove(); 
 	                }
                     //hit.collider.gameObject now refers to the 
                     //cube under the mouse cursor if present
@@ -49,7 +49,7 @@ public class Mouse : MonoBehaviour {
 	        {
                 if (_clicked.GetComponent<Swing>())
                 {
-                    _clicked.GetComponent<Rigidbody>().isKinematic = false;
+                    _clicked.GetComponent<Swing>().MyPhotonView.RPC("NetworkFinishInteraction", PhotonTargets.All);//.NetworkFinishInteraction();
                 }
             }
 	    }

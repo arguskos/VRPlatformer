@@ -12,10 +12,13 @@ public class Pusher : MonoBehaviour {
     private float VIBRATION_STRENGTH = 0.4f;
     public GameObject RotatingPart;
     public GameObject MovingPart;
+    private PhotonView myPhotonView;
 
     void Start()
     {
         ResetDistance();
+        myPhotonView = GetComponent<PhotonView>();
+
     }
 
     void ViveGripInteractionStart(ViveGrip_GripPoint gripPoint)
@@ -25,6 +28,19 @@ public class Pusher : MonoBehaviour {
         StartCoroutine("Move");
     }
 
+
+
+    [PunRPC]
+    public void Lol()
+    {
+        StartCoroutine(Move());
+    }
+
+    public void NetworkMove()
+    {
+        myPhotonView.RPC("Lol", PhotonTargets.All);
+
+    }
     IEnumerator Move()
     {
         while (distance > 0)

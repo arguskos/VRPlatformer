@@ -6,10 +6,14 @@ public class Swing : MonoBehaviour
 {
     private float _rotPrevFrame;
     private Rigidbody _body;
+    public  PhotonView MyPhotonView;
+
     // Use this for initialization
     void Start()
     {
         _body = GetComponent<Rigidbody>();
+        MyPhotonView = GetComponent<PhotonView>();
+
     }
 
     // Update is called once per frame
@@ -40,7 +44,16 @@ public class Swing : MonoBehaviour
         }
         _rotPrevFrame = transform.eulerAngles.z;
     }
-
+    [PunRPC]
+    public void NetworkInteraction()
+    {
+        _body.isKinematic = true;
+    }
+    [PunRPC]
+    public void NetworkFinishInteraction()
+    {
+        _body.isKinematic = false;
+    }
     void OnCollisionEnter(Collision collision)
     {
 

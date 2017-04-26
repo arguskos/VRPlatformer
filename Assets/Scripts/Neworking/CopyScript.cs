@@ -36,4 +36,16 @@ public class CopyScript : Photon.MonoBehaviour {
 	       
         }
     }
+    void OnPhotonPlayerConnected(PhotonPlayer player)
+    {
+        Debug.Log("OnPhotonPlayerConnected: " + player);
+
+        // when new players join, we send "who's it" to let them know
+        // only one player will do this: the "master"
+
+        if (PhotonNetwork.isMasterClient)
+        {
+            //TagPlayer(playerWhoIsIt);
+        }
+    }
 }

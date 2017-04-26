@@ -15,16 +15,20 @@ public class Platforms : MonoBehaviour
     public float ShakeTime = 3;
     private Vector3 _initPosition;
     public Transform[] _platformParts = new Transform[8];
+    private PhotonView myPhotonView;
+
     private int _clicks;
     // Use this for initialization
     void Start ()
 	{
 	    _isGhost = true;
         _initPosition=transform.position;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        myPhotonView = GetComponent<PhotonView>();
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 	    if (_decayTimer > 0)
 	    {
 	        _decayTimer -= Time.deltaTime;
@@ -37,9 +41,9 @@ public class Platforms : MonoBehaviour
             if (_decayTimer <= 0)
             {
                 _decayTimer = 0;
-                GameObject n= Instantiate(this.gameObject);
-                n.transform.position = transform.position;
-                n.GetComponent<Platforms>().MakeGhost();    
+               // GameObject n= Instantiate(this.gameObject);
+                //n.transform.position = transform.position;
+                //n.GetComponent<Platforms>().MakeGhost();    
                 
                 BreakPlatform();
 	            transform.position = _initPosition;
@@ -62,8 +66,8 @@ public class Platforms : MonoBehaviour
             BreakPlatform();
         }
     }
-
-    public void MakeReal()
+    [PunRPC]
+    public void Lol()
     {
         _isGhost = false;
         _decayTimer = DecayTime;
@@ -74,6 +78,12 @@ public class Platforms : MonoBehaviour
             _platformParts[i].GetComponent<Renderer>().material = Mat;
             _platformParts[i].GetComponent<Pulsating>().enabled = false;
         }
+    }
+    public void MakeReal()
+    {
+       
+        myPhotonView.RPC("Lol", PhotonTargets.All);
+
     }
     public enum BlendMode
     {
@@ -131,8 +141,10 @@ public class Platforms : MonoBehaviour
     }
     //Enables collision with ground and changes to pulsating
     //TODO: over time decay with a transparency fade
+    [PunRPC]
     public void BreakPlatform()
     {
+
         _isGhost = true;
 
         for (int i = 0; i < _platformParts.Length; ++i)
@@ -155,7 +167,7 @@ public class Platforms : MonoBehaviour
     public IEnumerator DestroyWithTime()
     {
         yield return new WaitForSeconds(1);
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
     public void MakeGhost()
     {

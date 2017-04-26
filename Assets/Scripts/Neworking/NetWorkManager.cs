@@ -18,7 +18,9 @@ public class NetWorkManager : MonoBehaviour
     public GameObject LeftHand;
     public GameObject RightHand;
     public GameObject Player;
-    public GameObject Platform; 
+    public GameObject Platform;
+
+    private PhotonView myPhotonView;
     public virtual void Start()
     {
         PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
@@ -81,11 +83,18 @@ public class NetWorkManager : MonoBehaviour
 ViveManager.Instance.Player.transform.rotation, 0);
 
 
-        Platforms[] lol = (Platforms[])GameObject.FindObjectsOfType(typeof(Platforms));
-        for (int i = 0; i < lol.Length; i++)
-        {
-            PhotonNetwork.Instantiate(Platform.name, lol[i].transform.position,
-                lol[i].transform.rotation, 0);
-        }
+        //GameObject monster = PhotonNetwork.Instantiate(Platform.name, Vector3.zero, Quaternion.identity, 0);
+        //myPhotonView = monster.GetComponent<PhotonView>();
+
+     //   myPhotonView.RPC("MakeReal", PhotonTargets.All);
+
+
+
+        //Platforms[] lol = (Platforms[])GameObject.FindObjectsOfType(typeof(Platforms));
+        //for (int i = 0; i < lol.Length; i++)
+        //{
+        //    PhotonNetwork.Instantiate(Platform.name, lol[i].transform.position,
+        //        lol[i].transform.rotation, 0);
+        //}
     }
 }
