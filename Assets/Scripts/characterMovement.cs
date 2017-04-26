@@ -16,6 +16,8 @@ public class characterMovement : MonoBehaviour
     public GameObject RaycastsDown;
     private Transform[] _downrays = new Transform[3];
     private RaycastHit _hit;
+    public GameObject col1;
+    public GameObject col2;
 
     //TODO: IsCannonHit still has to be set on cannon hit imo
     public Text finish1;
@@ -109,11 +111,15 @@ public class characterMovement : MonoBehaviour
         {
             finish1.enabled = true;
             lose2.enabled = true;
+            Object.Destroy(col1);
+            Object.Destroy(col2);
         }
         if (collision.gameObject.tag == "finish2")
         {
             finish2.enabled = true;
             lose1.enabled = true;
+            Object.Destroy(col1);
+            Object.Destroy(col2);
         }
     }
 }

@@ -6,15 +6,18 @@ public class Platforms : MonoBehaviour
 {
 
     public Material Mat;
-    public Material Ghost;
+    public Material GhostMat;
     public GameObject Child;
     private bool _isGhost;
     private float _decayTimer;
     public float DecayTime=4;
+
     public float ShakeTime = 3;
     private Vector3 _initPosition;
-	// Use this for initialization
-	void Start ()
+    public Transform[] _platformParts = new Transform[8];
+    private int _clicks;
+    // Use this for initialization
+    void Start ()
 	{
 	    _isGhost = true;
         _initPosition=transform.position;
@@ -40,17 +43,53 @@ public class Platforms : MonoBehaviour
 	}
 
   
+
+    //Counts how many times this platform has been clicked
+    public void Click()
+    {
+        _clicks++;
+        if (_clicks == 1)
+        {
+            MakeReal();
+        }
+        else if (_clicks == 2)
+        {
+            BreakPlatform();
+        }
+    }
+
     public void MakeReal()
     {
         _isGhost = false;
-        Child.GetComponent<Renderer>().material = Mat;
-        Child.GetComponent<Pulsating>().enabled = false;
+
+        for (int i = 0; i < _platformParts.Length; ++i)
+        {
+            _platformParts[i].GetComponent<Renderer>().material = Mat;
+            _platformParts[i].GetComponent<Pulsating>().enabled = false;
+        }
+    }
+
+    //Enables collision with ground and changes to pulsating
+    //TODO: over time decay with a transparency fade
+    public void BreakPlatform()
+    {
+        _isGhost = true;
+
+        for (int i = 0; i < _platformParts.Length; ++i)
+        {
+            _platformParts[i].GetComponent<Renderer>().material = GhostMat;
+            _platformParts[i].GetComponent<Pulsating>().enabled = true;
+            _platformParts[i].GetComponent<Collider>().enabled = true;
+            _platformParts[i].GetComponent<Rigidbody>().useGravity = true;
+            _platformParts[i].GetComponent<PlatformPart>().IgnoreCollision = true;
+        }
+
         GetComponent<BoxCollider>().isTrigger = false;
         _decayTimer = DecayTime;
     }
     public void MakeGhost()
     {
-        Child.GetComponent<Renderer>().material = Ghost;
+        Child.GetComponent<Renderer>().material = GhostMat;
         Child.GetComponent<Pulsating>().enabled = true;
         GetComponent<BoxCollider>().isTrigger = true;
 

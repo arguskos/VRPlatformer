@@ -30,7 +30,7 @@ public class Mouse : MonoBehaviour {
 	                }
                     else if (hit.collider.GetComponent<Platforms>())
                     {
-                        hit.collider.GetComponent<Platforms>().MakeReal();
+                        hit.collider.GetComponent<Platforms>().Click();
                     }
                     else if (hit.collider.GetComponent<Pusher>())
 	                {
