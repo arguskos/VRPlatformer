@@ -20,8 +20,8 @@ public class Mouse : MonoBehaviour {
 	        if (Physics.Raycast(ray, out hit))
 	        {
 	            print(hit.collider.name);
-	            if (hit.collider.tag == "Obstacle")
-	            {
+	            //if (hit.collider.tag == "Obstacle")
+	            //{
 	                print(hit.collider.name);
 	                if (hit.collider.GetComponent<Swing>())
 	                {
@@ -38,7 +38,7 @@ public class Mouse : MonoBehaviour {
 	                }
                     //hit.collider.gameObject now refers to the 
                     //cube under the mouse cursor if present
-                }
+                //}
 	        }
 
 	    }
