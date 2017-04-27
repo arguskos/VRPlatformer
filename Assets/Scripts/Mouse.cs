@@ -28,9 +28,9 @@ public class Mouse : MonoBehaviour {
 	                    hit.collider.GetComponent<Swing>().MyPhotonView.RPC("NetworkInteraction", PhotonTargets.All);
                         _clicked = hit.collider.gameObject;
 	                }
-                    else if (hit.collider.GetComponent<Platforms>())
+                    else if (hit.collider.GetComponent<InteractionPlatforms>())
                     {
-                        hit.collider.GetComponent<Platforms>().Click();
+                        hit.collider.GetComponent<InteractionPlatforms>().MyPhotonView.RPC("MakeReal",PhotonTargets.All);
                     }
                     else if (hit.collider.GetComponent<Pusher>())
 	                {
