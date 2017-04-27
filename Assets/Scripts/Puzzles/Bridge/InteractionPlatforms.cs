@@ -2,56 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Platforms : MonoBehaviour
-{
+public class InteractionPlatforms : MonoBehaviour {
 
-    public Material Mat;
-    public Material GhostMat;
-    public GameObject Child;
+	
+
     private bool _isGhost;
     private float _decayTimer;
-    public float DecayTime=4;
-    public float ShakeStrength=1;
+    public float DecayTime = 4;
+    public float ShakeStrength = 1;
     public float ShakeTime = 3;
     private Vector3 _initPosition;
-    public Transform[] _platformParts = new Transform[8];
-    private PhotonView myPhotonView;
+    [HideInInspector]
+    public PhotonView MyPhotonView;
 
     private int _clicks;
-    // Use this for initialization
-    void Start ()
-	{
-	    _isGhost = true;
-        _initPosition=transform.position;
-        myPhotonView = GetComponent<PhotonView>();
+    public Platforms Platform;
 
+    // Use this for initialization
+    void Start()
+    {
+        _isGhost = true;
+        _initPosition = transform.position;
+        GetComponent<BoxCollider>().isTrigger = true;
+        MyPhotonView = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
-    void Update () {
-	    if (_decayTimer > 0)
-	    {
-	        _decayTimer -= Time.deltaTime;
-	        if (_decayTimer < ShakeTime)
-	        {
-                //   transform.position = new Vector3(transform.position.x+ Mathf.Sin(Time.time * 0.1f), transform.position.y+ Mathf.Sin(Time.time * 0.1f), transform.position.z+ Mathf.Sin(Time.time * 0.1f));
-                transform.position = new Vector3(_initPosition.x+ Mathf.Sin(ShakeStrength * Random.Range(-Time.time,Time.time))* 0.02f, _initPosition.y + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f, _initPosition.z + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f);
+    void Update()
+    {
+        //if (_decayTimer > 0)
+        //{
+        //    _decayTimer -= Time.deltaTime;
+        //    if (_decayTimer < ShakeTime)
+        //    {
+        //        //   transform.position = new Vector3(transform.position.x+ Mathf.Sin(Time.time * 0.1f), transform.position.y+ Mathf.Sin(Time.time * 0.1f), transform.position.z+ Mathf.Sin(Time.time * 0.1f));
+        //        transform.position = new Vector3(_initPosition.x + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f, _initPosition.y + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f, _initPosition.z + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f);
 
-            }
-            if (_decayTimer <= 0)
-            {
-                _decayTimer = 0;
-               // GameObject n= Instantiate(this.gameObject);
-                //n.transform.position = transform.position;
-                //n.GetComponent<Platforms>().MakeGhost();    
-                
-                BreakPlatform();
-	            transform.position = _initPosition;
-	        }
-        }
-	}
+        //    }
+        //    if (_decayTimer <= 0)
+        //    {
+        //        _decayTimer = 0;
+        //        // GameObject n= Instantiate(this.gameObject);
+        //        //n.transform.position = transform.position;
+        //        //n.GetComponent<Platforms>().MakeGhost();    
+        //        Platform.MakeGhost();
+        //        //BreakPlatform();
+        //        //transform.position = _initPosition;
+        //    }
+        //}
+    }
 
-  
+
 
     //Counts how many times this platform has been clicked
     public void Click()
@@ -63,26 +64,22 @@ public class Platforms : MonoBehaviour
         }
         else if (_clicks == 2)
         {
-            BreakPlatform();
+           // BreakPlatform();
         }
     }
+
+
+
     [PunRPC]
-    public void Lol()
+    public void MakeReal()
     {
+
         _isGhost = false;
         _decayTimer = DecayTime;
         GetComponent<BoxCollider>().isTrigger = false;
 
-        for (int i = 0; i < _platformParts.Length; ++i)
-        {
-            _platformParts[i].GetComponent<Renderer>().material = Mat;
-            _platformParts[i].GetComponent<Pulsating>().enabled = false;
-        }
-    }
-    public void MakeReal()
-    {
-       
-        myPhotonView.RPC("Lol", PhotonTargets.All);
+        //GetComponent<BoxCollider>().isTrigger = false;
+        Platform.MakeReal();
 
     }
     public enum BlendMode
@@ -140,45 +137,34 @@ public class Platforms : MonoBehaviour
         }
     }
     //Enables collision with ground and changes to pulsating
-    //TODO: over time decay with a transparency fade
-    [PunRPC]
-    public void BreakPlatform()
-    {
+    ////TODO: over time decay with a transparency fade
+    //[PunRPC]
+    //public void BreakPlatform()
+    //{
 
-        _isGhost = true;
+    //    _isGhost = true;
 
-        for (int i = 0; i < _platformParts.Length; ++i)
-        {
-            _platformParts[i].GetComponent<Renderer>().material = Mat;
-            var m = _platformParts[i].GetComponent<Renderer>().material;
-            
-            SetupMaterialWithBlendMode(m, BlendMode.Transparent);
-            m.color= new Color(m.color.r,m.color.g,m.color.b,0.5f);
-            _platformParts[i].GetComponent<Pulsating>().enabled = true;
-            _platformParts[i].GetComponent<Collider>().enabled = true;
-            _platformParts[i].GetComponent<Rigidbody>().useGravity = true;
-            _platformParts[i].GetComponent<PlatformPart>().IgnoreCollision = true;
-        }
+    //    for (int i = 0; i < _platformParts.Length; ++i)
+    //    {
+    //        _platformParts[i].GetComponent<Renderer>().material = Mat;
+    //        var m = _platformParts[i].GetComponent<Renderer>().material;
 
-        GetComponent<BoxCollider>().isTrigger = false;
-        StartCoroutine(DestroyWithTime());
-    }
+    //        SetupMaterialWithBlendMode(m, BlendMode.Transparent);
+    //        m.color = new Color(m.color.r, m.color.g, m.color.b, 0.5f);
+    //        _platformParts[i].GetComponent<Pulsating>().enabled = true;
+    //        _platformParts[i].GetComponent<Collider>().enabled = true;
+    //        _platformParts[i].GetComponent<Rigidbody>().useGravity = true;
+    //        _platformParts[i].GetComponent<PlatformPart>().IgnoreCollision = true;
+    //    }
+
+    //    GetComponent<BoxCollider>().isTrigger = false;
+    //    StartCoroutine(DestroyWithTime());
+    //}
 
     public IEnumerator DestroyWithTime()
     {
         yield return new WaitForSeconds(1);
         //Destroy(this.gameObject);
     }
-    public void MakeGhost()
-    {
-        _isGhost = true;
-        _clicks = 0;
-        GetComponent<BoxCollider>().isTrigger = true;
-
-        for (int i = 0; i < _platformParts.Length; ++i)
-        {
-            _platformParts[i].GetComponent<Renderer>().material = GhostMat;
-            _platformParts[i].GetComponent<Pulsating>().enabled = true;
-        }
-    }
+   
 }
