@@ -32,6 +32,10 @@ public class characterMovement : MonoBehaviour
     public Text LoseLeft;
     public Text WinRight;
     public Text LoseRight;
+    [Space(5)]
+    public ParticleSystem particlesOne;
+    public ParticleSystem particlesTwo;
+    public ParticleSystem particlesThree;
 
 
     // Use this for initialization
@@ -120,6 +124,7 @@ public class characterMovement : MonoBehaviour
             LoseRight.enabled = true;
             Object.Destroy(ColliderLeft);
             Object.Destroy(ColliderRight);
+            StartCoroutine(StartTheFireWorks());
         }
 
         if (collision.gameObject == ColliderRight.gameObject)
@@ -128,6 +133,17 @@ public class characterMovement : MonoBehaviour
             LoseLeft.enabled = true;
             Object.Destroy(ColliderLeft);
             Object.Destroy(ColliderRight);
+            StartCoroutine(StartTheFireWorks());
+        }
+    }
+    private IEnumerator StartTheFireWorks()
+    {
+        while (true)
+        {
+            particlesOne.Play();
+            yield return new WaitForSeconds(1f);
+            particlesTwo.Play();
+            particlesThree.Play();
         }
     }
 }
