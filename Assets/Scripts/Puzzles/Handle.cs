@@ -11,6 +11,8 @@ public class Handle : MonoBehaviour
     public Camera Cam;
     public GameObject Platform;
     public GameObject CogWheels;
+    public GameObject CogWheelsPlatform1;
+    public GameObject CogWheelsPlatform2;
     public Transform Low;
     public Transform High;
 
@@ -27,6 +29,8 @@ public class Handle : MonoBehaviour
         _startY = transform.position.y;
         _startPY = Platform.transform.position.y;
         CogWheels.transform.localEulerAngles = new Vector3(0, -transform.position.y * 500, 0);
+        CogWheelsPlatform1.transform.localEulerAngles = new Vector3(0, -Platform.transform.position.y * 500, 0);
+        CogWheelsPlatform2.transform.localEulerAngles = new Vector3(0, 30 + (Platform.transform.position.y * 500), 0);
     }
     void OnMouseDown()
     {
@@ -60,6 +64,8 @@ public class Handle : MonoBehaviour
             Platform.transform.position = new Vector3(Platform.transform.position.x, percent2*(1-percent)+PlatformLow.transform.position.y,
                 transform.position.z);
             CogWheels.transform.localEulerAngles = new Vector3(0, -transform.position.y*500, 0);
+            CogWheelsPlatform1.transform.localEulerAngles = new Vector3(0, -Platform.transform.position.y * 500, 0);
+            CogWheelsPlatform2.transform.localEulerAngles = new Vector3(0, 30+(Platform.transform.position.y * 500), 0);
         }
 
         //15
