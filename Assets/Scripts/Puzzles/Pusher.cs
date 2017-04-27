@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pusher : MonoBehaviour {
 
 
-    private const float SPEED = 0.25f;
+    private const float SPEED = 2f;
     private float distance;
     private int direction = 1;
     private float VIBRATION_DURATION_IN_MILLISECONDS = 25;
@@ -48,12 +48,19 @@ public class Pusher : MonoBehaviour {
             Increment();
             yield return null;
         }
-        yield return StartCoroutine("MoveBack");
+        yield return StartCoroutine(DoNothing());
     }
+    IEnumerator DoNothing()
+    {
+        
+        yield return new WaitForSeconds(1);
+        yield return StartCoroutine("MoveBack");
 
+    }
     IEnumerator MoveBack()
     {
         direction *= -1;
+
         ResetDistance();
         while (distance > 0)
         {

@@ -14,16 +14,15 @@ public class PlayerBoundaries : MonoBehaviour {
     private float _zPosition;
     private float _zObstaclex;
     protected Vector3 _teleportPos;
-	void Start () {
+    void Start () {
         _body = GetComponent<Rigidbody>();
-	    _zPosition =-0.041f;
 
     }
 
     // Update is called once per frame
     void Update () {
-		
-	}
+      
+    }
 
     void FixedUpdate()
     {
@@ -64,26 +63,30 @@ public class PlayerBoundaries : MonoBehaviour {
         if (other.tag == "Obstacle"&&_isInPlace)
         {
             _isInPlace = false;
-           _body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            _body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             _teleportPos = Target.transform.position;
             //Target = new Vector3(transform.position.x,transform.position.y-0.5f,transform.position.z);
             StartCoroutine(Teleport());
             _zObstaclex = other.transform.position.x;
+            _zPosition=transform.position.z;
         }
     }
 
     IEnumerator Teleport()
     {
         yield return new WaitForSeconds(0.9f);
-        print("lol");
-        _isInPlace = true;
-        transform.position = new Vector3(_zObstaclex,_teleportPos.y,_teleportPos.z);
-        _body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
+        print("lol");
+        if (Mathf.Abs(_zPosition-transform.position.z)>0.1)
+        {
+            transform.position = new Vector3(_zObstaclex,_teleportPos.y,_teleportPos.z);
+        }
+        _isInPlace = true;
+        _body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
     }
     void OnTriggerStay(Collider other)
     {
-     
+       
     }
 }

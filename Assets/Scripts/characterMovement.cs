@@ -78,6 +78,7 @@ public class characterMovement : MonoBehaviour
         //Raycast Down Debugging
         for (int i = 0; i < _downrays.Length; i++)
         {
+            
             if (IsGrounded)
             {
                 if (IsOnElevator)
