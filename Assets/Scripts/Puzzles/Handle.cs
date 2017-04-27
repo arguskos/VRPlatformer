@@ -10,6 +10,7 @@ public class Handle : MonoBehaviour
     private Vector3 offset;
     public Camera Cam;
     public GameObject Platform;
+    public GameObject CogWheels;
     public Transform Low;
     public Transform High;
 
@@ -21,8 +22,11 @@ public class Handle : MonoBehaviour
     private float _startPY;
     public void Start()
     {
+        Platform.transform.position = new Vector3(Platform.transform.position.x, PlatformLow.position.y, Platform.transform.position.z);
+        transform.position = new Vector3(transform.position.x, High.position.y, transform.position.z);
         _startY = transform.position.y;
         _startPY = Platform.transform.position.y;
+        CogWheels.transform.localEulerAngles = new Vector3(0, -transform.position.y * 500, 0);
     }
     void OnMouseDown()
     {
@@ -34,6 +38,7 @@ public class Handle : MonoBehaviour
 
     void OnMouseDrag()
     {
+
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 
         Vector3 curPosition = Cam.ScreenToWorldPoint(curScreenPoint) + offset;
@@ -48,12 +53,13 @@ public class Handle : MonoBehaviour
             float percent = High.transform.position.y -Low.transform.position.y;
 
             percent = ((transform.position.y - Low.position.y) / percent);
-            print(percent);
+            //print(percent);
             float percent2 = PlatformHigh.transform.position.y - PlatformLow.transform.position.y;
-            print(percent2*percent);
+            //print(percent2*percent);
 
             Platform.transform.position = new Vector3(Platform.transform.position.x, percent2*(1-percent)+PlatformLow.transform.position.y,
                 transform.position.z);
+            CogWheels.transform.localEulerAngles = new Vector3(0, -transform.position.y*500, 0);
         }
 
         //15
