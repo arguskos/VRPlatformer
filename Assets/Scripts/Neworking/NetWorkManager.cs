@@ -17,9 +17,15 @@ public class NetWorkManager : MonoBehaviour
 
     public GameObject LeftHand;
     public GameObject RightHand;
+    public GameObject NetworkPlayer;
     public GameObject Player;
-    public GameObject Platform;
+    public GameObject SpawnPoint;
+    public GameObject SpawnPoint2;
 
+    public GameObject Platform;
+    public GameObject BridgesSpawnPoint1;
+    public GameObject BridgesSpawnPoint2;
+    public GameObject Bridges;
     public GameObject CanonPlace;
     public GameObject CanonPrefab;
     private PhotonView myPhotonView;
@@ -88,23 +94,32 @@ public class NetWorkManager : MonoBehaviour
         ViveManager.Instance.LeftHand.transform.rotation, 0);
         PhotonNetwork.Instantiate(RightHand.name, ViveManager.Instance.RightHand.transform.position,
      ViveManager.Instance.RightHand.transform.rotation, 0);
-        PhotonNetwork.Instantiate(Player.name, ViveManager.Instance.Player.transform.position,
-ViveManager.Instance.Player.transform.rotation, 0);
+        print("PhotonNetwork.countOfPlayers:"+ PhotonNetwork.countOfPlayers);
+        if (PhotonNetwork.countOfPlayers == 1)
+        {
+            var p=Instantiate(Player, SpawnPoint.transform.position, Quaternion.identity);
+
+            PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint.transform.position,
+            Quaternion.identity, 0);
+            ViveManager.Instance.Player = p;
+
+           Instantiate(Bridges, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
+
+        }
+        else
+        {
+
+            var p =Instantiate(Player, SpawnPoint2.transform.position, Quaternion.identity);
+
+            PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint2.transform.position,
+            Quaternion.identity, 0);
+
+            ViveManager.Instance.Player = p;
+            Instantiate(Bridges, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint1.transform.rotation);
 
 
-        foreach (var bridge in BridgesInstances.Instance.BrifgeType1)
-        {
-            PhotonNetwork.Instantiate(Bridge1.name, bridge.transform.position,bridge.transform.rotation, 0);
         }
 
-        foreach (var bridge in BridgesInstances.Instance.BrifgeType2)
-        {
-            PhotonNetwork.Instantiate(Bridge2.name, bridge.transform.position, bridge.transform.rotation, 0);
-        }
-        foreach (var bridge in BridgesInstances.Instance.BrifgeType3)
-        {
-            PhotonNetwork.Instantiate(Bridge3.name, bridge.transform.position, bridge.transform.rotation, 0);
-        }
 
             //if (PhotonNetwork.playerList.Length==1)
             //{

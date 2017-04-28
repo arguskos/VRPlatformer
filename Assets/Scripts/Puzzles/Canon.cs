@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Security.Policy;
 using UnityEngine;
-[RequireComponent(typeof(PhotonView))]
 
 public class Canon : MonoBehaviour
 {
@@ -20,20 +19,17 @@ public class Canon : MonoBehaviour
     public float Cooldown = 2.0f;
     private float _timer;
     public int  Side=1;
-    private PhotonView _myPhotonView;
     public static List<GameObject> CannonBalls= new List<GameObject>();
 	// Use this for initialization
 	void Start () {
-	   _myPhotonView = GetComponent<PhotonView>();
 
 	}
 	
-    [PunRPC]
     public void DoNetwork()
     {
        _timer = 0;
             //var l=Instantiate(CanonBall, transform.position - new Vector3(0.2f*Side, 0, 0), Quaternion.identity);
-        if (PhotonNetwork.connectionState == ConnectionState.Connected)
+        if (PhotonNetwork.connectionState == ConnectionState.Connected && PhotonNetwork.inRoom)
         {
             var l = PhotonNetwork.Instantiate(NetworkBall.name, transform.position - new Vector3(0.2f*Side, 0, 0),
                 Quaternion.identity, 0);
