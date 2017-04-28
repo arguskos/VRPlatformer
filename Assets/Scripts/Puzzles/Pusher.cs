@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pusher : MonoBehaviour {
+public class Pusher : ViveGrip_Grabbable {
 
 
     private const float SPEED = 2f;
@@ -20,12 +20,15 @@ public class Pusher : MonoBehaviour {
         myPhotonView = GetComponent<PhotonView>();
 
     }
-
+  
+ 
     void ViveGripInteractionStart(ViveGrip_GripPoint gripPoint)
     {
         gripPoint.controller.Vibrate(VIBRATION_DURATION_IN_MILLISECONDS, VIBRATION_STRENGTH);
         GetComponent<ViveGrip_Interactable>().enabled = false;
         StartCoroutine("Move");
+        myPhotonView.RPC("Lol", PhotonTargets.All);
+
     }
 
 

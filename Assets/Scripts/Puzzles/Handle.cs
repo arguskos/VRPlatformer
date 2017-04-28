@@ -25,7 +25,7 @@ public class Handle : MonoBehaviour
     public void Start()
     {
         Platform.transform.position = new Vector3(Platform.transform.position.x, PlatformLow.position.y, Platform.transform.position.z);
-        transform.position = new Vector3(transform.position.x, High.position.y, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, High.position.y, transform.position.z);
         _startY = transform.position.y;
         _startPY = Platform.transform.position.y;
         CogWheels.transform.localEulerAngles = new Vector3(0, -transform.position.y * 500, 0);
@@ -74,5 +74,19 @@ public class Handle : MonoBehaviour
 
 
     }
+    public void Update()
+    {
+        float percent = High.transform.position.y - Low.transform.position.y;
 
+        percent = ((transform.position.y - Low.position.y) / percent);
+        //print(percent);
+        float percent2 = PlatformHigh.transform.position.y - PlatformLow.transform.position.y;
+        //print(percent2*percent);
+
+        Platform.transform.position = new Vector3(Platform.transform.position.x, percent2 * (1 - percent) + PlatformLow.transform.position.y,
+            transform.position.z);
+        CogWheels.transform.localEulerAngles = new Vector3(0, -transform.position.y * 500, 0);
+        CogWheelsPlatform1.transform.localEulerAngles = new Vector3(0, -Platform.transform.position.y * 500, 0);
+        CogWheelsPlatform2.transform.localEulerAngles = new Vector3(0, 30 + (Platform.transform.position.y * 500), 0);
+    }
 }

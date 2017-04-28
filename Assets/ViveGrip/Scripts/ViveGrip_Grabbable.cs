@@ -36,21 +36,20 @@ public class ViveGrip_Grabbable : MonoBehaviour {
   //   void ViveGripTouchStop(ViveGrip_GripPoint gripPoint) {}
 
   // Called when touched and the grab button is pressed and released, respectively
-  void ViveGripGrabStart(ViveGrip_GripPoint gripPoint) {
+    void ViveGripGrabStart(ViveGrip_GripPoint gripPoint) {
         Grabbed = true;
-    }
-    void ViveGripGrabStop(ViveGrip_GripPoint gripPoint)
-    {
 
+    }
+    void ViveGripGrabStop(ViveGrip_GripPoint gripPoint) {
         Grabbed = false;
-        
+
     }
 
-  // Called when highlighting changes
-  //   void ViveGripHighlightStart(ViveGrip_GripPoint gripPoint) {}
-  //   void ViveGripHighlightStop(ViveGrip_GripPoint gripPoint) {}
+    // Called when highlighting changes
+    //   void ViveGripHighlightStart(ViveGrip_GripPoint gripPoint) {}
+    //   void ViveGripHighlightStop(ViveGrip_GripPoint gripPoint) {}
 
-  public void OnDrawGizmosSelected() {
+    public void OnDrawGizmosSelected() {
     if (anchor != null && anchor.enabled) {
       Gizmos.DrawIcon(transform.position + RotatedAnchor(), "ViveGrip/anchor.png", true);
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractionPlatforms : MonoBehaviour {
+public class InteractionPlatforms : ViveGrip_Grabbable {
 
 	
 
@@ -17,7 +17,7 @@ public class InteractionPlatforms : MonoBehaviour {
 
     private int _clicks;
     public Platforms Platform;
-
+    public int BridgeID;
     // Use this for initialization
     void Start()
     {
@@ -25,6 +25,10 @@ public class InteractionPlatforms : MonoBehaviour {
         _initPosition = transform.position;
         GetComponent<BoxCollider>().isTrigger = true;
         MyPhotonView = GetComponent<PhotonView>();
+    }
+    void ViveGripInteractionStart(ViveGrip_GripPoint gripPoint)
+    {
+        MyPhotonView.RPC("MakeReal", PhotonTargets.All);
     }
 
     // Update is called once per frame
