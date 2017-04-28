@@ -74,7 +74,7 @@ public class characterMovement : MonoBehaviour
         }
         if (Input.GetKeyDown("r"))
         {
-            Application.LoadLevel(1);
+            Application.LoadLevel(0);
         }
 
         //Add horizontal drag
