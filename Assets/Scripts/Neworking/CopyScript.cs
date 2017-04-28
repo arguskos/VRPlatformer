@@ -7,8 +7,11 @@ public class CopyScript : Photon.MonoBehaviour {
 	// Use this for initialization
     public int Index = 1;
 
-	// Update is called once per frame
-	void Update () {
+
+
+
+    // Update is called once per frame
+    void Update () {
 	    if (photonView.isMine)
 	    {
 	        switch (Index)
@@ -31,7 +34,18 @@ public class CopyScript : Photon.MonoBehaviour {
                     transform.position = ViveManager.Instance.Player.transform.position;
                     transform.rotation = ViveManager.Instance.Player.transform.rotation;
                     break;
-
+                //case 5:
+                //    transform.position = BridgesInstances.Instance.Bridge1.transform.position;
+                //    transform.rotation = BridgesInstances.Instance.Bridge1.transform.rotation;
+                //    break;
+                //case 6:
+                //    transform.position = BridgesInstances.Instance.Bridge2.transform.position;
+                //    transform.rotation = BridgesInstances.Instance.Bridge2.transform.rotation;
+                //    break;
+                //case 7:
+                //    transform.position = BridgesInstances.Instance.Bridge3.transform.position;
+                //    transform.rotation = BridgesInstances.Instance.Bridge3.transform.rotation;
+                //    break;
             }
 	       
         }
