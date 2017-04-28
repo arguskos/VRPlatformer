@@ -3,27 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CanonBall : MonoBehaviour {
-    public float Direction = 1.0f;
-    public float Strength = 50.0f;
-
+    private float _direction = 1.0f;
+    private float _strength = 50.0f;
+    private float _speed=10;
 	// Use this for initialization
-	void Start () {
-		
+    private PhotonView _myPhotonView;
+	void Start ()
+	{
+        _myPhotonView = GetComponent<PhotonView>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        transform.position= new Vector3(transform.position.x+(_speed*_direction*Time.deltaTime),transform.position.y,transform.position.z);
 	}
+    public void SetBall(int direction,float speed)
+    {
+        _direction=direction;
+        _speed  = speed;
+    }
+    [PunRPC]
+    public void DestroyNetwork()
+    {
+            Destroy(gameObject);
+
+    }
     void OnTriggerEnter(Collider collision)
     {
        if (collision.tag != "Platform")
         {
             if (collision.tag == "PlatfornPlayer")
             {
-                collision.GetComponent<Rigidbody>().AddForce(new Vector3(Strength * Direction, 0,0));
+                collision.GetComponent<Rigidbody>().AddForce(new Vector3(_strength * _direction, 0,0));
             }
-            Destroy(gameObject);
         }
+        _myPhotonView.RPC("DestroyNetwork", PhotonTargets.All);
+
     }
 }

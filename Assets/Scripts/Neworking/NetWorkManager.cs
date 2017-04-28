@@ -10,7 +10,7 @@ public class NetWorkManager : MonoBehaviour
 
     public byte Version = 1;
 
-    public int PlayerCounter = 0;
+    public static int PlayerCounter = 0;
     /// <summary>if we don't want to connect in Start(), we have to "remember" if we called ConnectUsingSettings()</summary>
     // private bool ConnectInUpdate = true;
     public GameObject headPrefab;
@@ -20,6 +20,8 @@ public class NetWorkManager : MonoBehaviour
     public GameObject Player;
     public GameObject Platform;
 
+    public GameObject CanonPlace;
+    public GameObject CanonPrefab;
     private PhotonView myPhotonView;
     public virtual void Start()
     {
@@ -81,12 +83,18 @@ public class NetWorkManager : MonoBehaviour
      ViveManager.Instance.RightHand.transform.rotation, 0);
         PhotonNetwork.Instantiate(Player.name, ViveManager.Instance.Player.transform.position,
 ViveManager.Instance.Player.transform.rotation, 0);
-
+        if (PhotonNetwork.playerList.Length==1)
+        {
+            print("super Duper DJUAJSPDJOUSJAPJPJSAP");
+            var l = PhotonNetwork.Instantiate(CanonPrefab.name, CanonPlace.transform.position,
+                CanonPlace.transform.rotation, 0);
+            l.transform.parent = CanonPlace.transform.parent;
+        }
 
         //GameObject monster = PhotonNetwork.Instantiate(Platform.name, Vector3.zero, Quaternion.identity, 0);
         //myPhotonView = monster.GetComponent<PhotonView>();
 
-     //   myPhotonView.RPC("MakeReal", PhotonTargets.All);
+        //   myPhotonView.RPC("MakeReal", PhotonTargets.All);
 
 
 

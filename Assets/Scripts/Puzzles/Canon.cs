@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[RequireComponent(typeof(PhotonView))]
 
 public class Canon : MonoBehaviour
 {
@@ -16,14 +17,32 @@ public class Canon : MonoBehaviour
     public float Cooldown = 2.0f;
     private float _timer;
     public int  Side=1;
+    private PhotonView _myPhotonView;
+
 	// Use this for initialization
 	void Start () {
-		
+	   _myPhotonView = GetComponent<PhotonView>();
+
 	}
 	
+    [PunRPC]
+    public void DoNetwork()
+    {
+       _timer = 0;
+            //var l=Instantiate(CanonBall, transform.position - new Vector3(0.2f*Side, 0, 0), Quaternion.identity);
+        if (PhotonNetwork.connectionState == ConnectionState.Connected)
+        {
+            var l = PhotonNetwork.Instantiate(CanonBall.name, transform.position - new Vector3(0.2f*Side, 0, 0),
+                Quaternion.identity, 0);
+            //  l.Component.GetComponent<CanonBall>().Direction=Side;
+            // l.AddComponent<CanonBall>();
+            l.GetComponent<CanonBall>().SetBall(Side*-1, ShootSpeed);
+        }
+    }
 	// Update is called once per frame
 	void Update ()
 	{
+
 	    _timer += Time.deltaTime;
 
         //Apply pre-cannonball shooting animation
@@ -35,11 +54,12 @@ public class Canon : MonoBehaviour
         //Shoot cannonball
 	    if (_timer > Cooldown)
 	    {
-	        _timer = 0;
-	        var l=Instantiate(CanonBall, transform.position - new Vector3(0.2f*Side, 0, 0), Quaternion.identity);
-            //  l.Component.GetComponent<CanonBall>().Direction=Side;
-            l.AddComponent<CanonBall>();
-            l.GetComponent<Rigidbody>().AddForce(-ShootSpeed,0,0,ForceMode.Impulse);
+            if (CopyScript.PlayerCounter==0)
+            {
+	           // _myPhotonView.RPC("DoNetwork", PhotonTargets.All);
+               DoNetwork();
+            }
+            //l.GetComponent<Rigidbody>().AddForce(-ShootSpeed,0,0,ForceMode.Impulse);
 	    }
 	}
 }

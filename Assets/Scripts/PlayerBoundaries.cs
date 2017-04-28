@@ -64,7 +64,7 @@ public class PlayerBoundaries : MonoBehaviour {
         {
             _isInPlace = false;
             _body.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            _teleportPos = Target.transform.position;
+            //_teleportPos = Target.transform.position;
             //Target = new Vector3(transform.position.x,transform.position.y-0.5f,transform.position.z);
             StartCoroutine(Teleport());
             _zObstaclex = other.transform.position.x;
