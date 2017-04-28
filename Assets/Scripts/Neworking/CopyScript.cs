@@ -36,8 +36,12 @@ public class CopyScript : Photon.MonoBehaviour {
 	       
         }
     }
+    public static int PlayerCounter = 0;
+
     void OnPhotonPlayerConnected(PhotonPlayer player)
     {
+        PlayerCounter++;
+            
         Debug.Log("OnPhotonPlayerConnected: " + player);
 
         // when new players join, we send "who's it" to let them know
@@ -49,3 +53,4 @@ public class CopyScript : Photon.MonoBehaviour {
         }
     }
 }
+
