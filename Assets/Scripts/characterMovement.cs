@@ -72,6 +72,10 @@ public class characterMovement : MonoBehaviour
                 IsOnElevator = false;
             }
         }
+        if (Input.GetKeyDown("r"))
+        {
+            Application.LoadLevel(1);
+        }
 
         //Add horizontal drag
         if (Mathf.Abs(Rb.velocity.x) > 0 && Input.GetKey("q") == false && Input.GetKey("d") == false && IsCannonHit == false)
