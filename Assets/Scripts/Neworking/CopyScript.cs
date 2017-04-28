@@ -59,6 +59,14 @@ public class CopyScript : Photon.MonoBehaviour {
                         transform.rotation = bridge.transform.rotation;
                     }
                     break;
+
+                case 8:
+                    foreach (var bridge in Canon.CannonBalls)
+                    {
+                        transform.position = bridge.transform.position;
+                        transform.rotation = bridge.transform.rotation;
+                    }
+                    break;
             }
 	       
         }

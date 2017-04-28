@@ -106,13 +106,13 @@ ViveManager.Instance.Player.transform.rotation, 0);
             PhotonNetwork.Instantiate(Bridge3.name, bridge.transform.position, bridge.transform.rotation, 0);
         }
 
-        if (PhotonNetwork.playerList.Length==1)
-        {
-            print("super Duper DJUAJSPDJOUSJAPJPJSAP");
-            var l = PhotonNetwork.Instantiate(CanonPrefab.name, CanonPlace.transform.position,
-                CanonPlace.transform.rotation, 0);
-            l.transform.parent = CanonPlace.transform.parent;
-        }
+            //if (PhotonNetwork.playerList.Length==1)
+            //{
+            //    print("super Duper DJUAJSPDJOUSJAPJPJSAP");
+            //    var l = PhotonNetwork.Instantiate(CanonPrefab.name, CanonPlace.transform.position,
+            //        CanonPlace.transform.rotation, 0);
+            //    l.transform.parent = CanonPlace.transform.parent;
+            //}
 
         //GameObject monster = PhotonNetwork.Instantiate(Platform.name, Vector3.zero, Quaternion.identity, 0);
         //myPhotonView = monster.GetComponent<PhotonView>();

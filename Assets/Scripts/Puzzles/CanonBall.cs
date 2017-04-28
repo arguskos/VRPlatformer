@@ -6,11 +6,10 @@ public class CanonBall : MonoBehaviour {
     private float _direction = 1.0f;
     private float _strength = 50.0f;
     private float _speed=10;
+    public PhotonView NetworkBall;
 	// Use this for initialization
-    private PhotonView _myPhotonView;
 	void Start ()
 	{
-        _myPhotonView = GetComponent<PhotonView>();
 	}
 	
 	// Update is called once per frame
@@ -22,22 +21,18 @@ public class CanonBall : MonoBehaviour {
         _direction=direction;
         _speed  = speed;
     }
-    [PunRPC]
-    public void DestroyNetwork()
-    {
-            Destroy(gameObject);
-
-    }
+   
     void OnTriggerEnter(Collider collision)
     {
        if (collision.tag != "Platform")
         {
             if (collision.tag == "PlatfornPlayer")
             {
-                collision.GetComponent<Rigidbody>().AddForce(new Vector3(_strength * _direction, 0,0));
+               collision.GetComponent<Rigidbody>().AddForce(new Vector3(_strength * _direction, 0,0));
             }
         }
-        _myPhotonView.RPC("DestroyNetwork", PhotonTargets.All);
-
+       PhotonNetwork.Destroy(NetworkBall);
+        Canon.CannonBalls.Remove(this.gameObject);
+       Destroy(this.gameObject);
     }
 }

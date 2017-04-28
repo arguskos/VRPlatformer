@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 [RequireComponent(typeof(PhotonView))]
 
@@ -12,13 +13,15 @@ public class Canon : MonoBehaviour
     [Space(20)]
 
     [Header("Shooting")]
-    public GameObject CanonBall;
+    public CanonBall CanonBall;
+
+    public GameObject NetworkBall;
     public float ShootSpeed;
     public float Cooldown = 2.0f;
     private float _timer;
     public int  Side=1;
     private PhotonView _myPhotonView;
-
+    public static List<GameObject> CannonBalls= new List<GameObject>();
 	// Use this for initialization
 	void Start () {
 	   _myPhotonView = GetComponent<PhotonView>();
@@ -32,11 +35,14 @@ public class Canon : MonoBehaviour
             //var l=Instantiate(CanonBall, transform.position - new Vector3(0.2f*Side, 0, 0), Quaternion.identity);
         if (PhotonNetwork.connectionState == ConnectionState.Connected)
         {
-            var l = PhotonNetwork.Instantiate(CanonBall.name, transform.position - new Vector3(0.2f*Side, 0, 0),
+            var l = PhotonNetwork.Instantiate(NetworkBall.name, transform.position - new Vector3(0.2f*Side, 0, 0),
                 Quaternion.identity, 0);
             //  l.Component.GetComponent<CanonBall>().Direction=Side;
-            // l.AddComponent<CanonBall>();
-            l.GetComponent<CanonBall>().SetBall(Side*-1, ShootSpeed);
+            var b= Instantiate(CanonBall, transform.position - new Vector3(0.2f * Side, 0, 0), Quaternion.identity);
+            b.NetworkBall = l.GetPhotonView();
+            CannonBalls.Add(b.gameObject);
+
+
         }
     }
 	// Update is called once per frame
@@ -54,11 +60,8 @@ public class Canon : MonoBehaviour
         //Shoot cannonball
 	    if (_timer > Cooldown)
 	    {
-            if (CopyScript.PlayerCounter==0)
-            {
 	           // _myPhotonView.RPC("DoNetwork", PhotonTargets.All);
                DoNetwork();
-            }
             //l.GetComponent<Rigidbody>().AddForce(-ShootSpeed,0,0,ForceMode.Impulse);
 	    }
 	}
