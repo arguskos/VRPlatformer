@@ -34,18 +34,31 @@ public class CopyScript : Photon.MonoBehaviour {
                     transform.position = ViveManager.Instance.Player.transform.position;
                     transform.rotation = ViveManager.Instance.Player.transform.rotation;
                     break;
-                //case 5:
-                //    transform.position = BridgesInstances.Instance.Bridge1.transform.position;
-                //    transform.rotation = BridgesInstances.Instance.Bridge1.transform.rotation;
-                //    break;
-                //case 6:
-                //    transform.position = BridgesInstances.Instance.Bridge2.transform.position;
-                //    transform.rotation = BridgesInstances.Instance.Bridge2.transform.rotation;
-                //    break;
-                //case 7:
-                //    transform.position = BridgesInstances.Instance.Bridge3.transform.position;
-                //    transform.rotation = BridgesInstances.Instance.Bridge3.transform.rotation;
-                //    break;
+                case 5:
+                    foreach (var bridge in BridgesInstances.Instance.BrifgeType1)
+                    {
+                        transform.position = bridge.transform.position;
+                        transform.rotation =bridge.transform.rotation;
+                    }
+
+                  
+
+                  break;
+                case 6:
+                    foreach (var bridge in BridgesInstances.Instance.BrifgeType2)
+                    {
+                        transform.position = bridge.transform.position;
+                        transform.rotation = bridge.transform.rotation;
+                    }
+                 
+                    break;
+                case 7:
+                    foreach (var bridge in BridgesInstances.Instance.BrifgeType3)
+                    {
+                        transform.position = bridge.transform.position;
+                        transform.rotation = bridge.transform.rotation;
+                    }
+                    break;
             }
 	       
         }
