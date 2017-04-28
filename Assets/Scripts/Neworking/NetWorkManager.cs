@@ -23,6 +23,13 @@ public class NetWorkManager : MonoBehaviour
     public GameObject CanonPlace;
     public GameObject CanonPrefab;
     private PhotonView myPhotonView;
+
+    public GameObject Bridge1;
+    public GameObject Bridge2;
+
+    public GameObject Bridge3;
+
+
     public virtual void Start()
     {
         PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
@@ -83,6 +90,22 @@ public class NetWorkManager : MonoBehaviour
      ViveManager.Instance.RightHand.transform.rotation, 0);
         PhotonNetwork.Instantiate(Player.name, ViveManager.Instance.Player.transform.position,
 ViveManager.Instance.Player.transform.rotation, 0);
+
+
+        foreach (var bridge in BridgesInstances.Instance.BrifgeType1)
+        {
+            PhotonNetwork.Instantiate(Bridge1.name, bridge.transform.position,bridge.transform.rotation, 0);
+        }
+
+        foreach (var bridge in BridgesInstances.Instance.BrifgeType2)
+        {
+            PhotonNetwork.Instantiate(Bridge2.name, bridge.transform.position, bridge.transform.rotation, 0);
+        }
+        foreach (var bridge in BridgesInstances.Instance.BrifgeType3)
+        {
+            PhotonNetwork.Instantiate(Bridge3.name, bridge.transform.position, bridge.transform.rotation, 0);
+        }
+
         if (PhotonNetwork.playerList.Length==1)
         {
             print("super Duper DJUAJSPDJOUSJAPJPJSAP");
