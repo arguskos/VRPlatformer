@@ -32,24 +32,25 @@ public class BridgeSpawner : MonoBehaviour {
 
         _startHeight = transform.position.y;
 
-        GameObject _miniatureType = new GameObject("Miniature");
-
         if (SpawnID == 0)
         {
-            _miniatureType = Bridge2Tile;
+            _rotatingMiniature = Instantiate(Bridge2Tile, transform, true);
+            _rotatingMiniature.transform.localScale = new Vector3(_miniatureScale, _miniatureScale, _miniatureScale);
+            _rotatingMiniature.transform.position = transform.position;
         }
         else if (SpawnID == 1)
         {
-            _miniatureType = Bridge3Tile;
+            _rotatingMiniature = Instantiate(Bridge3Tile, transform, true);
+            _rotatingMiniature.transform.localScale = new Vector3(_miniatureScale, _miniatureScale, _miniatureScale);
+            _rotatingMiniature.transform.position = transform.position;
         }
         else if (SpawnID == 2)
         {
-            _miniatureType = Bridge4Tile;
+            _rotatingMiniature = Instantiate(Bridge4Tile, transform, true);
+            _rotatingMiniature.transform.localScale = new Vector3(_miniatureScale, _miniatureScale, _miniatureScale);
+            _rotatingMiniature.transform.position = transform.position;
         }
 
-        _rotatingMiniature = Instantiate(_miniatureType, transform,true);
-        _rotatingMiniature.transform.localScale = new Vector3(_miniatureScale, _miniatureScale, _miniatureScale);
-        _rotatingMiniature.transform.position = transform.position;
 
         if (TeamID == 1)
         {
