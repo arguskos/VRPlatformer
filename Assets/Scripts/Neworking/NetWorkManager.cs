@@ -25,6 +25,10 @@ public class NetWorkManager : MonoBehaviour
     public GameObject Platform;
     public GameObject BridgesSpawnPoint1;
     public GameObject BridgesSpawnPoint2;
+
+
+    public BridgeSpawner BridgeSpawnerPrefab;
+
     public GameObject Bridges;
     public GameObject CanonPlace;
     public GameObject CanonPrefab;
@@ -107,8 +111,9 @@ public class NetWorkManager : MonoBehaviour
 
             ViveManager.Instance.Player = p;
 
-           Instantiate(Bridges, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
-
+            //Instantiate(Bridges, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
+           // PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
+             //   Quaternion.identity, 0);
         }
         else
         {
@@ -121,8 +126,9 @@ public class NetWorkManager : MonoBehaviour
             np.GetComponent<Renderer>().material = PlayerMat2;
 
             ViveManager.Instance.Player = p;
-            Instantiate(Bridges, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint1.transform.rotation);
-
+            //Instantiate(Bridges, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint1.transform.rotation);
+            //PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
+              //  Quaternion.identity,0);
 
         }
 

@@ -60,6 +60,13 @@ public class BridgesInstances : MonoBehaviour {
 
     }
 
+    //public void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.B)
+    //    {
+    //        Instance()
+    //    }
+    //}
     void OnDestroy()
     {
         if (Instance == null)

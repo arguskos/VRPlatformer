@@ -9,19 +9,26 @@ public class PlayerBridges : ViveGrip_Grabbable {
     Color tintColor = Color.white;
     public Material Highlighted;
     float tintRatio = 111110.2f;
-
+        
     private bool _isTouched;
+    public  GameObject _networkRepresentation;
+
     // Use this for initialization
     void Start () {
         Mesh=transform.GetChild(0).gameObject;
-
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         foreach (Renderer t in Mesh.GetComponentsInChildren<Renderer>())
         {
-            t.enabled = false; 
+            t.enabled = false;
         }
 
-}
- 
+    }
+
+    void Updtate()
+    {
+        _networkRepresentation.transform.position = transform.position;
+        _networkRepresentation.transform.rotation = transform.rotation; 
+    }
 
     void ViveGripGrabStart(ViveGrip_GripPoint gripPoint)
     {

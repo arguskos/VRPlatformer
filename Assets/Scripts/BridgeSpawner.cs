@@ -19,9 +19,16 @@ public class BridgeSpawner : MonoBehaviour {
     private float _startHeight;
     private GameObject _sphere;
 
+    public GameObject[] PregabNetworkBridges;
+    public GameObject[] PrefabClientBridges;
+    public static  List<List<GameObject>> BridgesTypes = new List<List<GameObject>>();
     // Use this for initialization
     void Start () {
         _sphere = gameObject.transform.GetChild(0).gameObject;
+        BridgesTypes.Add(new List<GameObject>());
+        BridgesTypes.Add(new List<GameObject>());
+        BridgesTypes.Add(new List<GameObject>());
+
 
         _startHeight = transform.position.y;
 
@@ -70,5 +77,16 @@ public class BridgeSpawner : MonoBehaviour {
         //Float up and down along the y axis, 
         _rotatingMiniature.transform.position = new Vector3(_rotatingMiniature.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep)/25), _rotatingMiniature.transform.position.z);
         _sphere.transform.position = new Vector3(_sphere.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep) / 25), _sphere.transform.position.z);
+	    if (Input.GetKeyDown(KeyCode.D))
+	    {
+	        GameObject obj = Instantiate(PrefabClientBridges[SpawnID], transform.position, Quaternion.identity);
+            GameObject v= PhotonNetwork.Instantiate(PregabNetworkBridges[SpawnID].name, obj.transform.position, obj.transform.rotation, 0);
+	        v.GetComponent<BridgeNetworkCopy>().ClientBridge = obj;
+            BridgesTypes[SpawnID].Add(obj);
+
+        }
+
     }
+
+
 }
