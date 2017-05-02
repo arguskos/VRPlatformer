@@ -35,7 +35,8 @@ public class NetWorkManager : MonoBehaviour
 
     public GameObject Bridge3;
 
-
+    public Material PlayerMat1;
+    public Material PlayerMat2;
     public virtual void Start()
     {
         PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
@@ -98,9 +99,12 @@ public class NetWorkManager : MonoBehaviour
         if (PhotonNetwork.countOfPlayers == 1)
         {
             var p=Instantiate(Player, SpawnPoint.transform.position, Quaternion.identity);
+            p.GetComponent<Renderer>().material =    PlayerMat1;
 
-            PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint.transform.position,
+            var np = PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint.transform.position,
             Quaternion.identity, 0);
+            np.GetComponent<Renderer>().material = PlayerMat2;
+
             ViveManager.Instance.Player = p;
 
            Instantiate(Bridges, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
@@ -110,9 +114,11 @@ public class NetWorkManager : MonoBehaviour
         {
 
             var p =Instantiate(Player, SpawnPoint2.transform.position, Quaternion.identity);
+            p.GetComponent<Renderer>().material = PlayerMat2;
 
-            PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint2.transform.position,
+            var np =PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint2.transform.position,
             Quaternion.identity, 0);
+            np.GetComponent<Renderer>().material = PlayerMat2;
 
             ViveManager.Instance.Player = p;
             Instantiate(Bridges, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint1.transform.rotation);
