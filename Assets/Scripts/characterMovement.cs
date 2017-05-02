@@ -53,16 +53,15 @@ public class characterMovement : MonoBehaviour
         //Horizontal movement
         if (Mathf.Abs(Rb.velocity.magnitude) < 1)
         {
-            if (Input.GetKey("d") || Input.GetButton("Right") )
+            if (Input.GetKey("d") || Input.GetButton("Right"))
             {
                 Rb.AddForce(MaxSpeed, 0, 0, ForceMode.VelocityChange);
             }
             if (Input.GetKey("q") || Input.GetButton("Left"))
             {
-                Rb.AddForce(MaxSpeed * -1.0f, 0, 0, ForceMode.VelocityChange);
+
             }
         }
-
     }
     // Update is called once per frame
     void Update()
