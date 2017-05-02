@@ -86,6 +86,19 @@ public class InteractionPlatforms : ViveGrip_Grabbable {
         Platform.MakeReal();
 
     }
+
+
+    [PunRPC]
+    public void MakeGhost()
+    {
+
+        _isGhost =true;
+        GetComponent<BoxCollider>().isTrigger = true;
+
+        //GetComponent<BoxCollider>().isTrigger = false;
+        Platform.MakeGhost();
+
+    }
     public enum BlendMode
     {
         Opaque,

@@ -18,7 +18,7 @@ public class PlayerBridges : ViveGrip_Grabbable {
     {
         if (other.GetComponent<InteractionPlatforms>()&& other.GetComponent<InteractionPlatforms>().BridgeID==BridgeID&& !Grabbed)
         {
-            Destroy(this.gameObject);
+            GetComponent<Renderer>().enabled = false;
             other.GetComponent<InteractionPlatforms>().MyPhotonView.RPC("MakeReal", PhotonTargets.All);
         }
     }
