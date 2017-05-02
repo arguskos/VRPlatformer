@@ -8,7 +8,7 @@ public class characterMovement : MonoBehaviour
     [Header("Movement")]
     public Rigidbody Rb;
     public float MaxJumpForce = 250;
-    public float MaxSpeed = 100;
+    public float MaxSpeed =2;
     public float HorizontalDrag = 0;
     [Space(20)]
 
@@ -48,22 +48,30 @@ public class characterMovement : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        //Horizontal movement
+        if (Mathf.Abs(Rb.velocity.magnitude) < 1)
+        {
+            if (Input.GetKey("d") || Input.GetButton("Right") )
+            {
+                Rb.AddForce(MaxSpeed, 0, 0, ForceMode.VelocityChange);
+            }
+            if (Input.GetKey("q") || Input.GetButton("Left"))
+            {
+                Rb.AddForce(MaxSpeed * -1.0f, 0, 0, ForceMode.VelocityChange);
+            }
+        }
+
+    }
     // Update is called once per frame
     void Update()
     {
 
-        //Horizontal movement
-        if (Input.GetKey("d"))
-        {
-            Rb.AddForce(MaxSpeed, 0, 0, ForceMode.VelocityChange);
-        }
-        if (Input.GetKey("q"))
-        {
-            Rb.AddForce(MaxSpeed * -1.0f, 0, 0, ForceMode.VelocityChange);
-        }
+  
 
         //Vertical movement
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") || Input.GetButtonDown("Jump"))
         {
             if (IsGrounded == true)
             {
