@@ -53,17 +53,17 @@ public class characterMovement : MonoBehaviour
     {
 
         //Horizontal movement
-        if (Input.GetKey("d"))
+        if (Input.GetKey("d") || Input.GetButton("Right"))
         {
             Rb.AddForce(MaxSpeed, 0, 0, ForceMode.VelocityChange);
         }
-        if (Input.GetKey("q"))
+        if (Input.GetKey("q") ||Input.GetButton("Left"))
         {
             Rb.AddForce(MaxSpeed * -1.0f, 0, 0, ForceMode.VelocityChange);
         }
 
         //Vertical movement
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") || Input.GetButtonDown("Jump"))
         {
             if (IsGrounded == true)
             {
