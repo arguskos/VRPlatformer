@@ -3,24 +3,24 @@ using System.Collections.Generic;
 
 public class ViveGrip_Highlighter : MonoBehaviour {
   Color tintColor = Color.white;
-  float tintRatio = 0.2f;
+  float tintRatio = 2.2f;
   private Queue<Color> oldColors = new Queue<Color>();
 
   void Start () {}
 
   public void Highlight(Color color) {
     RemoveHighlight();
-    foreach (Material material in GetComponent<Renderer>().materials) {
-      Color currentColor = material.color;
+    foreach (Renderer material in GetComponentsInChildren<Renderer>()) {
+      Color currentColor = material.material.color;
       oldColors.Enqueue(currentColor);
-      material.color = Color.Lerp(currentColor, color, tintRatio);
+            material.material.color = Color.white; //Color.Lerp(currentColor, color, tintRatio);
     }
   }
-
-  public void RemoveHighlight() {
-    foreach (Material material in GetComponent<Renderer>().materials) {
+  
+    public void RemoveHighlight() {
+    foreach (Renderer material in GetComponentsInChildren<Renderer>()) {
       if (oldColors.Count == 0) { break; }
-      material.color = oldColors.Dequeue();
+      material.material.color = oldColors.Dequeue();
     }
     oldColors.Clear();
   }

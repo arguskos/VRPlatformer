@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractionPlatforms : ViveGrip_Grabbable {
+public class InteractionPlatforms : MonoBehaviour {
 
 	
 
@@ -183,5 +183,5 @@ public class InteractionPlatforms : ViveGrip_Grabbable {
         yield return new WaitForSeconds(1);
         //Destroy(this.gameObject);
     }
-   
+ 
 }
