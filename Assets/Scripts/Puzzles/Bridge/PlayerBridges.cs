@@ -13,6 +13,9 @@ public class PlayerBridges : ViveGrip_Grabbable {
     private bool _isTouched=false;
     public GameObject Network;
     public BridgeSpawner BridgeSpawner;
+
+    private float _timer;
+    private float _releaseTimer;
     // Use this for initialization
     void Start () {
         Mesh=transform.GetChild(0).gameObject;
@@ -21,17 +24,31 @@ public class PlayerBridges : ViveGrip_Grabbable {
         {
             t.enabled = false;
         }
-
+     
     }
     private void Update()
     {
-       
+        if (_isTouched && !Grabbed)
+        {
+            _timer += Time.deltaTime;
+            if (_timer > 5)
+            {
+                PhotonNetwork.Destroy(Network);
+                Destroy(this.gameObject);
+            }
+        }
+        if (!Grabbed)
+        {
+            _releaseTimer += Time.deltaTime;
+        }
     }
 
 
     void ViveGripGrabStart(ViveGrip_GripPoint gripPoint)
     {
+        _releaseTimer = 0;
         Grabbed = true;
+        _timer = 0;
         if (!_isTouched)
         {
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -56,7 +73,7 @@ public class PlayerBridges : ViveGrip_Grabbable {
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<InteractionPlatforms>()&& other.GetComponent<InteractionPlatforms>().BridgeID==BridgeID&& !Grabbed)
+        if ( _releaseTimer<0.03 &&other.GetComponent<InteractionPlatforms>()&& other.GetComponent<InteractionPlatforms>().BridgeID==BridgeID&& !Grabbed)
         {
             transform.position = other.transform.position;
             transform.rotation = other.transform.rotation;

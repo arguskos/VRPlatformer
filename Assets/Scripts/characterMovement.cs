@@ -59,6 +59,7 @@ public class characterMovement : MonoBehaviour
             }
             if (Input.GetKey("q") || Input.GetButton("Left"))
             {
+                Rb.AddForce(-MaxSpeed, 0, 0, ForceMode.VelocityChange);
 
             }
         }

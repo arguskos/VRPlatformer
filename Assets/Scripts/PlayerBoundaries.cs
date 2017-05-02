@@ -68,7 +68,7 @@ public class PlayerBoundaries : MonoBehaviour {
             //Target = new Vector3(transform.position.x,transform.position.y-0.5f,transform.position.z);
             StartCoroutine(Teleport());
             _zObstaclex = other.transform.position.x;
-            _zPosition=transform.position.z;
+            _zPosition = Target.transform.position.y;
         }
     }
 
@@ -76,11 +76,11 @@ public class PlayerBoundaries : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.9f);
 
-        print("lol");
-        if (Mathf.Abs(_zPosition-transform.position.z)>0.1)
-        {
-            transform.position = new Vector3(_zObstaclex,_teleportPos.y,_teleportPos.z);
-        }
+        //print("lol");
+        //if (Mathf.Abs(_zPosition-transform.position.z)>0.1)
+        //{
+            transform.position = new Vector3(_zObstaclex, _zPosition, -1.341f);
+       /// }
         _isInPlace = true;
         _body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
