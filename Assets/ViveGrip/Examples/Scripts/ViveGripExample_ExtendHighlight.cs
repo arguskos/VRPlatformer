@@ -11,6 +11,8 @@ public class ViveGripExample_ExtendHighlight : MonoBehaviour {
 
   void Update() {
     DisableDefaultHighlighter();
+
+      
   }
 
   void ViveGripHighlightStart() {

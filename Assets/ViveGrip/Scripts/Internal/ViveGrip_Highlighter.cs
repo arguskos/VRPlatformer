@@ -3,12 +3,19 @@ using System.Collections.Generic;
 
 public class ViveGrip_Highlighter : MonoBehaviour {
   Color tintColor = Color.white;
-  float tintRatio = 2.2f;
+  float tintRatio = 21.2f;
   private Queue<Color> oldColors = new Queue<Color>();
 
   void Start () {}
-
-  public void Highlight(Color color) {
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log("sda");
+            Highlight();
+        }
+    }
+    public void Highlight() {
     RemoveHighlight();
     foreach (Renderer material in GetComponentsInChildren<Renderer>()) {
       Color currentColor = material.material.color;
@@ -32,17 +39,19 @@ public class ViveGrip_Highlighter : MonoBehaviour {
     }
   }
 
-  void ViveGripHighlightStart() {
-    if (!this.enabled) { return; }
-    Highlight(tintColor);
-  }
+    void ViveGripHighlightStart()
+    {
+        if (!this.enabled) { return; }
+        Highlight();
+    }
 
-  void ViveGripHighlightStop() {
-    if (!this.enabled) { return; }
-    RemoveHighlight();
-  }
+    void ViveGripHighlightStop()
+    {
+        if (!this.enabled) { return; }
+        RemoveHighlight();
+    }
 
-  void OnDestroy() {
-    RemoveHighlight();
-  }
+    //void OnDestroy() {
+    //  RemoveHighlight();
+    //}
 }

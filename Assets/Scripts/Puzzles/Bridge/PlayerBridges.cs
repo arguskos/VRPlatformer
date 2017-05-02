@@ -10,9 +10,9 @@ public class PlayerBridges : ViveGrip_Grabbable {
     public Material Highlighted;
     float tintRatio = 111110.2f;
         
-    private bool _isTouched;
-    public  GameObject _networkRepresentation;
-
+    private bool _isTouched=false;
+    public GameObject Network;
+    public BridgeSpawner BridgeSpawner;
     // Use this for initialization
     void Start () {
         Mesh=transform.GetChild(0).gameObject;
@@ -23,12 +23,11 @@ public class PlayerBridges : ViveGrip_Grabbable {
         }
 
     }
-
-    void Updtate()
+    private void Update()
     {
-        _networkRepresentation.transform.position = transform.position;
-        _networkRepresentation.transform.rotation = transform.rotation; 
+       
     }
+
 
     void ViveGripGrabStart(ViveGrip_GripPoint gripPoint)
     {
@@ -41,16 +40,20 @@ public class PlayerBridges : ViveGrip_Grabbable {
                 t.enabled = false;
             }
             _isTouched = true;
+            Network.SetActive(true);
+            BridgeSpawner.Spawn();
+            GetComponent<ViveGrip_Highlighter>().RemoveHighlight();
         }
-
+        GetComponent<BoxCollider>().isTrigger = true;
     }
     void ViveGripGrabStop(ViveGrip_GripPoint gripPoint)
     {
         Grabbed = false;
+        GetComponent<BoxCollider>().isTrigger = false;
 
     }
-  
-  
+
+
     private void OnTriggerStay(Collider other)
     {
         if (other.GetComponent<InteractionPlatforms>()&& other.GetComponent<InteractionPlatforms>().BridgeID==BridgeID&& !Grabbed)

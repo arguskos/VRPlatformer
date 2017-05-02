@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using UnityEngine;
 
-public class BridgeSpawner : MonoBehaviour {
+public class BridgeSpawner : MonoBehaviour, IPunCallbacks    
+{
 
     public GameObject Bridge2Tile;
     public GameObject Bridge3Tile;
@@ -22,6 +25,7 @@ public class BridgeSpawner : MonoBehaviour {
     public GameObject[] PregabNetworkBridges;
     public GameObject[] PrefabClientBridges;
     public static  List<List<GameObject>> BridgesTypes = new List<List<GameObject>>();
+
     // Use this for initialization
     void Start () {
         _sphere = gameObject.transform.GetChild(0).gameObject;
@@ -89,5 +93,123 @@ public class BridgeSpawner : MonoBehaviour {
 
     }
 
+    public void OnConnectedToPhoton()
+    {
+    }
 
+    public void OnLeftRoom()
+    {
+    }
+
+    public void OnMasterClientSwitched(PhotonPlayer newMasterClient)
+    {
+    }
+
+    public void OnPhotonCreateRoomFailed(object[] codeAndMsg)
+    {
+    }
+
+    public void OnPhotonJoinRoomFailed(object[] codeAndMsg)
+    {
+    }
+
+    public void OnCreatedRoom()
+    {
+    }
+
+    public void OnJoinedLobby()
+    {
+    }
+
+    public void OnLeftLobby()
+    {
+    }
+
+    public void OnFailedToConnectToPhoton(DisconnectCause cause)
+    {
+    }
+
+    public void OnConnectionFail(DisconnectCause cause)
+    {
+    }
+
+    public void OnDisconnectedFromPhoton()
+    {
+    }
+
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+    }
+
+    public void OnReceivedRoomListUpdate()
+    {
+    }
+
+    public void OnJoinedRoom()
+    {
+
+        Spawn();
+    }
+    public void Spawn()
+    {
+        PlayerBridges obj = Instantiate(PrefabClientBridges[SpawnID], transform.position, Quaternion.identity).GetComponent< PlayerBridges>();
+        GameObject v = PhotonNetwork.Instantiate(PregabNetworkBridges[SpawnID].name, obj.transform.position, obj.transform.rotation, 0);
+        v.GetComponent<BridgeNetworkCopy>().ClientBridge = obj.gameObject;
+        v.SetActive(false);
+        obj.Network = v;
+        obj.BridgeSpawner = this;
+
+        BridgesTypes[SpawnID].Add(obj.gameObject);
+    }
+    public void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
+    {
+    }
+
+    public void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
+    {
+    }
+
+    public void OnPhotonRandomJoinFailed(object[] codeAndMsg)
+    {
+    }
+
+    public void OnConnectedToMaster()
+    {
+    }
+
+    public void OnPhotonMaxCccuReached()
+    {
+    }
+
+    public void OnPhotonCustomRoomPropertiesChanged(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+    }
+
+    public void OnPhotonPlayerPropertiesChanged(object[] playerAndUpdatedProps)
+    {
+    }
+
+    public void OnUpdatedFriendList()
+    {
+    }
+
+    public void OnCustomAuthenticationFailed(string debugMessage)
+    {
+    }
+
+    public void OnCustomAuthenticationResponse(Dictionary<string, object> data)
+    {
+    }
+
+    public void OnWebRpcResponse(OperationResponse response)
+    {
+    }
+
+    public void OnOwnershipRequest(object[] viewAndPlayer)
+    {
+    }
+
+    public void OnLobbyStatisticsUpdate()
+    {
+    }
 }
