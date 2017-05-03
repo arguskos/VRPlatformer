@@ -38,6 +38,9 @@ public class characterMovement : MonoBehaviour
     public ParticleSystem particlesThree;
 
 
+    private Animator _animator;
+    private int _walkHash = Animator.StringToHash("Walking");
+    private int _jumpHash = Animator.StringToHash("Jumped");
     // Use this for initialization
     void Start()
     {
@@ -46,6 +49,7 @@ public class characterMovement : MonoBehaviour
         {
             _downrays[i] = RaycastsDown.transform.GetChild(i).transform;
         }
+        _animator=GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -56,19 +60,23 @@ public class characterMovement : MonoBehaviour
             if (Input.GetKey("d") || Input.GetButton("Right"))
             {
                 Rb.AddForce(MaxSpeed, 0, 0, ForceMode.VelocityChange);
+                transform.rotation =Quaternion.Euler(new Vector3(0,-180,0));
             }
             if (Input.GetKey("q") || Input.GetButton("Left"))
             {
                 Rb.AddForce(-MaxSpeed, 0, 0, ForceMode.VelocityChange);
+                transform.rotation = Quaternion.Euler(new Vector3(-0, 0, 0));
+
 
             }
         }
+        _animator.SetFloat(_walkHash,Mathf.Abs( Rb.velocity.x));
     }
     // Update is called once per frame
     void Update()
     {
 
-  
+       _animator.SetBool(_jumpHash,!IsGrounded);
 
         //Vertical movement
         if (Input.GetKeyDown("space") || Input.GetButtonDown("Jump"))

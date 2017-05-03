@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CanonBall : MonoBehaviour {
     private float _direction = 1.0f;
-    private float _strength = 350.0f;
+    private float _strength = 150.0f;
     private float _speed = 10;
     public PhotonView NetworkBall;
     // Use this for initialization
