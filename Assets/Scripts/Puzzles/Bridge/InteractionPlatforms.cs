@@ -34,27 +34,39 @@ public class InteractionPlatforms : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //if (_decayTimer > 0)
-        //{
-        //    _decayTimer -= Time.deltaTime;
-        //    if (_decayTimer < ShakeTime)
-        //    {
-        //        //   transform.position = new Vector3(transform.position.x+ Mathf.Sin(Time.time * 0.1f), transform.position.y+ Mathf.Sin(Time.time * 0.1f), transform.position.z+ Mathf.Sin(Time.time * 0.1f));
-        //        transform.position = new Vector3(_initPosition.x + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f, _initPosition.y + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f, _initPosition.z + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f);
 
-        //    }
-        //    if (_decayTimer <= 0)
-        //    {
-        //        _decayTimer = 0;
-        //        // GameObject n= Instantiate(this.gameObject);
-        //        //n.transform.position = transform.position;
-        //        //n.GetComponent<Platforms>().MakeGhost();    
-        //        Platform.MakeGhost();
-        //        //BreakPlatform();
-        //        //transform.position = _initPosition;
-        //    }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    MyPhotonView.RPC("MakeGhost", PhotonTargets.All);
+
         //}
-    }
+
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    MyPhotonView.RPC("MakeReal", PhotonTargets.All);
+
+        //  }
+            //if (_decayTimer > 0)
+            //{
+            //    _decayTimer -= Time.deltaTime;
+            //    if (_decayTimer < ShakeTime)
+            //    {
+            //        //   transform.position = new Vector3(transform.position.x+ Mathf.Sin(Time.time * 0.1f), transform.position.y+ Mathf.Sin(Time.time * 0.1f), transform.position.z+ Mathf.Sin(Time.time * 0.1f));
+            //        transform.position = new Vector3(_initPosition.x + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f, _initPosition.y + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f, _initPosition.z + Mathf.Sin(ShakeStrength * Random.Range(-Time.time, Time.time)) * 0.02f);
+
+            //    }
+            //    if (_decayTimer <= 0)
+            //    {
+            //        _decayTimer = 0;
+            //        // GameObject n= Instantiate(this.gameObject);
+            //        //n.transform.position = transform.position;
+            //        //n.GetComponent<Platforms>().MakeGhost();    
+            //        Platform.MakeGhost();
+            //        //BreakPlatform();
+            //        //transform.position = _initPosition;
+            //    }
+            //}
+        }
 
 
 

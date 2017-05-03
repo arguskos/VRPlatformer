@@ -19,7 +19,6 @@ public class Canon : MonoBehaviour
     public float Cooldown = 2.0f;
     private float _timer;
     public int  Side=1;
-    public static List<GameObject> CannonBalls= new List<GameObject>();
 	// Use this for initialization
 	void Start () {
 
@@ -35,10 +34,9 @@ public class Canon : MonoBehaviour
                 Quaternion.identity, 0);
             //  l.Component.GetComponent<CanonBall>().Direction=Side;
             var b= Instantiate(CanonBall, transform.position - new Vector3(0.2f * Side, 0, 0), Quaternion.identity);
-            b.NetworkBall = l.GetPhotonView();
-            CannonBalls.Add(b.gameObject);
-
-
+            l.GetComponent<CannonBallCopy>().ClientBall = b.gameObject;
+            b.GetComponent<CanonBall>().NetworkBall = l.GetComponent<PhotonView>();
+            b.GetComponent<CanonBall>().SetBall(Side, ShootSpeed);
         }
     }
 	// Update is called once per frame

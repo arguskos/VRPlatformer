@@ -16,30 +16,50 @@ public class PlayerBridges : ViveGrip_Grabbable {
 
     private float _timer;
     private float _releaseTimer;
+    private Rigidbody _rigid;
+    private bool _placed = false;
+    private float _outTimer;
+    private bool _wasBridge;
+
+    private InteractionPlatforms _ghostPlatform;
     // Use this for initialization
     void Start () {
         Mesh=transform.GetChild(0).gameObject;
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        foreach (Renderer t in Mesh.GetComponentsInChildren<Renderer>())
-        {
-            t.enabled = false;
-        }
-     
+        Hide();
+        _rigid = GetComponent<Rigidbody>();
+
     }
     private void Update()
     {
-        if (_isTouched && !Grabbed)
+        if (!GameFlow.IsBridgeReplacement)
         {
-            _timer += Time.deltaTime;
-            if (_timer > 5)
+            if (_isTouched && !Grabbed)
             {
-                PhotonNetwork.Destroy(Network);
-                Destroy(this.gameObject);
+                _timer += Time.deltaTime;
+                if (_timer > 5)
+                {
+                    PhotonNetwork.Destroy(Network);
+                    Destroy(this.gameObject);
+                }
             }
         }
         if (!Grabbed)
         {
             _releaseTimer += Time.deltaTime;
+        }
+        if(_wasBridge)
+        {
+            
+            _outTimer -= Time.deltaTime;
+           
+                if (_outTimer < 0)
+                {
+                    _outTimer = 0;
+                    _wasBridge = false;
+                    _placed = false;
+                }
+           
         }
     }
 
@@ -58,10 +78,27 @@ public class PlayerBridges : ViveGrip_Grabbable {
             }
             _isTouched = true;
             Network.SetActive(true);
-            BridgeSpawner.Spawn();
-            GetComponent<ViveGrip_Highlighter>().RemoveHighlight();
+            if (GameFlow.IsBridgeReplacement)
+            {
+                Destroy(BridgeSpawner.gameObject);
+
+            }
+            else
+            {
+                BridgeSpawner.GetComponent<BridgeSpawner>().Spawn();
+
+            }
+
         }
         GetComponent<BoxCollider>().isTrigger = true;
+        if(_placed)
+        {
+            GetComponent<Rigidbody>().isKinematic =false;
+           Show();
+            _ghostPlatform.GetComponent<InteractionPlatforms>().MyPhotonView.RPC("MakeGhost", PhotonTargets.All);
+            _placed = false;
+
+        }
     }
     void ViveGripGrabStop(ViveGrip_GripPoint gripPoint)
     {
@@ -70,15 +107,53 @@ public class PlayerBridges : ViveGrip_Grabbable {
 
     }
 
+    public void Hide()
+    {
+        foreach (Renderer t in Mesh.GetComponentsInChildren<Renderer>())
+        {
+            t.enabled = false;
+        }
+    }
 
+    public void Show()
+    {
+        foreach (Renderer t in Mesh.GetComponentsInChildren<Renderer>())
+        {
+            t.enabled = true;
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
-        if ( _releaseTimer<0.03 &&other.GetComponent<InteractionPlatforms>()&& other.GetComponent<InteractionPlatforms>().BridgeID==BridgeID&& !Grabbed)
+        if (!_placed &&_releaseTimer<0.03 &&other.GetComponent<InteractionPlatforms>()&& other.GetComponent<InteractionPlatforms>().BridgeID==BridgeID&& !Grabbed)
         {
             transform.position = other.transform.position;
             transform.rotation = other.transform.rotation;
-            gameObject.SetActive(false);
+            if (!GameFlow.IsBridgeReplacement)
+            {
+                gameObject.SetActive(false);
+
+
+            }
+
+            Hide();
+            print("LOL");
+            _rigid.isKinematic = true;
             other.GetComponent<InteractionPlatforms>().MyPhotonView.RPC("MakeReal", PhotonTargets.All);
+            //other.gameObject.SetActive(false);
+            //GetComponent<BoxCollider>().isTrigger = false;
+
+            _ghostPlatform = other.GetComponent<InteractionPlatforms>();
+            _placed = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (_placed && other.GetComponent<InteractionPlatforms>() && other.GetComponent<InteractionPlatforms>().BridgeID == BridgeID )
+        {
+
+            
+
         }
     }
 }
