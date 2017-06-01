@@ -2,28 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetworkSwing : Photon.PunBehaviour
+public class NetworkSwing : MonoBehaviour
 {
     private float _rotPrevFrame;
     private Rigidbody _body;
-    public PhotonView MyPhotonView;
 
     // Use this for initialization
     void Start()
     {
         _body = GetComponent<Rigidbody>();
-        MyPhotonView = GetComponent<PhotonView>();
-        if (!photonView.isMine)
-        {
-            //gameObject.SetActive(false);
 
-            GetComponent<NetworkSwing>().enabled = false;
-            GetComponent<Rigidbody>().isKinematic = true;
-            Destroy(GetComponent<HingeJoint>());
-
-        }
     }
+    public void OnJoined()
 
+    {
+        GameObject v = PhotonNetwork.Instantiate("NetworkSwing", transform.position, transform.rotation, 0);
+        v.GetComponent<CopySwing>().Client = gameObject;
+    }
     // Update is called once per frame
     void Update()
     {

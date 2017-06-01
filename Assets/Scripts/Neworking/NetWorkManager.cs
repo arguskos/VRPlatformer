@@ -45,6 +45,8 @@ public class NetWorkManager : MonoBehaviour
     public Material PlayerMat2;
 
     public GameObject SwingSpawn;
+
+    public NetworkSwing NetworkSwing;
     public virtual void Start()
     {
         PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
@@ -96,6 +98,7 @@ public class NetWorkManager : MonoBehaviour
     {
         PlayerCounter++;
         print(PlayerCounter);
+        NetworkSwing.OnJoined();
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room. From here on, your game would be running. For reference, all callbacks are listed in enum: PhotonNetworkingMessage");
         PhotonNetwork.Instantiate(headPrefab.name, ViveManager.Instance.Head.transform.position,
             ViveManager.Instance.Head.transform.rotation, 0);
@@ -103,7 +106,7 @@ public class NetWorkManager : MonoBehaviour
         ViveManager.Instance.LeftHand.transform.rotation, 0);
         PhotonNetwork.Instantiate(RightHand.name, ViveManager.Instance.RightHand.transform.position,
      ViveManager.Instance.RightHand.transform.rotation, 0);
-        PhotonNetwork.Instantiate("SwingNetwork", SwingSpawn.transform.position, SwingSpawn.transform.rotation,0);
+        //PhotonNetwork.Instantiate("SwingNetwork", SwingSpawn.transform.position, SwingSpawn.transform.rotation,0);
         print("PhotonNetwork.countOfPlayers:"+ PhotonNetwork.countOfPlayers);
         if (PhotonNetwork.countOfPlayers == 1)
         {
