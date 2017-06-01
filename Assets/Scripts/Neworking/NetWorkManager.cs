@@ -27,7 +27,7 @@ public class NetWorkManager : MonoBehaviour
     public GameObject BridgesSpawnPoint2;
 
 
-    public BridgeSpawner BridgeSpawnerPrefab;
+   // public BridgeSpawner BridgeSpawnerPrefab;
 
     public GameObject Bridges;
     public GameObject CanonPlace;
@@ -39,8 +39,12 @@ public class NetWorkManager : MonoBehaviour
 
     public GameObject Bridge3;
 
+    public GameObject BridgeSpawneGroup;
+
     public Material PlayerMat1;
     public Material PlayerMat2;
+
+
     public virtual void Start()
     {
         PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
@@ -110,10 +114,10 @@ public class NetWorkManager : MonoBehaviour
             np.GetComponent<Renderer>().material = PlayerMat2;
 
             ViveManager.Instance.Player = p;
-
+            Instantiate(BridgeSpawneGroup, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
             //Instantiate(Bridges, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
-           // PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
-             //   Quaternion.identity, 0);
+            // PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
+            //   Quaternion.identity, 0);
         }
         else
         {
@@ -124,6 +128,7 @@ public class NetWorkManager : MonoBehaviour
             var np =PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint2.transform.position,
             Quaternion.identity, 0);
             np.GetComponent<Renderer>().material = PlayerMat2;
+            Instantiate(BridgeSpawneGroup, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint2.transform.rotation);
 
             ViveManager.Instance.Player = p;
             //Instantiate(Bridges, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint1.transform.rotation);
