@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using UnityEngine;
 
-public class BridgeSpawner : MonoBehaviour, IPunCallbacks    
+public class BridgeSpawner : Photon.PunBehaviour
 {
 
     public GameObject Bridge2Tile;
@@ -28,6 +28,11 @@ public class BridgeSpawner : MonoBehaviour, IPunCallbacks
 
     // Use this for initialization
     void Start () {
+        if (!photonView.isMine)
+        {
+            enabled = false;
+        }
+        
         _sphere = gameObject.transform.GetChild(0).gameObject;
         BridgesTypes.Add(new List<GameObject>());
         BridgesTypes.Add(new List<GameObject>());
@@ -86,59 +91,7 @@ public class BridgeSpawner : MonoBehaviour, IPunCallbacks
 
     }
 
-    public void OnConnectedToPhoton()
-    {
-    }
-
-    public void OnLeftRoom()
-    {
-    }
-
-    public void OnMasterClientSwitched(PhotonPlayer newMasterClient)
-    {
-    }
-
-    public void OnPhotonCreateRoomFailed(object[] codeAndMsg)
-    {
-    }
-
-    public void OnPhotonJoinRoomFailed(object[] codeAndMsg)
-    {
-    }
-
-    public void OnCreatedRoom()
-    {
-    }
-
-    public void OnJoinedLobby()
-    {
-    }
-
-    public void OnLeftLobby()
-    {
-    }
-
-    public void OnFailedToConnectToPhoton(DisconnectCause cause)
-    {
-    }
-
-    public void OnConnectionFail(DisconnectCause cause)
-    {
-    }
-
-    public void OnDisconnectedFromPhoton()
-    {
-    }
-
-    public void OnPhotonInstantiate(PhotonMessageInfo info)
-    {
-    }
-
-    public void OnReceivedRoomListUpdate()
-    {
-    }
-
-    public void OnJoinedRoom()
+    public new void OnJoinedRoom()
     {
 
         Spawn();
@@ -154,55 +107,5 @@ public class BridgeSpawner : MonoBehaviour, IPunCallbacks
 
         BridgesTypes[SpawnID].Add(obj.gameObject);
     }
-    public void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
-    {
-    }
-
-    public void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
-    {
-    }
-
-    public void OnPhotonRandomJoinFailed(object[] codeAndMsg)
-    {
-    }
-
-    public void OnConnectedToMaster()
-    {
-    }
-
-    public void OnPhotonMaxCccuReached()
-    {
-    }
-
-    public void OnPhotonCustomRoomPropertiesChanged(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
-    {
-    }
-
-    public void OnPhotonPlayerPropertiesChanged(object[] playerAndUpdatedProps)
-    {
-    }
-
-    public void OnUpdatedFriendList()
-    {
-    }
-
-    public void OnCustomAuthenticationFailed(string debugMessage)
-    {
-    }
-
-    public void OnCustomAuthenticationResponse(Dictionary<string, object> data)
-    {
-    }
-
-    public void OnWebRpcResponse(OperationResponse response)
-    {
-    }
-
-    public void OnOwnershipRequest(object[] viewAndPlayer)
-    {
-    }
-
-    public void OnLobbyStatisticsUpdate()
-    {
-    }
+   
 }
