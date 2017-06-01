@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CanonBall : MonoBehaviour {
     private float _direction = 1.0f;
-    private float _strength = 150.0f;
+    private float _strength = 2.0f;
     private float _speed = 10;
     public PhotonView NetworkBall;
     // Use this for initialization
@@ -28,7 +28,7 @@ public class CanonBall : MonoBehaviour {
         {
             if (collision.tag == "PlatfornPlayer")
             {
-                collision.GetComponent<Rigidbody>().AddForce(new Vector3(_strength * -_direction, 0, 0));
+                collision.GetComponent<Rigidbody>().AddForce(new Vector3(_strength * -_direction, 0, 0),ForceMode.Impulse);
             }
             PhotonNetwork.Destroy(NetworkBall);
             Destroy(this.gameObject);

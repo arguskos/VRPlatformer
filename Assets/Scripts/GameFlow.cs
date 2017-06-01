@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameFlow : MonoBehaviour {
 
     // Use this for initialization
-    public static bool IsBridgeReplacement=false;
+    public static bool IsBridgeReplacement=true;
 	void Start () {
 		
 	}

@@ -79,7 +79,7 @@ public class PlayerBoundaries : MonoBehaviour {
         //print("lol");
         //if (Mathf.Abs(_zPosition-transform.position.z)>0.1)
         //{
-            transform.position = new Vector3(_zObstaclex, _zPosition, -1.341f);
+            transform.position = new Vector3(_zObstaclex, _zPosition-0.04f, -1.251f);
        /// }
         _isInPlace = true;
         _body.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
