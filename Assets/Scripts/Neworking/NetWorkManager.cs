@@ -44,7 +44,7 @@ public class NetWorkManager : MonoBehaviour
     public Material PlayerMat1;
     public Material PlayerMat2;
 
-
+    public GameObject SwingSpawn;
     public virtual void Start()
     {
         PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
@@ -103,6 +103,7 @@ public class NetWorkManager : MonoBehaviour
         ViveManager.Instance.LeftHand.transform.rotation, 0);
         PhotonNetwork.Instantiate(RightHand.name, ViveManager.Instance.RightHand.transform.position,
      ViveManager.Instance.RightHand.transform.rotation, 0);
+        PhotonNetwork.Instantiate("SwingNetwork", SwingSpawn.transform.position, SwingSpawn.transform.rotation,0);
         print("PhotonNetwork.countOfPlayers:"+ PhotonNetwork.countOfPlayers);
         if (PhotonNetwork.countOfPlayers == 1)
         {

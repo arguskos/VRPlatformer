@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Swing : Photon.PunBehaviour
+public class NetworkSwing : Photon.PunBehaviour
 {
     private float _rotPrevFrame;
     private Rigidbody _body;
-    public  PhotonView MyPhotonView;
+    public PhotonView MyPhotonView;
 
     // Use this for initialization
     void Start()
@@ -15,7 +15,7 @@ public class Swing : Photon.PunBehaviour
         MyPhotonView = GetComponent<PhotonView>();
         if (!photonView.isMine)
         {
-           // gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
@@ -28,7 +28,7 @@ public class Swing : Photon.PunBehaviour
         //Debug.DrawRay(transform.position - new Vector3(-0.08f, 0.1f, 0), transform.right);
         if (_body.angularVelocity.magnitude < 1)
         {
-            _body.AddForce(Vector3.right * -100990095,ForceMode.Impulse);
+            _body.AddForce(Vector3.right * -100990095, ForceMode.Impulse);
 
         }
         if (_rotPrevFrame > 0 && _rotPrevFrame < 15)
@@ -37,11 +37,11 @@ public class Swing : Photon.PunBehaviour
             {
 
 
-                _body.AddForce(Vector3.right*-5000);
+                _body.AddForce(Vector3.right * -5000);
             }
             else
             {
-                _body.AddForce(Vector3.right*5000);
+                _body.AddForce(Vector3.right * 5000);
 
             }
         }
