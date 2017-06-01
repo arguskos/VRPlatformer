@@ -15,7 +15,12 @@ public class NetworkSwing : Photon.PunBehaviour
         MyPhotonView = GetComponent<PhotonView>();
         if (!photonView.isMine)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+
+            GetComponent<NetworkSwing>().enabled = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+            Destroy(GetComponent<HingeJoint>());
+
         }
     }
 
