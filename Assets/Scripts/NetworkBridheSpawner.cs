@@ -13,9 +13,8 @@ public class NetworkBridheSpawner : MonoBehaviour {
 	void Update () {
 		
 	}
-    void OnJoined(Vector3 pos)
+    void OnJoined(int id )
     {
-        transform.position = pos;
         foreach (Transform child in transform)
         {
             PhotonNetwork.Instantiate("BridgeSpawner", child.transform.position, Quaternion.identity,0);

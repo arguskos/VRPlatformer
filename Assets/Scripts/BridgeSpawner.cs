@@ -28,10 +28,7 @@ public class BridgeSpawner : Photon.PunBehaviour
 
     // Use this for initialization
     void Start () {
-        if (!photonView.isMine)
-        {
-            enabled = false;
-        }
+  
         
         _sphere = gameObject.transform.GetChild(0).gameObject;
         BridgesTypes.Add(new List<GameObject>());
@@ -40,7 +37,10 @@ public class BridgeSpawner : Photon.PunBehaviour
 
 
         _startHeight = transform.position.y;
-
+        //if (!photonView.isMine)
+        //{
+        //    enabled = false;
+        //}
         if (SpawnID == 0)
         {
             _rotatingMiniature = Instantiate(Bridge2Tile, transform, true);
@@ -87,7 +87,10 @@ public class BridgeSpawner : Photon.PunBehaviour
         //Float up and down along the y axis, 
         _rotatingMiniature.transform.position = new Vector3(_rotatingMiniature.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep)/25), _rotatingMiniature.transform.position.z);
         _sphere.transform.position = new Vector3(_sphere.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep) / 25), _sphere.transform.position.z);
-	  
+	    if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PhotonNetwork.Destroy(this.photonView);
+        }
 
     }
 

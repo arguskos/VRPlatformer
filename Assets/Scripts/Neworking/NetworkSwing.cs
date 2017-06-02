@@ -13,12 +13,7 @@ public class NetworkSwing : MonoBehaviour
         _body = GetComponent<Rigidbody>();
 
     }
-    public void OnJoined()
 
-    {
-        GameObject v = PhotonNetwork.Instantiate("NetworkSwing", transform.position, transform.rotation, 0);
-        v.GetComponent<CopySwing>().Client = gameObject;
-    }
     // Update is called once per frame
     void Update()
     {

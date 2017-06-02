@@ -44,15 +44,14 @@ public class NetWorkManager : MonoBehaviour
     public Material PlayerMat1;
     public Material PlayerMat2;
 
-    public GameObject SwingSpawn;
 
-    public NetworkSwing NetworkSwing;
+    //public NetworkSwing NetworkSwing;
     public virtual void Start()
     {
         PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
 
     }
-    public delegate void OnJoinedDeligate(Vector3 pos);
+    public delegate void OnJoinedDeligate(int player);
     public OnJoinedDeligate OnJoined;
     //public virtual void Update()
     //{
@@ -105,7 +104,7 @@ public class NetWorkManager : MonoBehaviour
     {
         PlayerCounter++;
         print(PlayerCounter);
-        NetworkSwing.OnJoined();
+       // NetworkSwing.OnJoined();
         Debug.Log("OnJoinedRoom() called by PUN. Now this client is in a room. From here on, your game would be running. For reference, all callbacks are listed in enum: PhotonNetworkingMessage");
         PhotonNetwork.Instantiate(headPrefab.name, ViveManager.Instance.Head.transform.position,
             ViveManager.Instance.Head.transform.rotation, 0);
@@ -123,16 +122,18 @@ public class NetWorkManager : MonoBehaviour
             var np = PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint.transform.position,
             Quaternion.identity, 0);
             np.GetComponent<Renderer>().material = PlayerMat2;
-
+            
             ViveManager.Instance.Player = p;
+            OnJoined(1);
            // Instantiate(BridgeSpawneGroup, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
             //Instantiate(Bridges, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
             // PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
             //   Quaternion.identity, 0);
-            OnJoined(BridgesSpawnPoint1.transform.position);
+            //OnJoined(BridgesSpawnPoint1.transform.position);
         }
         else
         {
+            OnJoined(2);
 
             var p =Instantiate(Player, SpawnPoint2.transform.position, Quaternion.identity);
             p.GetComponentInChildren<Renderer>().material = PlayerMat2;
@@ -146,7 +147,7 @@ public class NetWorkManager : MonoBehaviour
             //Instantiate(Bridges, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint1.transform.rotation);
             //PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
             //  Quaternion.identity,0);
-            OnJoined(BridgesSpawnPoint1.transform.position);
+            ///OnJoined(BridgesSpawnPoint1.transform.position);
 
         }
 
