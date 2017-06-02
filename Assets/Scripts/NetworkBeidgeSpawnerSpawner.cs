@@ -28,16 +28,12 @@ public class NetworkBeidgeSpawnerSpawner : MonoBehaviour {
 	public void Awake()
 	{
 		//NetWorkManager.Instance.OnJoined += OnJoined;
-		OnJoined(2);
+		OnJoined(SpawnID);
 	}
 
 	
     // Update is called once per frame
     void Update () {
-	    if (Input.GetKeyDown(KeyCode.Space))
-	    {
-		    OnJoined(2);
-
-	    }
+	 
 	}
 }

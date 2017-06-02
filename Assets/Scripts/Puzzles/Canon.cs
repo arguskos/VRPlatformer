@@ -16,8 +16,8 @@ public class Canon : MonoBehaviour
     public GameObject NetworkBall;
     public float ShootSpeed;
     public float Cooldown = 2.0f;
-    private float _timer;
     public int  Side=1;
+    private float _timer;
     // Use this for initialization
     void Start() {
 

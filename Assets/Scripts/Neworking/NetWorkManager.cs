@@ -141,7 +141,7 @@ public class NetWorkManager : MonoBehaviour
             OnJoined(2);
 
             //var p =Instantiate(Player, SpawnPoint2.transform.position, Quaternion.identity);
-            var p = PhotonNetwork.Instantiate("Player2", SpawnPoint.transform.position, Quaternion.identity, 0);
+            var p = PhotonNetwork.Instantiate("Player2", SpawnPoint2.transform.position, Quaternion.identity, 0);
 
             p.GetComponentInChildren<Renderer>().material = PlayerMat2;
 

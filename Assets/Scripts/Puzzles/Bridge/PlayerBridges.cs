@@ -80,7 +80,7 @@ public class PlayerBridges : ViveGrip_Grabbable {
             Network.SetActive(true);
             if (GameFlow.IsBridgeReplacement)
             {
-                Destroy(BridgeSpawner.gameObject);
+                PhotonNetwork.Destroy(BridgeSpawner.GetComponentInParent<PhotonView>());
 
             }
             else

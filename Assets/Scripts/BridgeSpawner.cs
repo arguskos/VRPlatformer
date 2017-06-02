@@ -96,10 +96,7 @@ public class BridgeSpawner : Photon.PunBehaviour
             //Float up and down along the y axis, 
             _rotatingMiniature.transform.position = new Vector3(_rotatingMiniature.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep) / 25), _rotatingMiniature.transform.position.z);
             _sphere.transform.position = new Vector3(_sphere.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep) / 25), _sphere.transform.position.z);
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                PhotonNetwork.Destroy(this.photonView);
-            }
+        
         }
     }
 
