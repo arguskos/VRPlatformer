@@ -12,33 +12,33 @@ public class Canon : MonoBehaviour
     [Space(20)]
 
     [Header("Shooting")]
-    public CanonBall CanonBall;
 
     public GameObject NetworkBall;
     public float ShootSpeed;
     public float Cooldown = 2.0f;
     private float _timer;
     public int  Side=1;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
 
-	}
-	
-    public void DoNetwork()
-    {
-       _timer = 0;
-            //var l=Instantiate(CanonBall, transform.position - new Vector3(0.2f*Side, 0, 0), Quaternion.identity);
-        if (PhotonNetwork.connectionState == ConnectionState.Connected && PhotonNetwork.inRoom)
-        {
-            var l = PhotonNetwork.Instantiate(NetworkBall.name, transform.position - new Vector3(0.2f*Side, 0, 0),
-                Quaternion.identity, 0);
-            //  l.Component.GetComponent<CanonBall>().Direction=Side;
-            var b= Instantiate(CanonBall, transform.position - new Vector3(0.2f * Side, 0, 0), Quaternion.identity);
-            l.GetComponent<CannonBallCopy>().ClientBall = b.gameObject;
-            b.GetComponent<CanonBall>().NetworkBall = l.GetComponent<PhotonView>();
-            b.GetComponent<CanonBall>().SetBall(Side, ShootSpeed);
-        }
     }
+
+    //Old delete me 
+    //public void DoNetwork()
+    //{
+    //   _timer = 0;
+    //        //var l=Instantiate(CanonBall, transform.position - new Vector3(0.2f*Side, 0, 0), Quaternion.identity);
+    //    if (PhotonNetwork.connectionState == ConnectionState.Connected && PhotonNetwork.inRoom)
+    //    {
+    //        var l = PhotonNetwork.Instantiate(NetworkBall.name, transform.position - new Vector3(0.2f*Side, 0, 0),
+    //            Quaternion.identity, 0);
+    //        //  l.Component.GetComponent<CanonBall>().Direction=Side;
+    //        var b= Instantiate(CanonBall, transform.position - new Vector3(0.2f * Side, 0, 0), Quaternion.identity);
+    //        l.GetComponent<CannonBallCopy>().ClientBall = b.gameObject;
+    //        b.GetComponent<CanonBall>().NetworkBall = l.GetComponent<PhotonView>();
+    //        b.GetComponent<CanonBall>().SetBall(Side, ShootSpeed);
+    //    }
+    //}
 	// Update is called once per frame
 	void Update ()
 	{
@@ -54,9 +54,15 @@ public class Canon : MonoBehaviour
         //Shoot cannonball
 	    if (_timer > Cooldown)
 	    {
-	           // _myPhotonView.RPC("DoNetwork", PhotonTargets.All);
-               DoNetwork();
+            _timer = 0;
+
+            var l = PhotonNetwork.Instantiate(NetworkBall.name, transform.position - new Vector3(0.2f * Side, 0, 0),
+              Quaternion.identity, 0);
+            l.GetComponent<CanonBall>().SetBall(Side, ShootSpeed);
+
+            // _myPhotonView.RPC("DoNetwork", PhotonTargets.All);
+            //oNetwork();
             //l.GetComponent<Rigidbody>().AddForce(-ShootSpeed,0,0,ForceMode.Impulse);
-	    }
-	}
+        }
+    }
 }

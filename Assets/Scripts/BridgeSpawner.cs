@@ -24,12 +24,18 @@ public class BridgeSpawner : Photon.PunBehaviour
 
     public GameObject[] PregabNetworkBridges;
     public GameObject[] PrefabClientBridges;
-    public static  List<List<GameObject>> BridgesTypes = new List<List<GameObject>>();
-
+    public static List<List<GameObject>> BridgesTypes = new List<List<GameObject>>();
+    private bool _initialised = false;
     // Use this for initialization
-    void Start () {
-  
-        
+    void Start() {
+
+        //enabled = false;
+    }
+    public void Init(int teamId,int spawnID)
+    {
+        TeamID = teamId;
+        SpawnID = spawnID;
+    
         _sphere = gameObject.transform.GetChild(0).gameObject;
         BridgesTypes.Add(new List<GameObject>());
         BridgesTypes.Add(new List<GameObject>());
@@ -63,35 +69,37 @@ public class BridgeSpawner : Photon.PunBehaviour
 
         if (TeamID == 1)
         {
-            _sphere.GetComponent<Renderer>().material = Mat1;
-            _sphere.transform.GetChild(0).GetComponent<Renderer>().material = Mat1;
-        }
-        else if (TeamID == 2)
-        {
             _sphere.GetComponent<Renderer>().material = Mat2;
             _sphere.transform.GetChild(0).GetComponent<Renderer>().material = Mat2;
         }
+        else if (TeamID == 2)
+        {
+            _sphere.GetComponent<Renderer>().material = Mat1;
+            _sphere.transform.GetChild(0).GetComponent<Renderer>().material = Mat1;
+        }
+        _initialised = true;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-        //Rotate Miniature
-        iTween.RotateAdd(_rotatingMiniature, new Vector3(0, 1, 0), 0.0025f);
-
-        //Move Miniature up and down
-        _hoverStep += 0.05f;
-        //Make sure Steps value never gets too out of hand 
-        if (_hoverStep > 999999) { _hoverStep = 1; }
-
-        //Float up and down along the y axis, 
-        _rotatingMiniature.transform.position = new Vector3(_rotatingMiniature.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep)/25), _rotatingMiniature.transform.position.z);
-        _sphere.transform.position = new Vector3(_sphere.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep) / 25), _sphere.transform.position.z);
-	    if (Input.GetKeyDown(KeyCode.Space))
+    // Update is called once per frame
+    void Update () {
+        if (_initialised && _rotatingMiniature!=null)
         {
-            PhotonNetwork.Destroy(this.photonView);
-        }
+            //Rotate Miniature
+            iTween.RotateAdd(_rotatingMiniature, new Vector3(0, 1, 0), 0.0025f);
 
+            //Move Miniature up and down
+            _hoverStep += 0.05f;
+            //Make sure Steps value never gets too out of hand 
+            if (_hoverStep > 999999) { _hoverStep = 1; }
+
+            //Float up and down along the y axis, 
+            _rotatingMiniature.transform.position = new Vector3(_rotatingMiniature.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep) / 25), _rotatingMiniature.transform.position.z);
+            _sphere.transform.position = new Vector3(_sphere.transform.position.x, _startHeight + (Mathf.Sin(_hoverStep) / 25), _sphere.transform.position.z);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                PhotonNetwork.Destroy(this.photonView);
+            }
+        }
     }
 
     public new void OnJoinedRoom()

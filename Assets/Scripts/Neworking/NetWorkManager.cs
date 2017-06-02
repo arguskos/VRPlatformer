@@ -141,7 +141,7 @@ public class NetWorkManager : MonoBehaviour
             var np =PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint2.transform.position,
             Quaternion.identity, 0);
             np.GetComponent<Renderer>().material = PlayerMat2;
-            Instantiate(BridgeSpawneGroup, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint2.transform.rotation);
+           // Instantiate(BridgeSpawneGroup, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint2.transform.rotation);
 
             ViveManager.Instance.Player = p;
             //Instantiate(Bridges, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint1.transform.rotation);

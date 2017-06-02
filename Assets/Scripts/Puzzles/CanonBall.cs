@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CanonBall : MonoBehaviour {
+public class CanonBall : Photon.PunBehaviour {
     private float _direction = 1.0f;
     private float _strength = 2.0f;
     private float _speed = 10;
-    public PhotonView NetworkBall;
     // Use this for initialization
     void Start()
     {
+        if ( !photonView.isMine)
+        {
+            enabled = false;
+        }
+       
     }
 
     // Update is called once per frame
@@ -30,8 +34,7 @@ public class CanonBall : MonoBehaviour {
             {
                 collision.GetComponent<Rigidbody>().AddForce(new Vector3(_strength * -_direction, 0, 0),ForceMode.Impulse);
             }
-            PhotonNetwork.Destroy(NetworkBall);
-            Destroy(this.gameObject);
+            PhotonNetwork.Destroy(photonView);
         }
      
     }
