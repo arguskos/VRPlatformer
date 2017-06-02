@@ -124,7 +124,7 @@ public class PlayerBridges : ViveGrip_Grabbable {
     }
     private void OnTriggerStay(Collider other)
     {
-        if (!_placed &&_releaseTimer<0.03 &&other.GetComponent<InteractionPlatforms>()&& other.GetComponent<InteractionPlatforms>().BridgeID==BridgeID&& !Grabbed)
+        if (!_placed &&_releaseTimer<0.05 &&other.GetComponent<InteractionPlatforms>()&& other.GetComponent<InteractionPlatforms>().BridgeID==BridgeID&& !Grabbed)
         {
             transform.position = other.transform.position;
             transform.rotation = other.transform.rotation;

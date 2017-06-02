@@ -12,7 +12,7 @@ public class NetworkBeidgeSpawnerSpawner : MonoBehaviour {
     private bool _created = false;
 	void Start () {
 		print("WAKKWA");
-			
+        NetWorkManager.Instance.OnJoined += OnJoined;
 	}
 	public void OnJoined(int id)
     {
@@ -28,7 +28,7 @@ public class NetworkBeidgeSpawnerSpawner : MonoBehaviour {
 	public void Awake()
 	{
 		//NetWorkManager.Instance.OnJoined += OnJoined;
-		OnJoined(SpawnID);
+		//OnJoined(SpawnID);
 	}
 
 	
