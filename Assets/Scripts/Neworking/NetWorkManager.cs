@@ -45,6 +45,7 @@ public class NetWorkManager : MonoBehaviour
     public Material PlayerMat2;
 
 
+
     //public NetworkSwing NetworkSwing;
     public virtual void Start()
     {
@@ -135,6 +136,13 @@ public class NetWorkManager : MonoBehaviour
 	        {
 		        spawnParent.OnJoined(1);
 	        }
+	        foreach (var canon in GameObject.FindObjectsOfType<Canon>())
+	        {
+		        if (canon.PlayerID == 1)	
+		        {
+			        canon.enabled=true;
+		        }
+	        }
 		}
 		else
         {
@@ -159,8 +167,14 @@ public class NetWorkManager : MonoBehaviour
 	        {
 				spawnParent.OnJoined(2);   
 	        }
-
-        }
+	        foreach (var canon in GameObject.FindObjectsOfType<Canon>())
+	        {
+		        if (canon.PlayerID == 2)
+		        {
+			        canon.enabled = true;
+		        }
+			}
+		}
 
 		//if (PhotonNetwork.playerList.Length==1)
 		//{

@@ -18,6 +18,8 @@ public class Canon : MonoBehaviour
     public float Cooldown = 2.0f;
     public int  Side=1;
     private float _timer;
+
+	public int PlayerID;
     // Use this for initialization
     void Start() {
 
