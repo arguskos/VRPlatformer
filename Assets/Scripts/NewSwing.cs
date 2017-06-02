@@ -40,7 +40,6 @@ public class NewSwing : Photon.PunBehaviour
     {
         //// _rigid.AddForce(Vector3.right *Time.deltaTime);
         //    _rigid.AddRelativeTorque(Vector3.right * Time.deltaTime);
-        print(Swing.transform.rotation);
 
         if (_isRight)
         {
@@ -52,7 +51,7 @@ public class NewSwing : Photon.PunBehaviour
         }
         else
         {
-            print(Swing.transform.rotation);
+	
 
             Swing.transform.Rotate(-Vector3.right * Speed * Time.deltaTime);
             if (Swing.transform.rotation.x >= 0.94f)

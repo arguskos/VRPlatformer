@@ -53,23 +53,24 @@ public class NetWorkManager : MonoBehaviour
     }
     public delegate void OnJoinedDeligate(int player);
     public OnJoinedDeligate OnJoined;
-    //public virtual void Update()
-    //{
-    //    if (ConnectInUpdate && AutoConnect && !PhotonNetwork.connected)
-    //    {
-    //        Debug.Log("Update() was called by Unity. Scene is loaded. Let's connect to the Photon Master Server. Calling: PhotonNetwork.ConnectUsingSettings();");
 
-    //        ConnectInUpdate = false;
-    //        PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
-    //    }
-    //}
+	//public virtual void Update()
+	//{
+	//    if (ConnectInUpdate && AutoConnect && !PhotonNetwork.connected)
+	//    {
+	//        Debug.Log("Update() was called by Unity. Scene is loaded. Let's connect to the Photon Master Server. Calling: PhotonNetwork.ConnectUsingSettings();");
 
-
-    // below, we implement some callbacks of PUN
-    // you can find PUN's callbacks in the class PunBehaviour or in enum PhotonNetworkingMessage
+	//        ConnectInUpdate = false;
+	//        PhotonNetwork.ConnectUsingSettings(Version + "." + SceneManagerHelper.ActiveSceneBuildIndex);
+	//    }
+	//}
 
 
-    public virtual void OnConnectedToMaster()
+	// below, we implement some callbacks of PUN
+	// you can find PUN's callbacks in the class PunBehaviour or in enum PhotonNetworkingMessage
+
+
+	public virtual void OnConnectedToMaster()
     {
         Debug.Log("OnConnectedToMaster() was called by PUN. Now this client is connected and could join a room. Calling: PhotonNetwork.JoinRandomRoom();");
         PhotonNetwork.JoinRandomRoom();
@@ -125,13 +126,17 @@ public class NetWorkManager : MonoBehaviour
             
             ViveManager.Instance.Player = p;
             OnJoined(1);
-           // Instantiate(BridgeSpawneGroup, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
-            //Instantiate(Bridges, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
-            // PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
-            //   Quaternion.identity, 0);
-            //OnJoined(BridgesSpawnPoint1.transform.position);
-        }
-        else
+			// Instantiate(BridgeSpawneGroup, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
+			//Instantiate(Bridges, BridgesSpawnPoint1.transform.position, BridgesSpawnPoint1.transform.rotation);
+			// PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
+			//   Quaternion.identity, 0);
+			//OnJoined(BridgesSpawnPoint1.transform.position);
+	        foreach (var spawnParent in GameObject.FindObjectsOfType<NetworkBeidgeSpawnerSpawner>())
+	        {
+		        spawnParent.OnJoined(1);
+	        }
+		}
+		else
         {
             OnJoined(2);
 
@@ -146,34 +151,37 @@ public class NetWorkManager : MonoBehaviour
            // Instantiate(BridgeSpawneGroup, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint2.transform.rotation);
 
             ViveManager.Instance.Player = p;
-            //Instantiate(Bridges, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint1.transform.rotation);
-            //PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
-            //  Quaternion.identity,0);
-            ///OnJoined(BridgesSpawnPoint1.transform.position);
+			//Instantiate(Bridges, BridgesSpawnPoint2.transform.position, BridgesSpawnPoint1.transform.rotation);
+			//PhotonNetwork.Instantiate(BridgeSpawnerPrefab.name, BridgesSpawnPoint2.transform.position,
+			//  Quaternion.identity,0);
+			///OnJoined(BridgesSpawnPoint1.transform.position);
+	        foreach (var spawnParent in GameObject.FindObjectsOfType<NetworkBeidgeSpawnerSpawner>())
+	        {
+				spawnParent.OnJoined(2);   
+	        }
 
         }
 
+		//if (PhotonNetwork.playerList.Length==1)
+		//{
+		//    print("super Duper DJUAJSPDJOUSJAPJPJSAP");
+		//    var l = PhotonNetwork.Instantiate(CanonPrefab.name, CanonPlace.transform.position,
+		//        CanonPlace.transform.rotation, 0);
+		//    l.transform.parent = CanonPlace.transform.parent;
+		//}
 
-        //if (PhotonNetwork.playerList.Length==1)
-        //{
-        //    print("super Duper DJUAJSPDJOUSJAPJPJSAP");
-        //    var l = PhotonNetwork.Instantiate(CanonPrefab.name, CanonPlace.transform.position,
-        //        CanonPlace.transform.rotation, 0);
-        //    l.transform.parent = CanonPlace.transform.parent;
-        //}
+		//GameObject monster = PhotonNetwork.Instantiate(Platform.name, Vector3.zero, Quaternion.identity, 0);
+		//myPhotonView = monster.GetComponent<PhotonView>();
 
-        //GameObject monster = PhotonNetwork.Instantiate(Platform.name, Vector3.zero, Quaternion.identity, 0);
-        //myPhotonView = monster.GetComponent<PhotonView>();
-
-        //   myPhotonView.RPC("MakeReal", PhotonTargets.All);
-
+		//   myPhotonView.RPC("MakeReal", PhotonTargets.All);
 
 
-        //Platforms[] lol = (Platforms[])GameObject.FindObjectsOfType(typeof(Platforms));
-        //for (int i = 0; i < lol.Length; i++)
-        //{
-        //    PhotonNetwork.Instantiate(Platform.name, lol[i].transform.position,
-        //        lol[i].transform.rotation, 0);
-        //}
-    }
+
+		//Platforms[] lol = (Platforms[])GameObject.FindObjectsOfType(typeof(Platforms));
+		//for (int i = 0; i < lol.Length; i++)
+		//{
+		//    PhotonNetwork.Instantiate(Platform.name, lol[i].transform.position,
+		//        lol[i].transform.rotation, 0);
+		//}
+	}
 }
