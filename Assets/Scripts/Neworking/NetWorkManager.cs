@@ -116,7 +116,7 @@ public class NetWorkManager : MonoBehaviour
         print("PhotonNetwork.countOfPlayers:"+ PhotonNetwork.countOfPlayers);
         if (PhotonNetwork.countOfPlayers == 1)
         {
-            var p=Instantiate(Player, SpawnPoint.transform.position, Quaternion.identity);
+            var p=PhotonNetwork.Instantiate("Player", SpawnPoint.transform.position, Quaternion.identity,0);
             p.GetComponentInChildren<Renderer>().material =    PlayerMat1;
 
             var np = PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint.transform.position,
@@ -135,7 +135,9 @@ public class NetWorkManager : MonoBehaviour
         {
             OnJoined(2);
 
-            var p =Instantiate(Player, SpawnPoint2.transform.position, Quaternion.identity);
+            //var p =Instantiate(Player, SpawnPoint2.transform.position, Quaternion.identity);
+            var p = PhotonNetwork.Instantiate("Player", SpawnPoint.transform.position, Quaternion.identity, 0);
+
             p.GetComponentInChildren<Renderer>().material = PlayerMat2;
 
             var np =PhotonNetwork.Instantiate(NetworkPlayer.name, SpawnPoint2.transform.position,

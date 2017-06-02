@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class characterMovement : MonoBehaviour
+public class characterMovement : Photon.PunBehaviour
 {
     [Header("Movement")]
     public Rigidbody Rb;
@@ -44,6 +44,14 @@ public class characterMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (!photonView.isMine)
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<PlayerBoundaries>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
+
+            enabled = false;
+        }
         //Set 3 downward raycast transforms
         for (int i = 0; i < _downrays.Length; i++)
         {

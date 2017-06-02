@@ -16,7 +16,7 @@ public class NetworkBridheSpawner : MonoBehaviour {
 	}
     void OnJoined(int id )
     {
-        if (ID == id)
+        if (id == 1)
         {
             int counter=0; 
             foreach (Transform child in transform)
@@ -26,6 +26,7 @@ public class NetworkBridheSpawner : MonoBehaviour {
                 counter++;
 
             }
+
         }
     }
 }
