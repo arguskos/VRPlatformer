@@ -22,6 +22,7 @@ public class NewSwing : Photon.PunBehaviour
         if (id == PlayerID)
         {
             Swing = PhotonNetwork.Instantiate("SwingNetwork", transform.position, transform.rotation, 0);
+            Swing.GetComponent<SwingNetwork>().SwingParent = this;
             _rigid = Swing.GetComponent<Rigidbody>();
             _pos = Swing.transform.position;
             enabled = true;
