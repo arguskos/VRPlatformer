@@ -154,14 +154,4 @@ public class PlayerBridges : MonoBehaviour {
     //        _placed = true;
     //    }
     //}
-	
-    private void OnTriggerExit(Collider other)
-    {
-        if (_placed && other.GetComponent<InteractionPlatforms>() && other.GetComponent<InteractionPlatforms>().BridgeID == BridgeID )
-        {
-
-            
-
-        }
-    }
 }
