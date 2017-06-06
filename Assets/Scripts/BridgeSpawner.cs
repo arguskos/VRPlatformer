@@ -78,7 +78,7 @@ public class BridgeSpawner : Photon.PunBehaviour
             _sphere.transform.GetChild(0).GetComponent<Renderer>().material = Mat1;
         }
         _initialised = true;
-        Spawn();
+//      /  Spawn();
 
     }
     // Update is called once per frame
